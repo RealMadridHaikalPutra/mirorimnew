@@ -1,7 +1,3 @@
-<?php
-require 'function.php';
-
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -47,24 +43,24 @@ require 'function.php';
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                         <div class="sb-sidenav-menu-heading">Admin Warehouse</div>
-                            <a class="nav-link collapse" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-warehouse"></i></div>
                                     All Product
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapsed" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="index.php">Warehouse</a>
                                     <a class="nav-link" href="gudang5.php">Warehouse 5</a>
                                     <a class="nav-link" href="stoknonsku.php">Stok Non SKU</a>
                                 </nav>
                             </div>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                            <a class="nav-link collapse" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-sign-in-alt"></i></div>
                                 Out & Update
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                            <div class="collapsed" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="updatebarang.php">Update Item</a>
                                     <a class="nav-link" href="exititem.php">Exit Item</a>
@@ -97,33 +93,20 @@ require 'function.php';
                                                 <th>SKU Warehouse</th>
                                                 <th>Warehouse</th>
                                                 <th>Quantity</th>
+                                                <th>Time Update</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                             $ambildata = mysqli_query($konek,"SELECT * FROM stok");
-                                             $i = 1;
-                                             while($data=mysqli_fetch_array($ambildata)){
-                                                $idb = $data['idbarang'];
-                                                $nama = $data['nama'];
-                                                $skutoko = $data['sku'];
-                                                $skugudang = $data['skug'];
-                                                $gudang = $data['gudang'];
-                                                $quantity = $data['quantity'];
-
-                                            ?>
                                             <tr>
-                                                <th><?=$i++?></th>
-                                                <td>No Photo</td>
-                                                <td><?=$nama?></td>
-                                                <td class="text-uppercase"><?=$skutoko?></td>
-                                                <td class="text-uppercase"><?=$skugudang?></td>
-                                                <td><?=$gudang?></td>
-                                                <td><?=$quantity?></td>
+                                                <th>1</th>
+                                                <td>No Image</td>
+                                                <td>Fan 12 cm</td>
+                                                <td>3J1</td>
+                                                <td>A1B1</td>
+                                                <td>1</td>
+                                                <td>10.000</td>
+                                                <td>10/01/2023 11:03:45</td>
                                             </tr>
-                                            <?php
-                                            }
-                                            ?>
                                         </tbody>
                                     </table>
                                 </div>

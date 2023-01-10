@@ -1,6 +1,5 @@
 <?php
 require 'function.php';
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,35 +93,32 @@ require 'function.php';
                                                 <th>Image</th>
                                                 <th>Name Item</th>
                                                 <th>SKU Store</th>
-                                                <th>SKU Warehouse</th>
                                                 <th>Warehouse</th>
                                                 <th>Quantity</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                             $ambildata = mysqli_query($konek,"SELECT * FROM stok");
+                                        <?php
+                                             $ambildata = mysqli_query($konek,"SELECT * FROM stok5");
                                              $i = 1;
                                              while($data=mysqli_fetch_array($ambildata)){
                                                 $idb = $data['idbarang'];
                                                 $nama = $data['nama'];
                                                 $skutoko = $data['sku'];
-                                                $skugudang = $data['skug'];
                                                 $gudang = $data['gudang'];
                                                 $quantity = $data['quantity'];
 
                                             ?>
                                             <tr>
                                                 <th><?=$i++?></th>
-                                                <td>No Photo</td>
+                                                <td>No Image</td>
                                                 <td><?=$nama?></td>
                                                 <td class="text-uppercase"><?=$skutoko?></td>
-                                                <td class="text-uppercase"><?=$skugudang?></td>
                                                 <td><?=$gudang?></td>
                                                 <td><?=$quantity?></td>
                                             </tr>
                                             <?php
-                                            }
+                                             }
                                             ?>
                                         </tbody>
                                     </table>
