@@ -53,7 +53,7 @@ require '../assets/php/function.php';
                             <div class="sb-sidenav-menu-heading">Admin</div>
                             <a class="nav-link" href="index.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Box List
+                                Packing List
                             </a>
                             <a class="nav-link" href="approved.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-marker"></i></div>
@@ -66,28 +66,41 @@ require '../assets/php/function.php';
             <div id="layoutSidenav_content">
             <section class="section">
                 <div class="row">
-        
                     <div class="card">
                         <div class="card-body">
-                        <h5 class="card-title">Input New Box</h5>
+                        <h5 class="card-title">Check Packing List</h5>
             
                         <!-- Floating Labels Form -->
                         <form class="row g-3" method="post" enctype="multipart/form-data">
-                            <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingName" name="box" placeholder="Box Number">
-                                <label for="floatingName">Box Number</label>
-                            </div>
-                            </div>
-                            <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control text-uppercase" id="floatingName" name="resi" placeholder="resi">
-                                <label for="floatingName">Resi</label>
-                            </div>
-                            </div>
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                            <tr>
+                                                <th>Invoice</th>
+                                                <th>Box</th>
+                                                <th>No Box</th>
+                                            </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                    $qty = $_POST['qtybox'];
+                                    $invoice = $_POST['invoice'];
+                                    $box = $_POST['box'];
+                    
+                                    for ($i=1; $i<=$qty; $i++){
+                                        echo "<tr>
+                                        <td><input type='text' class='form-control' name='addinvoice' value='$invoice'></td>
+                                        <td><input type='text' class='form-control' name='addbox' value='$box'></td>
+                                        <td><input type='number' class='form-control' name='addnobox' value='$i'></td>
+                                    </tr>";
+                                    }
+                                ?>
+                                </tbody>
+                            </table>
+                            <input type="hidden" name="qtybox" value="<?=$qty;?>">
                             <div class="text-right">
-                            <button type="submit" name="addbox" class="btn btn-primary">Submit</button>
+                            <button type="submit" name="submitbox" class="btn btn-primary">Submit</button>
                             </div>
+
                         </form><!-- End floating Labels Form -->
             
                         </div>
@@ -110,10 +123,10 @@ require '../assets/php/function.php';
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        <script src="../js/scripts.js"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-        <script src="assets/demo/datatables-demo.js"></script>
+        <script src="../assets/demo/datatables-demo.js"></script>
     </body>
 </html>

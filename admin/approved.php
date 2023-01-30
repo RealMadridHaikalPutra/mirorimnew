@@ -17,6 +17,18 @@ require '../assets/php/function.php';
         <link href="../css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+        <style>
+            .zoomable {
+        width: 100px;
+        }
+
+        .zoomable:hover {
+        transform: scale(2.8);
+        transition: 0.3s ease;
+        }
+    </style>
+
+    
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -52,7 +64,7 @@ require '../assets/php/function.php';
                             <div class="sb-sidenav-menu-heading">Admin</div>
                             <a class="nav-link" href="index.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Box List
+                                Packing List
                             </a>
                             <a class="nav-link" href="approved.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-marker"></i></div>
@@ -72,19 +84,112 @@ require '../assets/php/function.php';
                             <li class="breadcrumb-item active">Approved</li>
                         </ol>
                         <div class="card mb-4">
+                        <div class="card-header">
+                            <div class="text-right">
+                                    <button type="button"  data-bs-toggle="modal" data-bs-target="#smallModalAdd" class="btn btn-primary">Compare All</button>
+                            </div>
+                            <div class="modal fade" id="smallModalAdd" tabindex="-1">
+                                <div class="modal-dialog modal-md">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Compare?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <table class="table table-bordered" id="dataModal" width="100%" cellspacing="0">
+                                        
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Name</th>
+                                                    <th>SKU</th>
+                                                    <th>Quantity</th>
+                                                    <th>Counting</th>
+                                                    <th>Ceklist</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM itembox WHERE status='No Approve'");
+                                                $jum = 1;
+                                                while($tampil=mysqli_fetch_array($ambilperhitungan)){
+                                                  $qty = ($tampil)['quantity'];
+                                                  $perhitungan = ($tampil)['qtygudang'];
+                                                  $nama = ($tampil)['nama'];
+                                                  $sku = ($tampil)['sku'];
+                                            ?>
+                                                <tr>
+                                                    <td><?=$jum++;?></td>
+                                                    <td><?=$nama;?></td>
+                                                    <td><?=$sku;?></td>
+                                                    <td><?=$qty;?></td>
+                                                    <td><?=$perhitungan;?>
+                                            
+                                                </td>
+                                                    <?php
+                                                    
+                                                        if($qty==$perhitungan){
+                                                            echo "<td><i class='far fa-check-circle text-right' style='color: green;'></i></td>";
+                                                        } else {
+                                                            echo "<td><i class='fas fa-minus-circle text-right' style='color: red;'></i></td>";
+                                                        }
+                                                    ?>
+                                                </tr>
+                                            <?php
+                                                }
+                                            ?>
+                                            </tbody>
+                                        </table>
+                                        <form method="post" action="">
+                                        <?php
+                                                $ambil = mysqli_query($konek, "SELECT * FROM itembox WHERE status='No Approve'");
+                                                $jum = 1;
+                                                while($tampil=mysqli_fetch_array($ambil)){
+                                                  $qty = ($tampil)['quantity'];
+                                                  $perhitungan = ($tampil)['qtygudang'];
+                                                  $nama = ($tampil)['nama'];
+                                                  $sku = ($tampil)['sku'];
+                                                  $img = ($tampil)['image'];
+                                            ?>
+                                                    <input type="hidden" name="file[]" value="<?=$img;?>">
+                                                    <input type="hidden" name="namaitem[]" value="<?=$nama;?>">
+                                                    <input type="hidden" name="skuitem[]" value="<?=$sku;?>">
+                                                    <input type="hidden" name="quantityitem[]" value="<?=$perhitungan;?>">
+                                                    <input type="hidden" name="status[]" value="Approve">
+                                            <?php
+                                                }
+                                        
+                                            ?>
+                                        <?php
+                                            $select = mysqli_query($konek, "SELECT COUNT(nama) FROM itembox WHERE status='No Approve'");
+                                            while($ambil=mysqli_fetch_array($select)){
+                                                $jumlah = $ambil['COUNT(nama)'];
+
+                                        ?>
+                                        <input type="hidden" name="count" value="<?=$jumlah;?>">
+                                        <?php
+                                            }
+                                        ?>
+                                            <div class="text-right m-2">
+                                                <button type="submit" name="submitinsert" class="btn btn-primary">Approve</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Box Number</th>
+                                                <th>Image</th>
+                                                <th>Invoice</th>
                                                 <th>Item Name</th>
                                                 <th>SKU</th>
                                                 <th>Quantity</th>
-                                                <th>Warehouse In</th>
+                                                <th>Counting</th>
                                                 <th>Status</th>
-                                                <th>Approve</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -93,33 +198,64 @@ require '../assets/php/function.php';
                                                 $i = 1;
                                                 while($data=mysqli_fetch_array($ambilbox)) {
                                                     $idbox = $data['idbarang'];
-                                                    $box = $data['nodus'];
+                                                    $invoice = $data['invoice'];
                                                     $nama = $data['nama'];
                                                     $sku = $data['sku'];
                                                     $quantity = $data['quantity'];
                                                     $status = $data['status'];
-                                                    $qtygudang = $data['qtygudang'];
+                                                    $count = $data['qtygudang'];
+                                                    $k = $i++;
+
+                                                     //cek data gambar ada apa kagak
+                                                        $gambar = $data['image'];
+                                                        if($gambar==null){
+                                                            // jika tidak ada gambar
+                                                            $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
+                                                        } else {
+                                                            //jika ada gambar
+                                                            $img ='<img src="../images/'.$gambar.'" class="zoomable">';
+                                                        }                                              
                                             ?>
                                             <tr>
-                                                <td><?=$i++;?></td>
-                                                <td><?=$box;?></td>
-                                                <td><?=$nama;?></td>
-                                                <td class="text-uppercase"><?=$sku;?></td>
-                                                <td><?=$quantity;?></td>
-                                                <td><?=$qtygudang;?></td>
-                                                <td><?=$status;?></td>
-                                                <form method="post">
-                                                    <td><button type="submit" class="btn btn-primary" name="aprbutton">Approve</button>
-                                                        <input value="Approve" name="approve" type="hidden">
-                                                        <input type="hidden" name="idb" value="<?=$idbox;?>">
-                                                        <input type="hidden" name="nama" value="<?=$nama;?>">
-                                                        <input type="hidden" name="sku" value="<?=$sku;?>">
-                                                        <input type="hidden" name="quantity" value="<?=$quantity;?>">
-                                                    </td>
-                                                </form>
-                                            </tr>
+                                            <?php
+                                                if($count=='0'){
+                                                    echo "
+                                                        <td style='color: red;'>$k</td>
+                                                        <td>$img</td>
+                                                        <td style='color: red;'>$invoice</td>
+                                                        <td style='color: red;'>$nama</td>
+                                                        <td class='text-uppercase' style='color: red;'>$sku</td>
+                                                        <td style='color: red;'>$quantity</td>
+                                                        <td style='color: red;'>$count</td>
+                                                    ";
+                                                } else {
+                                                    echo "
+                                                    <td>$k</td>
+                                                    <td>$img</td>
+                                                    <td>$invoice</td>
+                                                    <td>$nama</td>
+                                                    <td class='text-uppercase'>$sku</td>
+                                                    <td>$quantity</td>
+                                                    <td>$count</td>
+                                                ";
+                                                }
+
+                                                if($status=='Approve'){
+                                                    echo "<td style='color: green;'>$status</td>";
+                                                } else {
+                                                    echo "<td style='color: red;'>$status</td>";
+                                                }
+                                            ?>
                                                 
+                                                    
+                                                                <input type="hidden" name="approve" value="Approve">
+                                                                <input type="hidden" name="idb" value="<?=$idbox;?>">
+                                                                <input type="hidden" name="nama" value="<?=$nama;?>">
+                                                                <input type="hidden" name="sku" value="<?=$sku;?>">
+                                                                <input type="hidden" name="qtygudang" value="<?=$qtygudang;?>">
+                                                    
                                             </tr>
+
                                             <?php
                                             };
                                             ?>

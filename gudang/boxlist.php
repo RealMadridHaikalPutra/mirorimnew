@@ -1,6 +1,10 @@
 <?php
+
 require '../assets/php/function.php';
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,10 +18,20 @@ require '../assets/php/function.php';
         <link href="../css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+        <style>
+            .zoomable {
+        width: 100px;
+        }
+
+        .zoomable:hover {
+        transform: scale(2.8);
+        transition: 0.3s ease;
+        }
+    </style>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.php">Admin Warehouse</a>
+            <a class="navbar-brand" href="index.html">Admin Mirorim</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -29,7 +43,7 @@ require '../assets/php/function.php';
                 </div>
             </form>
             <!-- Navbar-->
-            <ul class="navbar-nav ml-md-0">
+            <ul class="navbar-nav ml-auto ml-md-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -47,24 +61,24 @@ require '../assets/php/function.php';
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                         <div class="sb-sidenav-menu-heading">Admin Warehouse</div>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <a class="nav-link collapse" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-warehouse"></i></div>
                                     All Product
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <div class="collapsed" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="index.php">Warehouse</a>
                                     <a class="nav-link" href="gudang5.php">Warehouse 5</a>
                                     <a class="nav-link" href="stoknonsku.php">Stok Non SKU</a>
                                 </nav>
                             </div>
-                            <a class="nav-link collapse" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-sign-in-alt"></i></div>
                                 Out & Update
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapsed" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="updatebarang.php">Update Item</a>
                                     <a class="nav-link" href="exititem.php">Exit Item</a>
@@ -77,40 +91,65 @@ require '../assets/php/function.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Stok Today</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.php">Warehouse</a></li>
-                            <li class="breadcrumb-item active">All Warehouse</li>
-                        </ol>
+                        <h1 class="mt-4">Box List</h1>
+                        <div class="card-header">
+                                <a type="button" class="btn btn-outline-primary" href="addnew.php">Add New</a>
+                        </div>
                         <div class="card mb-4">
-                            <div class="card-header">
-                            </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Image</th>
-                                                <th>Name Item</th>
-                                                <th>SKU Store</th>
-                                                <th>SKU Warehouse</th>
-                                                <th>Warehouse</th>
-                                                <th>Quantity</th>
-                                                <th>Time</th>
+                                                <th>Invoice</th>
+                                                <th>Box</th>
+                                                <th>Status</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody >
+                                            <?php
+                                                $ambildata = mysqli_query($konek, "SELECT * FROM box WHERE status='Tidak diterima'");
+                                                $i = 1;
+                                                while($data=mysqli_fetch_array($ambildata)){
+                                                    $idbox = $data['iddus'];
+                                                    $invoice = $data['invoice'];
+                                                    $box = $data['box'];
+                                                    $nobox = $data['nobox'];
+                                                    $status = $data['status'];
+                                                
+                                            ?>
                                             <tr>
-                                                <th>1</th>
-                                                <td>No Image</td>
-                                                <td>Fan 12 cm</td>
-                                                <td>3J1</td>
-                                                <td>A1B1</td>
-                                                <td>1</td>
-                                                <td>10.000</td>
-                                                <td>10/01/2023 11:03:45</td>
+                                                <td><?=$i++;?></td>
+                                                <th><?=$invoice;?></th>
+                                                <td><?=$box;?>-<?=$nobox;?></td>
+                                                <td><?=$status;?></td>
+                                                <td>
+                                                <form method="post">
+                                                <input type="hidden" value="<?=$nobox;?>" name="nobox">
+                                                <?php
+                                                    if($status=='Diterima'){
+
+                                                    } else {
+                                                        echo '<input type="checkbox" style="width: 3rem ;" name="ceklist" value="Diterima" >';
+                                                    }
+                                                ?>
+                                                <?php
+                                                    if($status=='Diterima'){
+
+                                                    } else {
+                                                        echo '<div class="text-center">
+                                                        <button type="submit" name="ceklistbutton" class="btn btn-primary">Submit</button>
+                                                    </div>';
+                                                    }
+                                                ?>
+                                                </td>
+                                            </form>
                                             </tr>
+                                            <?php
+                                                }
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -122,6 +161,11 @@ require '../assets/php/function.php';
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
                         </div>
                     </div>
                 </footer>

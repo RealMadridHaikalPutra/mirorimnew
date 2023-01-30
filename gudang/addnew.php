@@ -18,6 +18,16 @@ require '../assets/php/function.php';
         <link href="../css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+        <style>
+            .zoomable {
+        width: 100px;
+        }
+
+        .zoomable:hover {
+        transform: scale(2.8);
+        transition: 0.3s ease;
+        }
+    </style>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -50,17 +60,32 @@ require '../assets/php/function.php';
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Admin</div>
-                            <a class="nav-link" href="index.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Box List
+                        <div class="sb-sidenav-menu-heading">Admin Warehouse</div>
+                            <a class="nav-link collapse" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-warehouse"></i></div>
+                                    All Product
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link" href="approved.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-marker"></i></div>
-                                Approve
+                            <div class="collapsed" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="index.php">Warehouse</a>
+                                    <a class="nav-link" href="gudang5.php">Warehouse 5</a>
+                                    <a class="nav-link" href="stoknonsku.php">Stok Non SKU</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-sign-in-alt"></i></div>
+                                Out & Update
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                        </div>
-                    </div>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="updatebarang.php">Update Item</a>
+                                    <a class="nav-link" href="exititem.php">Exit Item</a>
+                                    <a class="nav-link" href="updatebarang5.php">Update Item G5</a>
+                                    <a class="nav-link" href="exititem5.php">Exit Item G5</a>
+                                </nav>
+                            </div>
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -75,13 +100,12 @@ require '../assets/php/function.php';
                         <form class="row g-3" method="post" enctype="multipart/form-data">
                             <div class="col-md-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingName" name="box" placeholder="Box Number">
-                                <label for="floatingName">Box Number</label>
+                                <input type="text" class="form-control" name="invoice" id="floatingName" placeholder="Invoice">
+                                <label for="floatingName">Invoice</label>
                             </div>
                             </div>
-                            <input type="hidden" value="Yes" name="yes">
                             <div class="text-right">
-                            <button type="submit" name="inputbox" class="btn btn-primary">Submit</button>
+                            <button type="submit" name="inputinvoice" class="btn btn-primary">Submit</button>
                             </div>
                         </form><!-- End floating Labels Form -->
                         </div>
@@ -91,60 +115,138 @@ require '../assets/php/function.php';
                 <main>
                     <div class="container-fluid">
                         <h1 class="mt-4">Items Box</h1>
-                        <div class="card mb-4">
                             <?php
-                                if(isset($_POST['inputbox'])){
-                                    $box = $_POST['box'];
+                                if(isset($_POST['inputinvoice'])){
+                                    $invoice = $_POST['invoice'];
                                                 
-                                    $ambildata = mysqli_query($konek, "SELECT * FROM itembox WHERE nodus='$box'");
+                                    $ambildata = mysqli_query($konek, "SELECT * FROM itembox WHERE invoice='$invoice'");
                             ?>
                             <div class="card-header">
                                 <i class="fas fa-box"></i>
-                                Items Box : <?=$box;?>
+                                Invoice Items : <?=$invoice;?>
                             </div>
                             <?php
                                 }
                             ?>
+                            <div class="card mb-4">
+                        <div class="card-header">
+                            <div class="text-right">
+                                    <button type="button"  data-bs-toggle="modal" data-bs-target="#smallModalQty" class="btn btn-primary">Insert All</button>
+                            </div>
+                            <div class="modal fade" id="smallModalQty" tabindex="-1">
+                                <div class="modal-dialog modal-md">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Insert All</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form method="post" action="">
+                                        <?php
+                                            $select = mysqli_query($konek, "SELECT COUNT(nama) FROM itembox WHERE status='No Approve'");
+                                            while($ambil=mysqli_fetch_array($select)){
+                                                $jumlah = $ambil['COUNT(nama)'];
+
+                                        ?>
+                                        <input type="hidden" name="count" value="<?=$jumlah;?>">
+                                        <?php
+                                            }
+                                        ?>
+                                            <div class="text-right m-2">
+                                                <button type="submit" name="submitquantity" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        <table class="table table-bordered" id="dataModal" width="100%" cellspacing="0">
+                                        
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Invoice</th>
+                                                    <th>Nama</th>
+                                                    <th>SKU</th>
+                                                    <th>Counting</th>
+                                                    <th>Note</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM itembox WHERE status='No Approve'");
+                                                $jum = 1;
+                                                while($tampil=mysqli_fetch_array($ambilperhitungan)){
+                                                  $nama = ($tampil)['nama'];
+                                                  $sku = ($tampil)['sku'];
+                                                  $invoice = ($tampil)['invoice'];
+                                                  $note = ($tampil)['note'];
+                                                  $idb = ($tampil)['idbarang'];
+                                            ?>
+                                                <tr>
+                                                    <td><?=$jum++;?></td>
+                                                    <td><?=$invoice;?></td>
+                                                    <td><?=$nama;?></td>
+                                                    <td><?=$sku;?></td>
+                                                    <td><input type="number" class="form-control" name="countinggudang[]" required="">
+                                                    <input type="hidden" name="idbarang[]" value="<?=$idb;?>"></td>
+
+                                                </tr>
+                                            <?php
+                                                }
+                                            ?>
+                                            </tbody>
+                                        </table>
+                                        </form>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <form method="post">
+                                    <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nodus</th>
+                                                <th>Image</th>
+                                                <th>Status</th>
+                                                <th>invoice</th>
                                                 <th>Item Name</th>
                                                 <th>SKU</th>
                                                 <th>Quantity</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody >
                                             <?php
-                                            if(isset($_POST['inputbox'])){
-                                                $box = $_POST['box'];
+                                            if(isset($_POST['inputinvoice'])){
+                                                $invoice = $_POST['invoice'];
                                                 
-                                                $ambildata = mysqli_query($konek, "SELECT * FROM itembox WHERE nodus='$box'");
+                                                $ambildata = mysqli_query($konek, "SELECT * FROM itembox WHERE invoice='$invoice'");
                                                 $i = 1;
                                                 while($data=mysqli_fetch_array($ambildata)){
                                                     $idbox = $data['idbarang'];
-                                                    $box = $data['nodus'];
+                                                    $invoice = $data['invoice'];
                                                     $nama = $data['nama'];
                                                     $sku = $data['sku'];
+                                                    $status = $data['status'];
+                                                    $count = $data['qtygudang'];
+
+                                                     //cek data gambar ada apa kagak
+                                                     $gambar = $data['image'];
+                                                     if($gambar==null){
+                                                         // jika tidak ada gambar
+                                                         $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
+                                                     } else {
+                                                         //jika ada gambar
+                                                         $img ='<img src="../images/'.$gambar.'" class="zoomable">';
+                                                     }
                                                 
                                             ?>
                                             <tr>
                                                 <td><?=$i++;?></td>
-                                                <td><?=$box;?></td>
+                                                <td><?=$img;?></td>
+                                                <td><?=$status;?></td>
+                                                <th><?=$invoice;?></th>
                                                 <td><?=$nama;?></td>
                                                 <td><?=$sku;?></td>
-                                                <td>
-                                                <form method="post">
-                                                <input type="hidden" value="<?=$idbox;?>" name="idbox">
-                                                <input type="number" class="form-control" style="max-width: fit-content;" name="quantity" placeholder="Quantity">
-                                                <div class="text-right">
-                                                    <button type="submit" name="inputqty" class="btn btn-primary">Submit</button>
-                                                </div>
-                                                    </form>
-                                                </td>
+                                                <td><?=$count;?></td>
+                                            </form>
                                             </tr>
                                             <?php
                                                 }}
@@ -152,6 +254,7 @@ require '../assets/php/function.php';
                                         </tbody>
                                         
                                     </table>
+                                    </form>
                                 </div>
                             </div>
                         </div>

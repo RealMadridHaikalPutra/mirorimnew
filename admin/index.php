@@ -52,7 +52,7 @@ require '../assets/php/function.php';
                             <div class="sb-sidenav-menu-heading">Admin</div>
                             <a class="nav-link" href="index.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
-                                Box List
+                                Packing List
                             </a>
                             <a class="nav-link" href="approved.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-marker"></i></div>
@@ -66,25 +66,61 @@ require '../assets/php/function.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Box List</h1>
+                        <h1 class="mt-4">Packing List</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="approved.php">Approved</a></li>
-                            <li class="breadcrumb-item active">Box List</li>
+                            <li class="breadcrumb-item active">Packing List</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <a type="button" href="addbox.php" class="btn btn-primary">Add Box</a>
+                                <a type="button" data-bs-toggle="modal" data-bs-target="#smallModalUp" class="btn btn-primary">Add Box</a>
+
                             </div>
+                            <div class="modal fade" id="smallModalUp" tabindex="-1">
+                                                <div class="modal-dialog modal-md">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title">Input Packing List</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <br>
+                                                    <form class="row g-3" method="post" action="addbox.php" enctype="multipart/form-data">
+                                                        <br>
+                                                        <div class="col-md-9 ml-5">
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control" id="floatingName" name="invoice" placeholder="Box Number">
+                                                            <label for="floatingName">Invoice</label>
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-md-9 ml-5">
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control" id="floatingName" name="box" placeholder="Box Number">
+                                                            <label for="floatingName">Box</label>
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-md-9 ml-5">
+                                                        <div class="form-floating">
+                                                            <input type="number" class="form-control" id="floatingName" name="qtybox" placeholder="Box Number">
+                                                            <label for="floatingName">Quantity Box</label>
+                                                        </div>
+                                                        </div>
+                                                        <div class="text-center">
+                                                        <button type="submit" name="submitqty" value="proses" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form><!-- End floating Labels Form -->
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                            </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th>Invoice</th>
                                                 <th>Box Number</th>
-                                                <th>Resi</th>
                                                 <th>Status</th>
-                                                <th>List Item</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -93,33 +129,33 @@ require '../assets/php/function.php';
                                                 $i = 1;
                                                 while($data=mysqli_fetch_array($ambilbox)) {
                                                     $idbox = $data['iddus'];
-                                                    $box = $data['nodus'];
-                                                    $resi = $data['resi'];
+                                                    $box = $data['box'];
+                                                    $nobox = $data['nobox'];
+                                                    $invoice = $data['invoice'];
                                                     $status = $data['status'];
                                             ?>
                                             <tr>
                                                 <td><?=$i++;?></td>
-                                                <td class="text-uppercase"><?=$box;?></td>
-                                                <td><?=$resi;?></td>
+                                                <th data-bs-toggle="modal" data-bs-target="#largeModal<?=$idbox;?>"><?=$invoice;?></th>
+                                                <td class="text-uppercase"><?=$box;?>-<?=$nobox;?></td>
                                                 <td><?=$status;?></td>
-                                                <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal<?=$idbox;?>">Item</button></td>
                                             </tr>
                                             <!--Modal-->
                                             <div class="modal fade" id="largeModal<?=$idbox;?>" tabindex="-1">
                                                 <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                    <h5 class="modal-title">List Item : <?=$box;?></h5>
+                                                    <h5 class="modal-title">List Item Invoice : <?=$invoice;?></h5>
                                                     <button class="btn btn-primary ml-4" data-bs-toggle="modal" data-bs-target="#smallModal<?=$idbox;?>">Add New Item</button>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <!--Card-->
                                                     <div class="row row-cols-1 row-cols-md-2 g-4">
                                                         <?php
-                                                            $datadalamdus = mysqli_query($konek, "SELECT * FROM itembox WHERE nodus='$box'");
+                                                            $datadalamdus = mysqli_query($konek, "SELECT * FROM itembox WHERE invoice='$invoice'");
                                                             $s = 1;
                                                             while($data=mysqli_fetch_array($datadalamdus)){
-                                                                $boxdus = $data['nodus'];
+                                                                $invoice = $data['invoice'];
                                                                 $nama = $data['nama'];
                                                                 $sku = $data['sku'];
                                                                 $quantity = $data['quantity'];
@@ -151,16 +187,23 @@ require '../assets/php/function.php';
                                                 <div class="modal-dialog modal-sm">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                    <h5 class="modal-title"><?=$box;?></h5>
+                                                    <h5 class="modal-title"><?=$invoice;?></h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <form method="post" class="row g-3" enctype="multipart/form-data">   
                                                         <div class="modal-body">
-                                                        <input type="hidden" class="form-control text-uppercase" id="floatingName" name="box" value="<?=$box;?>" placeholder="SKU Warehouse">
+                                                        <input type="hidden" class="form-control text-uppercase" id="floatingName" name="invoice" value="<?=$invoice;?>" placeholder="SKU Warehouse">
+                                                        <div class="col-12">
+                                                                <div class="col-sm-12">
+                                                                    <label>Image</label>
+                                                                    <div class="form-floating">
+                                                                    <input type="file" name="file" class="form-control" id="floatingName" placeholder="Image" required="">
+                                                                    </div>
+                                                                </div>
                                                                 <div class="col-sm-12">
                                                                     <label>Item Name</label>
                                                                     <div class="form-floating">
-                                                                    <input type="text" name="nama" class="form-control" id="floatingName" placeholder="Item Name">
+                                                                    <input type="text" name="nama" class="form-control" id="floatingName" placeholder="Item Name" required="">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-12">
@@ -172,7 +215,7 @@ require '../assets/php/function.php';
                                                                 <div class="col-sm-12">
                                                                     <label>Quantity</label>
                                                                     <div class="form-floating">
-                                                                    <input type="nuber" name="quantity" class="form-control" id="floatingName" placeholder="Quantity">
+                                                                    <input type="number" name="quantity" class="form-control" id="floatingName" placeholder="Quantity" required="">
                                                                     </div>
                                                                 </div>
                                                                 <br>
