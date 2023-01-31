@@ -54,7 +54,7 @@ require '../assets/php/function.php';
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                                 Packing List
                             </a>
-                            <a class="nav-link collapse" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-warehouse"></i></div>
                                     Approve
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
