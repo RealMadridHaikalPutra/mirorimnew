@@ -54,10 +54,17 @@ require '../assets/php/function.php';
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                                 Packing List
                             </a>
-                            <a class="nav-link" href="approved.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-marker"></i></div>
-                                Approved
+                            <a class="nav-link collapse" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-warehouse"></i></div>
+                                    Approve
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="approved.php">Approve Item</a>
+                                    <a class="nav-link" href="approvebox.php">Approve Box</a>
+                                </nav>
+                            </div>
                             
                         </div>
                     </div>
@@ -84,28 +91,40 @@ require '../assets/php/function.php';
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <br>
-                                                    <form class="row g-3" method="post" action="addbox.php" enctype="multipart/form-data">
+                                                    <form class="row g-3" method="post" enctype="multipart/form-data">
                                                         <br>
                                                         <div class="col-md-9 ml-5">
                                                         <div class="form-floating">
-                                                            <input type="text" class="form-control" id="floatingName" name="invoice" placeholder="Box Number">
+                                                            <input type="text" class="form-control" id="floatingName" name="invoice" placeholder="Box Number" required="">
                                                             <label for="floatingName">Invoice</label>
                                                         </div>
                                                         </div>
                                                         <div class="col-md-9 ml-5">
                                                         <div class="form-floating">
-                                                            <input type="text" class="form-control" id="floatingName" name="box" placeholder="Box Number">
+                                                            <input type="text" class="form-control" id="floatingName" name="resi" placeholder="Box Number" required="">
+                                                            <label for="floatingName">Resi</label>
+                                                        </div>
+                                                        </div>
+                                                        <div class="col-md-9 ml-5">
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control" id="floatingName" name="box" placeholder="Box Number" required="">
                                                             <label for="floatingName">Box</label>
                                                         </div>
                                                         </div>
                                                         <div class="col-md-9 ml-5">
                                                         <div class="form-floating">
-                                                            <input type="number" class="form-control" id="floatingName" name="qtybox" placeholder="Box Number">
+                                                            <input type="number" class="form-control" id="floatingName" name="qtybox" placeholder="Box Number" required="">
                                                             <label for="floatingName">Quantity Box</label>
                                                         </div>
                                                         </div>
+                                                        <div class="col-md-9 ml-5">
+                                                        <div class="form-floating">
+                                                            <input type="float" class="form-control" id="floatingName" name="kubikasi" placeholder="Box Number" required="">
+                                                            <label for="floatingName">Kubikasi</label>
+                                                        </div>
+                                                        </div>
                                                         <div class="text-center">
-                                                        <button type="submit" name="submitqty" value="proses" class="btn btn-primary">Submit</button>
+                                                        <button type="submit" name="submitqtybox" value="proses" class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </form><!-- End floating Labels Form -->
                                                         <br>
@@ -118,8 +137,10 @@ require '../assets/php/function.php';
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Invoice</th>
+                                                <th>No Invoice</th>
+                                                <th>No Resi</th>
                                                 <th>Box Number</th>
+                                                <th>kubikasi</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
@@ -130,14 +151,18 @@ require '../assets/php/function.php';
                                                 while($data=mysqli_fetch_array($ambilbox)) {
                                                     $idbox = $data['iddus'];
                                                     $box = $data['box'];
-                                                    $nobox = $data['nobox'];
                                                     $invoice = $data['invoice'];
                                                     $status = $data['status'];
+                                                    $qtybox = $data['qtybox'];
+                                                    $resi = $data['resi'];
+                                                    $kubikasi = $data['kubikasi'];
                                             ?>
                                             <tr>
                                                 <td><?=$i++;?></td>
                                                 <th data-bs-toggle="modal" data-bs-target="#largeModal<?=$idbox;?>"><?=$invoice;?></th>
-                                                <td class="text-uppercase"><?=$box;?>-<?=$nobox;?></td>
+                                                <td><?=$resi;?></td>
+                                                <td class="text-uppercase"><?=$box;?> ( 1 - <?=$qtybox;?> )</td>
+                                                <td><?=$kubikasi;?> m³</td>
                                                 <td><?=$status;?></td>
                                             </tr>
                                             <!--Modal-->

@@ -3,21 +3,18 @@
 $konek = mysqli_connect("localhost","root","","mirorim");
 
 //Add New Box
-if(isset($_POST['submitbox'])){
+if(isset($_POST['submitqtybox'])){
+    $resi = $_POST['resi'];
+    $invoice = $_POST['invoice'];
+    $box = $_POST['box'];
     $qtybox = $_POST['qtybox'];
+    $kubikasi = $_POST['kubikasi'];
 
-    $invoice = $_POST['addinvoice'];
-    $box = $_POST['addbox'];
-    $nobox = $_POST['addnobox'];
-    $s = 1;
-
-    for ($i=0; $i<$qtybox; $i++){
-    $k = $i+$s;
-    $gabung = $box+$nobox;
-    $insert = mysqli_query($konek, "INSERT INTO box(box, nobox, invoice) VALUES('$box','$k','$invoice')");
-    header('location:index.php');
-    }  {
-        echo'gagal';
+    $insert = mysqli_query($konek, "INSERT INTO box(invoice, resi ,box ,qtybox ,kubikasi) VALUES ('$invoice','$resi','$box','$qtybox','$kubikasi')");
+    if($insert){
+        header('location:index.php');
+    } else {
+        header('location:index.php');
     }
 }
 

@@ -50,15 +50,22 @@ require '../assets/php/function.php';
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Admin</div>
+                        <div class="sb-sidenav-menu-heading">Admin</div>
                             <a class="nav-link" href="index.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                                 Packing List
                             </a>
-                            <a class="nav-link" href="approved.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-marker"></i></div>
-                                Approve
+                            <a class="nav-link collapse" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-warehouse"></i></div>
+                                    Approve
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="approved.php">Approve Item</a>
+                                    <a class="nav-link" href="approvebox.php">Approve Box</a>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </nav>
