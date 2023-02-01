@@ -18,17 +18,32 @@ if(isset($_POST['submitqtybox'])){
     }
 }
 
-if(isset($_POST['ceklistbutton'])){
-    $nobox = $_POST['nobox'];
-    $cek = $_POST['ceklist'];
+//coba
+// if(isset($_POST['ceklistbutton'])){
+//     $tempstat = $_POST['tempstat'];
+//     $idb = $_POST['idbarang'];
+//     $cek = $_POST['qtyboxcount'];
 
-    $ambil = mysqli_query($konek, "UPDATE box SET status='$cek' WHERE nobox='$nobox'");
-    if($ambil){
+//     $insert = mysqli_query($konek, "UPDATE box SET boxcount='$cek' WHERE iddus='$idb'");
+//     if($insert){
+//         $update = mysqli_query($konek, "UPDATE box SET tempstat='$tempstat' WHERE iddus='$idb'");
+//         header('location:boxlist.php');
+//     } else {
 
-    } else {
-        echo 'Gagal';
-    }
-}
+//     }
+// }                                                
+
+// if(isset($_POST['ceklistbutton'])){
+//     $nobox = $_POST['nobox'];
+//     $cek = $_POST['ceklist'];
+
+//     $ambil = mysqli_query($konek, "UPDATE box SET status='$cek' WHERE nobox='$nobox'");
+//     if($ambil){
+
+//     } else {
+//         echo 'Gagal';
+//     }
+// }
 //add new item to box
 if(isset($_POST['additembox'])){
     $invoice = $_POST['invoice'];
@@ -283,4 +298,18 @@ if(isset($_POST['submitquantity'])){
 
 }
 
+//submit qty & kubikasi
+if(isset($_POST['submitboxsemua'])){
+    $resibox = $_POST['resi'];
+    $quantity = $_POST['qtybox'];
+    $kubik = $_POST['countkubik'];
+
+    $jum = count($resibox);
+    for($i=0; $i<$jum; $i++){
+        $update = mysqli_query($konek, "UPDATE box SET boxcount='$quantity[$i]', count='$kubik' WHERE resi='$resibox[$i]'");
+        header('location:boxlist.php');
+    } {
+
+    }
+}
 ?>
