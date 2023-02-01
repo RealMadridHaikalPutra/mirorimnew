@@ -96,50 +96,42 @@ require '../assets/php/function.php';
                                     <button type="button"  data-bs-toggle="modal" data-bs-target="#smallModalAdd" class="btn btn-primary">Compare All</button>
                             </div>
                             <div class="modal fade" id="smallModalAdd" tabindex="-1">
-                                <div class="modal-dialog modal-md">
+                                <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">Compare?</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <table class="table table-bordered" id="dataModal" width="100%" cellspacing="0">
+                                        <table class="table" id="dataModal" width="100%" cellspacing="0">
                                         
-                                            <thead>
+                                            <thead class="table-bordered">
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name</th>
-                                                    <th>SKU</th>
-                                                    <th>Quantity</th>
-                                                    <th>Counting</th>
-                                                    <th>Ceklist</th>
+                                                    <th>Resi</th>
+                                                    <th>Invoice</th>
+                                                    <th>Kubikasi</th>
+                                                    <th>Kubik Count</th>
+                                                    <th>Selisih</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="table-borderless">
                                             <?php
-                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM itembox WHERE status='No Approve'");
+                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM box WHERE status='Tidak Diterima'");
                                                 $jum = 1;
                                                 while($tampil=mysqli_fetch_array($ambilperhitungan)){
-                                                  $qty = ($tampil)['quantity'];
-                                                  $perhitungan = ($tampil)['qtygudang'];
-                                                  $nama = ($tampil)['nama'];
-                                                  $sku = ($tampil)['sku'];
+                                                    $resi = $tampil['resi'];
+                                                    $invoice = $tampil['resi'];
+                                                    $kubikasi = $tampil['kubikasi'];
+                                                    $qtybox = $tampil['qtybox'];
+                                                    $box = $tampil['box'];
+                                                    $kubikcount = $tampil['count'];
                                             ?>
                                                 <tr>
                                                     <td><?=$jum++;?></td>
-                                                    <td><?=$nama;?></td>
-                                                    <td><?=$sku;?></td>
-                                                    <td><?=$qty;?></td>
-                                                    <td><?=$perhitungan;?>
-                                            
-                                                </td>
-                                                    <?php
-                                                    
-                                                        if($qty==$perhitungan){
-                                                            echo "<td><i class='far fa-check-circle text-right' style='color: green;'></i></td>";
-                                                        } else {
-                                                            echo "<td><i class='fas fa-minus-circle text-right' style='color: red;'></i></td>";
-                                                        }
-                                                    ?>
+                                                    <td><?=$resi;?></td>
+                                                    <td><?=$invoice;?></td>
+                                                    <td><?=$kubikasi;?> m³</td>
+                                                    <td><?=$kubikcount;?> m³</td>
                                                 </tr>
                                             <?php
                                                 }
@@ -195,71 +187,40 @@ require '../assets/php/function.php';
                                                 <th>Qty Box</th>
                                                 <th>Box Count</th>
                                                 <th>Kubikasi</th>
-                                                <th>Kubik Count</th>
                                                 <th>Note</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                                $ambilbox = mysqli_query($konek, "SELECT * FROM itembox");
+                                                $ambilbox = mysqli_query($konek, "SELECT * FROM box");
                                                 $i = 1;
                                                 while($data=mysqli_fetch_array($ambilbox)) {
-                                                    $idbox = $data['idbarang'];
+                                                    $idbox = $data['iddus'];
                                                     $invoice = $data['invoice'];
-                                                    $nama = $data['nama'];
-                                                    $sku = $data['sku'];
-                                                    $quantity = $data['quantity'];
+                                                    $resi = $data['resi'];
+                                                    $box = $data['box'];
+                                                    $qtybox = $data['qtybox'];
+                                                    $boxcount = $data['count'];
+                                                    $kubikasi = $data['kubikasi'];
                                                     $status = $data['status'];
-                                                    $count = $data['qtygudang'];
-                                                    $k = $i++;
-
-                                                     //cek data gambar ada apa kagak
-                                                        $gambar = $data['image'];
-                                                        if($gambar==null){
-                                                            // jika tidak ada gambar
-                                                            $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
-                                                        } else {
-                                                            //jika ada gambar
-                                                            $img ='<img src="../images/'.$gambar.'" class="zoomable">';
-                                                        }                                              
+                                                                                    
                                             ?>
                                             <tr>
-                                            <?php
-                                                if($count=='0'){
-                                                    echo "
-                                                        <td style='color: red;'>$k</td>
-                                                        <td>$img</td>
-                                                        <td style='color: red;'>$invoice</td>
-                                                        <td style='color: red;'>$nama</td>
-                                                        <td class='text-uppercase' style='color: red;'>$sku</td>
-                                                        <td style='color: red;'>$quantity</td>
-                                                        <td style='color: red;'>$count</td>
-                                                    ";
-                                                } else {
-                                                    echo "
-                                                    <td>$k</td>
-                                                    <td>$img</td>
-                                                    <td>$invoice</td>
-                                                    <td>$nama</td>
-                                                    <td class='text-uppercase'>$sku</td>
-                                                    <td>$quantity</td>
-                                                    <td>$count</td>
-                                                ";
-                                                }
+                                            <td><?=$i++;?></td>
+                                            <td><?=$resi;?></td>
+                                            <td><?=$invoice;?></td>
+                                            <td>1 - <?=$qtybox;?></td>
+                                            <td><?=$boxcount;?></td>
+                                            <td><?=$kubikasi;?> m³</td>
+                                            <td><?=$status;?></td>
 
-                                                if($status=='Approve'){
-                                                    echo "<td style='color: green;'>$status</td>";
-                                                } else {
-                                                    echo "<td style='color: red;'>$status</td>";
-                                                }
-                                            ?>
                                                 
                                                     
-                                                                <input type="hidden" name="approve" value="Approve">
-                                                                <input type="hidden" name="idb" value="<?=$idbox;?>">
-                                                                <input type="hidden" name="nama" value="<?=$nama;?>">
-                                                                <input type="hidden" name="sku" value="<?=$sku;?>">
-                                                                <input type="hidden" name="qtygudang" value="<?=$qtygudang;?>">
+                                                <input type="hidden" name="approve" value="Approve">
+                                                <input type="hidden" name="idb" value="<?=$idbox;?>">
+                                                <input type="hidden" name="nama" value="<?=$nama;?>">
+                                                <input type="hidden" name="sku" value="<?=$sku;?>">
+                                                <input type="hidden" name="qtygudang" value="<?=$qtygudang;?>">
                                                     
                                             </tr>
 
