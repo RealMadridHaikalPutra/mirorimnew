@@ -116,11 +116,11 @@ require '../assets/php/function.php';
                                             </thead>
                                             <tbody class="table-borderless">
                                             <?php
-                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM box WHERE status='Tidak Diterima'");
+                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM box WHERE status='Tidak Diterima' AND tempstat='2'");
                                                 $jum = 1;
                                                 while($tampil=mysqli_fetch_array($ambilperhitungan)){
                                                     $resi = $tampil['resi'];
-                                                    $invoice = $tampil['resi'];
+                                                    $invoice = $tampil['invoice'];
                                                     $kubikasi = $tampil['kubikasi'];
                                                     $qtybox = $tampil['qtybox'];
                                                     $box = $tampil['box'];
@@ -131,45 +131,56 @@ require '../assets/php/function.php';
                                                     <td><?=$resi;?></td>
                                                     <td><?=$invoice;?></td>
                                                     <td><?=$kubikasi;?> m³</td>
-                                                    <td><?=$kubikcount;?> m³</td>
-                                                </tr>
                                             <?php
                                                 }
                                             ?>
+                                            <?php
+                                             $abmil = mysqli_query($konek, "SELECT count FROM box WHERE tempstat='2'");
+                                             $data = mysqli_fetch_array($abmil);
+                                                $count = $data['count'];
+                                            ?>
+                                                    <td style='font-weight: bold;'><?=$count;?>m³</td>
+                                            <?php
+
+                                                    $ambil = mysqli_query($konek, "SELECT SUM(kubikasi) AS kubik, count FROM box WHERE status='Tidak Diterima' AND tempstat='2'");
+                                                    $data = mysqli_fetch_array($ambil);
+                                                    $number = number_format($data['kubik']);
+                                                    $count = ($data['count']);
+
+                                                    $selisih = number_format($number-$count);
+                                                    $persen = -1;
+                                                    $bagi = ($persen*$selisih);
+                                            ?>
+                                                 <td><?=$bagi;?>%</td>
+                                                </tr>
                                             </tbody>
                                         </table>
-                                        <form method="post" action="">
-                                        <?php
-                                                $ambil = mysqli_query($konek, "SELECT * FROM itembox WHERE status='No Approve'");
-                                                $jum = 1;
-                                                while($tampil=mysqli_fetch_array($ambil)){
-                                                  $qty = ($tampil)['quantity'];
-                                                  $perhitungan = ($tampil)['qtygudang'];
-                                                  $nama = ($tampil)['nama'];
-                                                  $sku = ($tampil)['sku'];
-                                                  $img = ($tampil)['image'];
-                                            ?>
-                                                    <input type="hidden" name="file[]" value="<?=$img;?>">
-                                                    <input type="hidden" name="namaitem[]" value="<?=$nama;?>">
-                                                    <input type="hidden" name="skuitem[]" value="<?=$sku;?>">
-                                                    <input type="hidden" name="quantityitem[]" value="<?=$perhitungan;?>">
-                                                    <input type="hidden" name="status[]" value="Approve">
-                                            <?php
-                                                }
-                                        
-                                            ?>
-                                        <?php
-                                            $select = mysqli_query($konek, "SELECT COUNT(nama) FROM itembox WHERE status='No Approve'");
-                                            while($ambil=mysqli_fetch_array($select)){
-                                                $jumlah = $ambil['COUNT(nama)'];
-
-                                        ?>
-                                        <input type="hidden" name="count" value="<?=$jumlah;?>">
-                                        <?php
-                                            }
-                                        ?>
+                                        <form method="post">
+                                                <?php
+                                                    $ambilresi = mysqli_query($konek, "SELECT COUNT(resi) AS resi FROM box WHERE status='Tidak Diterima' AND tempstat='2'");
+                                                    while($data = mysqli_fetch_array($ambilresi)){
+                                                    $resi = $data['resi'];
+                                                ?>
+                                                    <input type="text" name="resiberak" value="<?=$resi;?>">
+                                                <?php
+                                                    }
+                                                ?>
+                                                <?php
+                                                    $ambildataidb = mysqli_query($konek, "SELECT * FROM box WHERE status='Tidak Diterima' AND tempstat='2'");
+                                                    while($data=mysqli_fetch_array($ambildataidb)){
+                                                        $idb = $data['iddus'];
+                                                    
+                                                ?>
+                                                
+                                                <input type="hidden" name="iddus[]" value="<?=$idb;?>">
+                                                    <input type="hidden" name="tempstatus[]" value="1">
+                                                    <input type="hidden" name="stat[]" value="Diterima">
+                                                <?php
+                                                    }
+                                                ?>
+                                                    
                                             <div class="text-right m-2">
-                                                <button type="submit" name="submitinsert" class="btn btn-primary">Approve</button>
+                                                <button type="submit" name="submitinserttai" class="btn btn-primary">Approve</button>
                                             </div>
                                         </form>
                                     </div>
@@ -200,7 +211,7 @@ require '../assets/php/function.php';
                                                     $resi = $data['resi'];
                                                     $box = $data['box'];
                                                     $qtybox = $data['qtybox'];
-                                                    $boxcount = $data['count'];
+                                                    $boxcount = $data['boxcount'];
                                                     $kubikasi = $data['kubikasi'];
                                                     $status = $data['status'];
                                                                                     

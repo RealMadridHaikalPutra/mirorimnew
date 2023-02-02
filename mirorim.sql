@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2023 at 07:56 AM
+-- Generation Time: Feb 02, 2023 at 04:10 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -30,60 +30,29 @@ SET time_zone = "+00:00";
 CREATE TABLE `box` (
   `iddus` int(11) NOT NULL,
   `box` varchar(200) NOT NULL,
-  `nobox` int(11) NOT NULL,
+  `qtybox` int(11) NOT NULL,
+  `boxcount` int(11) NOT NULL,
   `invoice` varchar(200) NOT NULL,
-  `status` varchar(100) NOT NULL DEFAULT 'Tidak Diterima'
+  `resi` varchar(200) NOT NULL,
+  `kubikasi` float NOT NULL,
+  `count` float NOT NULL,
+  `status` varchar(200) NOT NULL DEFAULT 'Tidak Diterima',
+  `tempstat` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `box`
 --
 
-INSERT INTO `box` (`iddus`, `box`, `nobox`, `invoice`, `status`) VALUES
-(1, '113020K', 1, '2016K-DEERHA-112230', 'Diterima'),
-(2, '113020K', 2, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(3, '113020K', 3, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(4, '113020K', 4, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(5, '113020K', 5, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(6, '113020K', 6, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(7, '113020K', 7, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(8, '113020K', 8, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(9, '113020K', 9, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(10, '113020K', 10, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(11, '113020K', 11, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(12, '113020K', 12, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(13, '113020K', 13, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(14, '113020K', 14, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(15, '113020K', 15, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(16, '113020K', 16, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(17, '113020K', 17, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(18, '113020K', 18, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(19, '113020K', 19, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(20, '113020K', 20, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(21, '113020K', 21, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(22, '113020K', 22, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(23, '113020K', 23, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(24, '113020K', 24, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(25, '113020K', 25, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(26, '113020K', 26, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(27, '113020K', 27, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(28, '113020K', 28, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(29, '113020K', 29, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(30, '113020K', 30, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(31, '113020K', 31, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(32, '113020K', 32, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(33, '113020K', 33, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(34, '113020K', 34, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(35, '113020K', 35, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(36, '113020K', 36, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(37, '113020K', 37, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(38, '113020K', 38, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(39, '113020K', 39, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(40, '113020K', 40, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(41, '113020K', 41, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(42, '113020K', 42, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(43, '113020K', 43, '2016K-DEERHA-112230', 'Tidak Diterima'),
-(44, '113020K', 44, '2016K-DEERHA-112230', 'Tidak Diterima');
+INSERT INTO `box` (`iddus`, `box`, `qtybox`, `boxcount`, `invoice`, `resi`, `kubikasi`, `count`, `status`, `tempstat`) VALUES
+(1, '666', 7, 9, '6666', '66666', 6.6, 15, 'Diterima', 1),
+(2, '777', 6, 8, '7777', '77777', 0.7, 15, 'Diterima', 1),
+(3, '888', 8, 7, '8888', '88888', 0.8, 15, 'Diterima', 1),
+(4, '999', 9, 6, '9999', '99999', 5, 15, 'Diterima', 1),
+(933, '111', 11, 11, '1111', '11111', 1.1, 8.8, 'Diterima', 1),
+(934, '222', 2, 0, '2222', '22222', 2.2, 0, 'Tidak Diterima', 0),
+(935, '333', 33, 33, '3333', '33333', 3.3, 8.8, 'Diterima', 1),
+(936, '444', 44, 44, '4444', '44444', 4.4, 8.8, 'Diterima', 1);
 
 -- --------------------------------------------------------
 
@@ -109,6 +78,19 @@ CREATE TABLE `itembox` (
 
 INSERT INTO `itembox` (`idbarang`, `image`, `invoice`, `sku`, `nama`, `quantity`, `status`, `qtygudang`, `note`) VALUES
 (1, 'c157d83b32879689627411c3d0f1911b.jpg', '2016K-DEERHA-112230', '', 'LED Module White ', 20000, 'Approve', 20000, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kubikasi`
+--
+
+CREATE TABLE `kubikasi` (
+  `iddus` int(11) NOT NULL,
+  `resi` varchar(200) NOT NULL,
+  `invoice` varchar(200) NOT NULL,
+  `kubikasi` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -189,6 +171,12 @@ ALTER TABLE `itembox`
   ADD PRIMARY KEY (`idbarang`);
 
 --
+-- Indexes for table `kubikasi`
+--
+ALTER TABLE `kubikasi`
+  ADD PRIMARY KEY (`iddus`);
+
+--
 -- Indexes for table `listpre`
 --
 ALTER TABLE `listpre`
@@ -214,13 +202,19 @@ ALTER TABLE `temp_item`
 -- AUTO_INCREMENT for table `box`
 --
 ALTER TABLE `box`
-  MODIFY `iddus` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `iddus` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=937;
 
 --
 -- AUTO_INCREMENT for table `itembox`
 --
 ALTER TABLE `itembox`
   MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `kubikasi`
+--
+ALTER TABLE `kubikasi`
+  MODIFY `iddus` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `listpre`

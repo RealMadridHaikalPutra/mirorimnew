@@ -128,6 +128,7 @@ require '../assets/php/function.php';
                                                 <th><?=$invoiceambil;?></th>
                                                 <td><input class="form-control" type="number" name="qtybox[]">
                                                 <input type="hidden" name="resi[]" value="<?=$resiambil;?>">
+                                                <input type="hidden" name="temp[]" value="2">
                                                 </td>
                                             </tr>
                                             <?php

@@ -303,13 +303,37 @@ if(isset($_POST['submitboxsemua'])){
     $resibox = $_POST['resi'];
     $quantity = $_POST['qtybox'];
     $kubik = $_POST['countkubik'];
+    $temp = $_POST['temp'];
 
     $jum = count($resibox);
     for($i=0; $i<$jum; $i++){
-        $update = mysqli_query($konek, "UPDATE box SET boxcount='$quantity[$i]', count='$kubik' WHERE resi='$resibox[$i]'");
+        $update = mysqli_query($konek, "UPDATE box SET tempstat='$temp[$i]', boxcount='$quantity[$i]', count='$kubik' WHERE resi='$resibox[$i]'");
         header('location:boxlist.php');
     } {
 
     }
+}
+
+//approve multiple
+if(isset($_POST['submitinserttai'])){
+    $resi = $_POST['resiberak'];
+    $temp = $_POST['tempstatus'];
+    $status = $_POST['stat'];
+    $iddus = $_POST['iddus'];
+
+    // $jum = count($resi);
+
+    for($i=0; $i < $resi; $i++){
+        $update = mysqli_query($konek, "UPDATE box SET tempstat='$temp[$i]', status='$status[$i]' WHERE iddus='$iddus[$i]'");
+        echo '
+        <script>
+            alert("Data berhasil");
+            window.location.href="approvebox.php";
+        </script>';
+        
+    } {
+
+    }
+
 }
 ?>
