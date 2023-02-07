@@ -1,12 +1,7 @@
 <?php
-
+session_start();
 require '../assets/php/function.php';
-<<<<<<< HEAD
 require '../cek.php';
-=======
-
-
->>>>>>> c0025f5069215d92cd73043f960f958296158c73
 ?>
 
 <!DOCTYPE html>

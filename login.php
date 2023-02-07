@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-
 $konek = mysqli_connect("localhost","root","","mirorim");
 
 //cek login terdaftar apa tidak
