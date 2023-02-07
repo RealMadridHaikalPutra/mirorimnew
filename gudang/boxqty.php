@@ -90,59 +90,11 @@ require '../assets/php/function.php';
             </div>
             <div id="layoutSidenav_content">
                 <main>
+                    <form method="post">
                     <div class="container-fluid">
-                        <h1 class="mt-4">Box List</h1>
+                        <h1 class="mt-4">Form Input</h1>
                         <div class="card-header">
-                                <a type="button" class="btn btn-outline-primary" href="addnew.php">Add New</a>
-                                <a type="button" data-bs-toggle="modal" data-bs-target="#smallModalBox" class="btn btn-outline-warning">CheckBox</a>
-                                        <div class="modal fade" id="smallModalBox" tabindex="-1">
-                                        <div class="modal-dialog modal-lg">
-                                            <form method="post" action="boxqty.php">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">CheckBox</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <table class="table table-bordered" id="dataModal" width="100%" cellspacing="0">
-                                                
-                                                    <thead>
-                                                        <tr>
-                                                            <th>No</th>
-                                                            <th>Resi</th>
-                                                            <th>Invoice</th>
-                                                            <th>Nobox</th>
-                                                            <th>Ceklist</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <?php
-                                                        $ambilperhitungan = mysqli_query($konek, "SELECT * FROM box WHERE status='Tidak Diterima'");
-                                                        $jum = 1;
-                                                        while($tampil=mysqli_fetch_array($ambilperhitungan)){
-                                                        $resi = $tampil['resi'];
-                                                        $idb = $tampil['iddus'];
-                                                        $invoice = $tampil['invoice'];
-                                                        $nobox = $tampil['box'];
-                                                    ?>
-                                                        <tr>
-                                                            <td><?=$jum++;?></td>
-                                                            <td><?=$resi;?></td>
-                                                            <td><?=$invoice;?></td>
-                                                            <td><?=$nobox;?></td>
-                                                            <td><input type="checkbox" class="form-check-label" value="<?=$resi;?>" name="cekboxcount[]">
-                                                            </td>
-                                                    <?php
-                                                        }
-                                                    ?>
-                                                    </tbody>
-                                                </table>
-                                                <div class="text-right m-2">
-                                                    <button class="btn btn-primary text-right">Submit</button>
-                                                </div>
-                                            </div>
-                                            </form>
-                                        </div>
-                                        </div>
+                                <button type="submit" name="submitboxsemua" class="btn btn-outline-success">Submit</button>
                         </div>
                         <div class="card mb-4">
                             <div class="card-body">
@@ -154,38 +106,57 @@ require '../assets/php/function.php';
                                                 <th>Resi</th>
                                                 <th>Invoice</th>
                                                 <th>Nobox</th>
-                                                <th>Status</th>
+                                                <th>Quantity</th>
+                                                <th>Note</th>
                                             </tr>
                                         </thead>
                                         <tbody >
                                             <?php
-                                                $ambildata = mysqli_query($konek, "SELECT * FROM box WHERE status='Tidak diterima'");
-                                                $i = 1;
-                                                while($data=mysqli_fetch_array($ambildata)){
-                                                    $idbox = $data['iddus'];
-                                                    $invoice = $data['invoice'];
-                                                    $resi = $data['resi'];
-                                                    $nobox = $data['box'];
-                                                    $status = $data['status'];
-                                                    $temp = $data['tempstat'];
+                                                $resi = $_POST['cekboxcount'];
+                                                $hitung = count($resi);
+                                                $k = 1;
+
+                                                for($i=0; $i < $hitung; $i++){
+                                                $res = $resi[$i];
                                                 
+                                                $ambil = mysqli_query($konek, "SELECT * FROM box WHERE resi='$res'");
+                                                $data = mysqli_fetch_array($ambil);
+                                                    $resiambil = $data['resi'];
+                                                    $invoiceambil = $data['invoice'];
+                                                    $nobox = $data['box'];
                                             ?>
                                             <tr>
-                                                <td><?=$i++;?></td>
-                                                <td><?=$resi;?></td>
-                                                <th><?=$invoice;?></th>
+                                                <td><?=$k++;?></td>
+                                                <td><?=$resiambil;?></td>
+                                                <th><?=$invoiceambil;?></th>
                                                 <th><?=$nobox;?></th>
-                                                <td><?=$status;?></td>
-                                            </tr>
+                                                <td><input class="form-control" type="number" name="qtybox[]">
+                                                <input type="hidden" name="resi[]" value="<?=$resiambil;?>">
+                                                <input type="hidden" name="temp[]" value="2">
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" type="text" name="notecok[]">
+                                                </td>
+                                            
                                             <?php
                                                 }
                                             ?>
                                         </tbody>
+                                        <tfoot>
+                                                <th>Kubikasi</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><input type="float" class="form-control" name="countkubik"></td>
+                                                
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </form>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">

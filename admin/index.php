@@ -1,7 +1,12 @@
 <?php
 
 require '../assets/php/function.php';
+<<<<<<< HEAD
 require '../cek.php';
+=======
+
+
+>>>>>>> c0025f5069215d92cd73043f960f958296158c73
 ?>
 
 <!DOCTYPE html>
@@ -170,14 +175,14 @@ require '../cek.php';
                                                 <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                    <h5 class="modal-title">List Item Invoice : <?=$invoice;?></h5>
+                                                    <h5 class="modal-title">List Item Invoice : <?=$box;?></h5>
                                                     <button class="btn btn-primary ml-4" data-bs-toggle="modal" data-bs-target="#smallModal<?=$idbox;?>">Add New Item</button>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <!--Card-->
                                                     <div class="row row-cols-1 row-cols-md-2 g-4">
                                                         <?php
-                                                            $datadalamdus = mysqli_query($konek, "SELECT * FROM itembox WHERE invoice='$invoice'");
+                                                            $datadalamdus = mysqli_query($konek, "SELECT * FROM itembox WHERE box='$box'");
                                                             $s = 1;
                                                             while($data=mysqli_fetch_array($datadalamdus)){
                                                                 $invoice = $data['invoice'];
@@ -212,11 +217,12 @@ require '../cek.php';
                                                 <div class="modal-dialog modal-sm">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                    <h5 class="modal-title"><?=$invoice;?></h5>
+                                                    <h5 class="modal-title"><?=$box;?></h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <form method="post" class="row g-3" enctype="multipart/form-data">   
                                                         <div class="modal-body">
+                                                        <input type="hidden" class="form-control text-uppercase" id="floatingName" name="box" value="<?=$box;?>" placeholder="SKU Warehouse">
                                                         <input type="hidden" class="form-control text-uppercase" id="floatingName" name="invoice" value="<?=$invoice;?>" placeholder="SKU Warehouse">
                                                         <div class="col-12">
                                                                 <div class="col-sm-12">

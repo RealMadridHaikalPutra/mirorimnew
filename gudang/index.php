@@ -1,5 +1,6 @@
 
 <?php
+require '../cek.php';
 require '../assets/php/function.php';
 require '../cek.php';
 

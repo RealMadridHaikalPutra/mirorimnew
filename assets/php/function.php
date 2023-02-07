@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $konek = mysqli_connect("localhost","root","","mirorim");
 
 
@@ -19,23 +19,39 @@ if(isset($_POST['submitqtybox'])){
     }
 }
 
-if(isset($_POST['ceklistbutton'])){
-    $nobox = $_POST['nobox'];
-    $cek = $_POST['ceklist'];
+//coba
+// if(isset($_POST['ceklistbutton'])){
+//     $tempstat = $_POST['tempstat'];
+//     $idb = $_POST['idbarang'];
+//     $cek = $_POST['qtyboxcount'];
 
-    $ambil = mysqli_query($konek, "UPDATE box SET status='$cek' WHERE nobox='$nobox'");
-    if($ambil){
+//     $insert = mysqli_query($konek, "UPDATE box SET boxcount='$cek' WHERE iddus='$idb'");
+//     if($insert){
+//         $update = mysqli_query($konek, "UPDATE box SET tempstat='$tempstat' WHERE iddus='$idb'");
+//         header('location:boxlist.php');
+//     } else {
 
-    } else {
-        echo 'Gagal';
-    }
-}
+//     }
+// }                                                
+
+// if(isset($_POST['ceklistbutton'])){
+//     $nobox = $_POST['nobox'];
+//     $cek = $_POST['ceklist'];
+
+//     $ambil = mysqli_query($konek, "UPDATE box SET status='$cek' WHERE nobox='$nobox'");
+//     if($ambil){
+
+//     } else {
+//         echo 'Gagal';
+//     }
+// }
 //add new item to box
 if(isset($_POST['additembox'])){
     $invoice = $_POST['invoice'];
     $nama = $_POST['nama'];
     $sku = $_POST['sku'];
     $quantity = $_POST['quantity'];
+    $box = $_POST['box'];
 
     //gambar
     $allowed_extension = array('png','jpg','jpeg','svg');
@@ -54,7 +70,7 @@ if(isset($_POST['additembox'])){
             if($ukuran < 5000000){
                 move_uploaded_file($file_tmp, '../images/'.$image);
                  
-                $addnew = mysqli_query($konek, "INSERT INTO itembox(invoice, image, nama, sku, quantity) VALUES('$invoice','$image','$nama','$sku','$quantity')");
+                $addnew = mysqli_query($konek, "INSERT INTO itembox(invoice, image, nama, sku, quantity, box) VALUES('$invoice','$image','$nama','$sku','$quantity','$box')");
                 if($addnew){
                     header('location:index.php');
                 } else {
@@ -74,7 +90,7 @@ if(isset($_POST['additembox'])){
             }
         } else {
             //kalau gambar selain filter
-            $addnew = mysqli_query($konek, "INSERT INTO itembox(invoice, nama, sku, quantity) VALUES('$invoice','$nama','$sku','$quantity')");
+            $addnew = mysqli_query($konek, "INSERT INTO itembox(invoice, nama, sku, quantity, box) VALUES('$invoice','$nama','$sku','$quantity','$box')");
             if($addnew){
                 if($addnew){
                     header('location:index.php');
@@ -284,4 +300,43 @@ if(isset($_POST['submitquantity'])){
 
 }
 
+//submit qty & kubikasi
+if(isset($_POST['submitboxsemua'])){
+    $resibox = $_POST['resi'];
+    $quantity = $_POST['qtybox'];
+    $kubik = $_POST['countkubik'];
+    $temp = $_POST['temp'];
+    $notecok = $_POST['notecok'];
+
+    $jum = count($resibox);
+    for($i=0; $i<$jum; $i++){
+        $update = mysqli_query($konek, "UPDATE box SET tempstat='$temp[$i]', boxcount='$quantity[$i]', note='$notecok[$i]', count='$kubik' WHERE resi='$resibox[$i]'");
+        header('location:boxlist.php');
+    } {
+
+    }
+}
+
+//approve multiple
+if(isset($_POST['submitinserttai'])){
+    $resi = $_POST['resiberak'];
+    $temp = $_POST['tempstatus'];
+    $status = $_POST['stat'];
+    $iddus = $_POST['iddus'];
+
+    // $jum = count($resi);
+
+    for($i=0; $i < $resi; $i++){
+        $update = mysqli_query($konek, "UPDATE box SET tempstat='$temp[$i]', status='$status[$i]' WHERE iddus='$iddus[$i]'");
+        echo '
+        <script>
+            alert("Data berhasil");
+            window.location.href="approvebox.php";
+        </script>';
+        
+    } {
+
+    }
+
+}
 ?>

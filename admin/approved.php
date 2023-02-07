@@ -93,7 +93,7 @@ require '../assets/php/function.php';
                         <div class="card mb-4">
                         <div class="card-header">
                             <div class="text-right">
-                                    <button type="button"  data-bs-toggle="modal" data-bs-target="#smallModalAdd" class="btn btn-primary">Compare All</button>
+                                    <button type="button"  data-bs-toggle="modal" data-bs-target="#smallModalAdd" class="btn btn-primary">Compare Quantity</button>
                             </div>
                             <div class="modal fade" id="smallModalAdd" tabindex="-1">
                                 <div class="modal-dialog modal-md">
@@ -116,7 +116,7 @@ require '../assets/php/function.php';
                                             </thead>
                                             <tbody>
                                             <?php
-                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM itembox WHERE status='No Approve'");
+                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM itembox WHERE qtygudang<>0 AND status='No Approve'");
                                                 $jum = 1;
                                                 while($tampil=mysqli_fetch_array($ambilperhitungan)){
                                                   $qty = ($tampil)['quantity'];
