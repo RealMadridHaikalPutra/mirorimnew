@@ -1,7 +1,7 @@
 <?php
-
+session_start();
 require '../assets/php/function.php';
-
+require '../cek.php';
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +32,7 @@ require '../assets/php/function.php';
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">Admin Mirorim</a>
+            <a class="navbar-brand" href="index.html">Purchasing Mirorim</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -124,7 +124,7 @@ require '../assets/php/function.php';
                                                     $kubikasi = $tampil['kubikasi'];
                                                     $qtybox = $tampil['qtybox'];
                                                     $box = $tampil['box'];
-                                                    $kubikcount = $tampil['count'];
+                                                    $kubikcount = $tampil['ctkubik'];
                                             ?>
                                                 <tr>
                                                     <td><?=$jum++;?></td>
@@ -135,23 +135,23 @@ require '../assets/php/function.php';
                                                 }
                                             ?>
                                             <?php
-                                             $abmil = mysqli_query($konek, "SELECT count FROM box WHERE tempstat='2'");
+                                             $abmil = mysqli_query($konek, "SELECT ctkubik FROM box WHERE tempstat='2'");
                                              $data = mysqli_fetch_array($abmil);
-                                                $count = $data['count'];
+                                                $count = $data['ctkubik'];
                                             ?>
                                                     <td style='font-weight: bold;'><?=$count;?>m³</td>
                                             <?php
 
-                                                    $ambil = mysqli_query($konek, "SELECT SUM(kubikasi) AS kubik, count FROM box WHERE status='Tidak Diterima' AND tempstat='2'");
+                                                    $ambil = mysqli_query($konek, "SELECT SUM(kubikasi) AS kubik, ctkubik FROM box WHERE status='Tidak Diterima' AND tempstat='2'");
                                                     $data = mysqli_fetch_array($ambil);
-                                                    $number = ($data['kubik']);
-                                                    $count = ($data['count']);
+                                                    $number = number_format($data['kubik']);
+                                                    $count = ($data['ctkubik']);
 
-                                                    $selisih = ($number-$count);
-                                                    $persen = -1;
-                                                    $bagi = ($persen*$selisih);
+                                                    $selisih =($count-$number);
+                                                    $persen = 100;
+                                                   
                                             ?>
-                                                 <td><?=$bagi;?>%</td>
+                                                 <td><?=$selisih;?>m³</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -199,6 +199,7 @@ require '../assets/php/function.php';
                                                 <th>Qty Box</th>
                                                 <th>Box Count</th>
                                                 <th>Kubikasi</th>
+                                                <th>Status</th>
                                                 <th>Note</th>
                                             </tr>
                                         </thead>
@@ -226,6 +227,7 @@ require '../assets/php/function.php';
                                             <td>1 - <?=$qtybox;?></td>
                                             <td><?=$boxcount;?></td>
                                             <td><?=$kubikasi;?> m³</td>
+                                            <td><?=$status;?></td>
                                             <td><?=$notecok;?></td>
 
                                                 

@@ -20,7 +20,7 @@ require '../cek.php';
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">Admin Mirorim</a>
+            <a class="navbar-brand" href="index.html">Purchasing Mirorim</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -39,7 +39,7 @@ require '../cek.php';
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="#">Activity Log</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.html">Logout</a>
+                        <a class="dropdown-item" href="../logout.php">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -119,7 +119,7 @@ require '../cek.php';
                                                         </div>
                                                         <div class="col-md-9 ml-5">
                                                         <div class="form-floating">
-                                                            <input type="float" class="form-control" id="floatingName" name="kubikasi" placeholder="Box Number" required="">
+                                                        <input type="text" id="floatingName" name="kubikasi" pattern="[0-100 0-100.0-100]{1-5}" placeholder="Box Number" class="form-control" required="">
                                                             <label for="floatingName">Kubikasi</label>
                                                         </div>
                                                         </div>

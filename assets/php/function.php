@@ -310,7 +310,7 @@ if(isset($_POST['submitboxsemua'])){
 
     $jum = count($resibox);
     for($i=0; $i<$jum; $i++){
-        $update = mysqli_query($konek, "UPDATE box SET tempstat='$temp[$i]', boxcount='$quantity[$i]', note='$notecok[$i]', count='$kubik' WHERE resi='$resibox[$i]'");
+        $update = mysqli_query($konek, "UPDATE box SET tempstat='$temp[$i]', boxcount='$quantity[$i]', note='$notecok[$i]', ctkubik='$kubik' WHERE resi='$resibox[$i]'");
         header('location:boxlist.php');
     } {
 
