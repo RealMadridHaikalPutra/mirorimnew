@@ -1,6 +1,8 @@
 
 <?php
 require '../assets/php/function.php';
+require '../cek.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +49,7 @@ require '../assets/php/function.php';
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="#">Activity Log</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.html">Logout</a>
+                        <a class="dropdown-item" href="../logout.php">Logout</a>
                     </div>
                 </li>
             </ul>

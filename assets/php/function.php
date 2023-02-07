@@ -2,6 +2,7 @@
 
 $konek = mysqli_connect("localhost","root","","mirorim");
 
+
 //Add New Box
 if(isset($_POST['submitqtybox'])){
     $resi = $_POST['resi'];
