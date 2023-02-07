@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $konek = mysqli_connect("localhost","root","","mirorim");
 
 //Add New Box
@@ -50,6 +50,7 @@ if(isset($_POST['additembox'])){
     $nama = $_POST['nama'];
     $sku = $_POST['sku'];
     $quantity = $_POST['quantity'];
+    $box = $_POST['box'];
 
     //gambar
     $allowed_extension = array('png','jpg','jpeg','svg');
@@ -68,7 +69,7 @@ if(isset($_POST['additembox'])){
             if($ukuran < 5000000){
                 move_uploaded_file($file_tmp, '../images/'.$image);
                  
-                $addnew = mysqli_query($konek, "INSERT INTO itembox(invoice, image, nama, sku, quantity) VALUES('$invoice','$image','$nama','$sku','$quantity')");
+                $addnew = mysqli_query($konek, "INSERT INTO itembox(invoice, image, nama, sku, quantity, box) VALUES('$invoice','$image','$nama','$sku','$quantity','$box')");
                 if($addnew){
                     header('location:index.php');
                 } else {
@@ -88,7 +89,7 @@ if(isset($_POST['additembox'])){
             }
         } else {
             //kalau gambar selain filter
-            $addnew = mysqli_query($konek, "INSERT INTO itembox(invoice, nama, sku, quantity) VALUES('$invoice','$nama','$sku','$quantity')");
+            $addnew = mysqli_query($konek, "INSERT INTO itembox(invoice, nama, sku, quantity, box) VALUES('$invoice','$nama','$sku','$quantity','$box')");
             if($addnew){
                 if($addnew){
                     header('location:index.php');
@@ -304,10 +305,11 @@ if(isset($_POST['submitboxsemua'])){
     $quantity = $_POST['qtybox'];
     $kubik = $_POST['countkubik'];
     $temp = $_POST['temp'];
+    $notecok = $_POST['notecok'];
 
     $jum = count($resibox);
     for($i=0; $i<$jum; $i++){
-        $update = mysqli_query($konek, "UPDATE box SET tempstat='$temp[$i]', boxcount='$quantity[$i]', count='$kubik' WHERE resi='$resibox[$i]'");
+        $update = mysqli_query($konek, "UPDATE box SET tempstat='$temp[$i]', boxcount='$quantity[$i]', note='$notecok[$i]', count='$kubik' WHERE resi='$resibox[$i]'");
         header('location:boxlist.php');
     } {
 

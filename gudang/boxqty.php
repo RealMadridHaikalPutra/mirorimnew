@@ -105,7 +105,9 @@ require '../assets/php/function.php';
                                                 <th>No</th>
                                                 <th>Resi</th>
                                                 <th>Invoice</th>
+                                                <th>Nobox</th>
                                                 <th>Quantity</th>
+                                                <th>Note</th>
                                             </tr>
                                         </thead>
                                         <tbody >
@@ -121,26 +123,32 @@ require '../assets/php/function.php';
                                                 $data = mysqli_fetch_array($ambil);
                                                     $resiambil = $data['resi'];
                                                     $invoiceambil = $data['invoice'];
+                                                    $nobox = $data['box'];
                                             ?>
                                             <tr>
                                                 <td><?=$k++;?></td>
                                                 <td><?=$resiambil;?></td>
                                                 <th><?=$invoiceambil;?></th>
+                                                <th><?=$nobox;?></th>
                                                 <td><input class="form-control" type="number" name="qtybox[]">
                                                 <input type="hidden" name="resi[]" value="<?=$resiambil;?>">
                                                 <input type="hidden" name="temp[]" value="2">
                                                 </td>
-                                            </tr>
+                                                <td>
+                                                    <input class="form-control" type="text" name="notecok[]">
+                                                </td>
+                                            
                                             <?php
                                                 }
                                             ?>
                                         </tbody>
                                         <tfoot>
-                                            <tr>
                                                 <th>Kubikasi</th>
-                                                <th></th>
-                                                <th></th>
-                                                <th><input type="float" class="form-control" name="countkubik"></th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><input type="float" class="form-control" name="countkubik"></td>
+                                                
                                             </tr>
                                         </tfoot>
                                     </table>

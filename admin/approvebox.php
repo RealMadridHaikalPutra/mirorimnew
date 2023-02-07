@@ -85,7 +85,7 @@ require '../assets/php/function.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Approved</h1>
+                        <h1 class="mt-4">Approved </h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.php">Box List</a></li>
                             <li class="breadcrumb-item active">Approved</li>
@@ -93,13 +93,13 @@ require '../assets/php/function.php';
                         <div class="card mb-4">
                         <div class="card-header">
                             <div class="text-right">
-                                    <button type="button"  data-bs-toggle="modal" data-bs-target="#smallModalAdd" class="btn btn-primary">Compare All</button>
+                                    <button type="button"  data-bs-toggle="modal" data-bs-target="#smallModalAdd" class="btn btn-primary">Compare Kubikasi</button>
                             </div>
                             <div class="modal fade" id="smallModalAdd" tabindex="-1">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Compare?</h5>
+                                            <h5 class="modal-title">Compare Kubikasi</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <table class="table" id="dataModal" width="100%" cellspacing="0">
@@ -144,10 +144,10 @@ require '../assets/php/function.php';
 
                                                     $ambil = mysqli_query($konek, "SELECT SUM(kubikasi) AS kubik, count FROM box WHERE status='Tidak Diterima' AND tempstat='2'");
                                                     $data = mysqli_fetch_array($ambil);
-                                                    $number = number_format($data['kubik']);
+                                                    $number = ($data['kubik']);
                                                     $count = ($data['count']);
 
-                                                    $selisih = number_format($number-$count);
+                                                    $selisih = ($number-$count);
                                                     $persen = -1;
                                                     $bagi = ($persen*$selisih);
                                             ?>
@@ -161,7 +161,7 @@ require '../assets/php/function.php';
                                                     while($data = mysqli_fetch_array($ambilresi)){
                                                     $resi = $data['resi'];
                                                 ?>
-                                                    <input type="text" name="resiberak" value="<?=$resi;?>">
+                                                    <input type="hidden" name="resiberak" value="<?=$resi;?>">
                                                 <?php
                                                     }
                                                 ?>
@@ -195,6 +195,7 @@ require '../assets/php/function.php';
                                                 <th>No</th>
                                                 <th>Resi</th>
                                                 <th>Invoice</th>
+                                                <th>Nobox</th>
                                                 <th>Qty Box</th>
                                                 <th>Box Count</th>
                                                 <th>Kubikasi</th>
@@ -214,16 +215,18 @@ require '../assets/php/function.php';
                                                     $boxcount = $data['boxcount'];
                                                     $kubikasi = $data['kubikasi'];
                                                     $status = $data['status'];
+                                                    $notecok = $data['note'];
                                                                                     
                                             ?>
                                             <tr>
                                             <td><?=$i++;?></td>
                                             <td><?=$resi;?></td>
                                             <td><?=$invoice;?></td>
+                                            <td><?=$box;?></td>
                                             <td>1 - <?=$qtybox;?></td>
                                             <td><?=$boxcount;?></td>
                                             <td><?=$kubikasi;?> m³</td>
-                                            <td><?=$status;?></td>
+                                            <td><?=$notecok;?></td>
 
                                                 
                                                     

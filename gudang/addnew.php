@@ -100,12 +100,12 @@ require '../assets/php/function.php';
                         <form class="row g-3" method="post" enctype="multipart/form-data">
                             <div class="col-md-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" name="invoice" id="floatingName" placeholder="Invoice">
-                                <label for="floatingName">Invoice</label>
+                                <input type="text" class="form-control" name="nobox" id="floatingName" placeholder="NoBox">
+                                <label for="floatingName">Nobox</label>
                             </div>
                             </div>
                             <div class="text-right">
-                            <button type="submit" name="inputinvoice" class="btn btn-primary">Submit</button>
+                            <button type="submit" name="inputnobox" class="btn btn-primary">Submit</button>
                             </div>
                         </form><!-- End floating Labels Form -->
                         </div>
@@ -116,14 +116,14 @@ require '../assets/php/function.php';
                     <div class="container-fluid">
                         <h1 class="mt-4">Items Box</h1>
                             <?php
-                                if(isset($_POST['inputinvoice'])){
-                                    $invoice = $_POST['invoice'];
+                                if(isset($_POST['inputnobox'])){
+                                    $invoice = $_POST['nobox'];
                                                 
-                                    $ambildata = mysqli_query($konek, "SELECT * FROM itembox WHERE invoice='$invoice'");
+                                    $ambildata = mysqli_query($konek, "SELECT * FROM itembox WHERE box='$invoice'");
                             ?>
                             <div class="card-header">
                                 <i class="fas fa-box"></i>
-                                Invoice Items : <?=$invoice;?>
+                                Box Items : <?=$invoice;?>
                             </div>
                             <?php
                                 }
@@ -134,7 +134,7 @@ require '../assets/php/function.php';
                                     <button type="button"  data-bs-toggle="modal" data-bs-target="#smallModalQty" class="btn btn-primary">Insert All</button>
                             </div>
                             <div class="modal fade" id="smallModalQty" tabindex="-1">
-                                <div class="modal-dialog modal-md">
+                                <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">Insert All</h5>
@@ -160,6 +160,7 @@ require '../assets/php/function.php';
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Invoice</th>
+                                                    <th>Nobox</th>
                                                     <th>Nama</th>
                                                     <th>SKU</th>
                                                     <th>Counting</th>
@@ -168,10 +169,14 @@ require '../assets/php/function.php';
                                             </thead>
                                             <tbody>
                                             <?php
-                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM itembox WHERE status='No Approve'");
+                                                if(isset($_POST['inputnobox'])){
+                                                $invoice = $_POST['nobox'];
+
+                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM itembox WHERE box='$invoice' AND status='No Approve'");
                                                 $jum = 1;
                                                 while($tampil=mysqli_fetch_array($ambilperhitungan)){
                                                   $nama = ($tampil)['nama'];
+                                                  $box = ($tampil)['box'];
                                                   $sku = ($tampil)['sku'];
                                                   $invoice = ($tampil)['invoice'];
                                                   $note = ($tampil)['note'];
@@ -180,6 +185,7 @@ require '../assets/php/function.php';
                                                 <tr>
                                                     <td><?=$jum++;?></td>
                                                     <td><?=$invoice;?></td>
+                                                    <td><?=$box;?></td>
                                                     <td><?=$nama;?></td>
                                                     <td><?=$sku;?></td>
                                                     <td><input type="number" class="form-control" name="countinggudang[]" required="">
@@ -187,7 +193,7 @@ require '../assets/php/function.php';
 
                                                 </tr>
                                             <?php
-                                                }
+                                                }}
                                             ?>
                                             </tbody>
                                         </table>
@@ -207,6 +213,7 @@ require '../assets/php/function.php';
                                                 <th>Image</th>
                                                 <th>Status</th>
                                                 <th>invoice</th>
+                                                <th>Nobox</th>
                                                 <th>Item Name</th>
                                                 <th>SKU</th>
                                                 <th>Quantity</th>
@@ -214,14 +221,15 @@ require '../assets/php/function.php';
                                         </thead>
                                         <tbody >
                                             <?php
-                                            if(isset($_POST['inputinvoice'])){
-                                                $invoice = $_POST['invoice'];
+                                            if(isset($_POST['inputnobox'])){
+                                                $invoice = $_POST['nobox'];
                                                 
-                                                $ambildata = mysqli_query($konek, "SELECT * FROM itembox WHERE invoice='$invoice'");
+                                                $ambildata = mysqli_query($konek, "SELECT * FROM itembox WHERE box='$invoice'");
                                                 $i = 1;
                                                 while($data=mysqli_fetch_array($ambildata)){
                                                     $idbox = $data['idbarang'];
                                                     $invoice = $data['invoice'];
+                                                    $box = $data['box'];
                                                     $nama = $data['nama'];
                                                     $sku = $data['sku'];
                                                     $status = $data['status'];
@@ -243,6 +251,7 @@ require '../assets/php/function.php';
                                                 <td><?=$img;?></td>
                                                 <td><?=$status;?></td>
                                                 <th><?=$invoice;?></th>
+                                                <th><?=$box;?></th>
                                                 <td><?=$nama;?></td>
                                                 <td><?=$sku;?></td>
                                                 <td><?=$count;?></td>

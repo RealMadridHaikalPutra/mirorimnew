@@ -96,7 +96,7 @@ require '../assets/php/function.php';
                                 <a type="button" class="btn btn-outline-primary" href="addnew.php">Add New</a>
                                 <a type="button" data-bs-toggle="modal" data-bs-target="#smallModalBox" class="btn btn-outline-warning">CheckBox</a>
                                         <div class="modal fade" id="smallModalBox" tabindex="-1">
-                                        <div class="modal-dialog modal-md">
+                                        <div class="modal-dialog modal-lg">
                                             <form method="post" action="boxqty.php">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -110,6 +110,7 @@ require '../assets/php/function.php';
                                                             <th>No</th>
                                                             <th>Resi</th>
                                                             <th>Invoice</th>
+                                                            <th>Nobox</th>
                                                             <th>Ceklist</th>
                                                         </tr>
                                                     </thead>
@@ -121,11 +122,13 @@ require '../assets/php/function.php';
                                                         $resi = $tampil['resi'];
                                                         $idb = $tampil['iddus'];
                                                         $invoice = $tampil['invoice'];
+                                                        $nobox = $tampil['box'];
                                                     ?>
                                                         <tr>
                                                             <td><?=$jum++;?></td>
                                                             <td><?=$resi;?></td>
                                                             <td><?=$invoice;?></td>
+                                                            <td><?=$nobox;?></td>
                                                             <td><input type="checkbox" class="form-check-label" value="<?=$resi;?>" name="cekboxcount[]">
                                                             </td>
                                                     <?php
@@ -150,6 +153,7 @@ require '../assets/php/function.php';
                                                 <th>No</th>
                                                 <th>Resi</th>
                                                 <th>Invoice</th>
+                                                <th>Nobox</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
@@ -161,6 +165,7 @@ require '../assets/php/function.php';
                                                     $idbox = $data['iddus'];
                                                     $invoice = $data['invoice'];
                                                     $resi = $data['resi'];
+                                                    $nobox = $data['box'];
                                                     $status = $data['status'];
                                                     $temp = $data['tempstat'];
                                                 
@@ -169,6 +174,7 @@ require '../assets/php/function.php';
                                                 <td><?=$i++;?></td>
                                                 <td><?=$resi;?></td>
                                                 <th><?=$invoice;?></th>
+                                                <th><?=$nobox;?></th>
                                                 <td><?=$status;?></td>
                                             </tr>
                                             <?php
