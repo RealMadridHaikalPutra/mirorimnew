@@ -147,7 +147,7 @@ require '../cek.php';
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
-                                                <td><input type="float" class="form-control" name="countkubik"></td>
+                                                <td><input type="float" class="form-control" name="countkubik[]"></td>
                                                 
                                             </tr>
                                         </tfoot>

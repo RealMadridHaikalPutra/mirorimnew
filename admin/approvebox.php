@@ -67,7 +67,7 @@ require '../cek.php';
                                 Packing List
                             </a>
                             <a class="nav-link collapse" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-warehouse"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-pen-alt"></i></div>
                                     Approve
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -134,23 +134,20 @@ require '../cek.php';
                                             <?php
                                                 }
                                             ?>
-                                            <?php
-                                             $abmil = mysqli_query($konek, "SELECT ctkubik FROM box WHERE tempstat='2'");
-                                             $data = mysqli_fetch_array($abmil);
-                                                $count = $data['ctkubik'];
-                                            ?>
-                                                    <td style='font-weight: bold;'><?=$count;?>m³</td>
+                                                    
                                             <?php
 
-                                                    $ambil = mysqli_query($konek, "SELECT SUM(kubikasi) AS kubik, ctkubik FROM box WHERE status='Tidak Diterima' AND tempstat='2'");
+                                                    $ambil = mysqli_query($konek, "SELECT SUM(kubikasi) AS kubik, SUM(ctkubik) AS ctkubik FROM box WHERE status='Tidak Diterima' AND tempstat='2'");
                                                     $data = mysqli_fetch_array($ambil);
-                                                    $number = number_format($data['kubik']);
+                                                    $number = ($data['kubik']);
                                                     $count = ($data['ctkubik']);
+                                                    
 
                                                     $selisih =($count-$number);
                                                     $persen = 100;
                                                    
                                             ?>
+                                                 <td style='font-weight: bold;'><?=$count;?>m³</td>
                                                  <td><?=$selisih;?>m³</td>
                                                 </tr>
                                             </tbody>
