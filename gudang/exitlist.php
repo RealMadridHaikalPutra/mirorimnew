@@ -79,51 +79,15 @@ require '../cek.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">History Refill</h1>
+                        <h1 class="mt-4">Input Refill</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.php">Warehouse</a></li>
                             <li class="breadcrumb-item active">All Warehouse</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <a type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#smallModalUp">Refill</a>
+                                <a type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#smallModalUp">Submit</a>
                             </div>
-
-                            <div class="modal fade" id="smallModalUp" tabindex="-1">
-                                                <div class="modal-dialog modal-md">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                    <h5 class="modal-title">Input Qty SKU</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <br>
-                                                    <form class="row g-3" method="post" action="" enctype="multipart/form-data">
-                                                        <br>
-                                                        <div class="col-md-9 ml-5">
-                                                        <div class="form-floating">
-                                                            <input type="number" class="form-control" id="floatingName" name="qtysku" placeholder="Box Number" required="">
-                                                            <label for="floatingName">Qty SKU</label>
-                                                        </div>
-                                                        </div>
-                                                        <div class="col-md-9 ml-5">
-                                                        <div class="form-floating">
-                                                            <select type="text" class="form-control" id="floatingName" name="resi" placeholder="Box Number" required="">
-                                                                <option selected>-:-</option>
-                                                                <option value="Refiil">Refiil</option>
-                                                                <option value="Request">Request</option>
-                                                                <option value="Preparation">Preparation</option>
-                                                            </select>
-                                                            <label for="floatingName">Status</label>
-                                                        </div>
-                                                        </div>
-                                                        <div class="text-center">
-                                                        <button type="submit" name="listexit" value="proses" class="btn btn-primary">Submit</button>
-                                                        </div>
-                                                    </form><!-- End floating Labels Form -->
-                                                        <br>
-                                                    </div>
-                                                </div>
-                                            </div>
 
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -131,23 +95,19 @@ require '../cek.php';
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Image</th>
-                                                <th>Name Item</th>
                                                 <th>SKU Store</th>
+                                                <th>Picker</th>
                                                 <th>Quantity</th>
                                                 <th>Status</th>
-                                                <th>Time Out</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <th>1</th>
-                                                <td>No Image</td>
-                                                <td>Fan 12 cm</td>
-                                                <td>3J1</td>
-                                                <td>10.000</td>
+                                                <td><input type="text" class="form-control" name="sku[]"></td>
+                                                <td><input type="text" class="form-control" name="picker[]"></td>
+                                                <td><input type="text" class="form-control" name="quantity[]"></td>
                                                 <td>Refill</td>
-                                                <td>10/01/2023 11:03:45</td>
                                             </tr>
                                         </tbody>
                                     </table>

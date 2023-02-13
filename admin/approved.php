@@ -260,7 +260,7 @@ require '../cek.php';
                                                                 <input type="hidden" name="idb" value="<?=$idbox;?>">
                                                                 <input type="hidden" name="nama" value="<?=$nama;?>">
                                                                 <input type="hidden" name="sku" value="<?=$sku;?>">
-                                                                <input type="hidden" name="qtygudang" value="<?=$qtygudang;?>">
+                                                                <input type="hidden" name="qtygudang" value="<?=$count;?>">
                                                     
                                             </tr>
 
