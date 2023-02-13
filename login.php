@@ -63,7 +63,13 @@ if(isset($_POST['login'])){
 
         header('location:gudang');
 
-    }
+   } elseif($role=='gudang2'){
+
+        $_SESSION['log'] = 'Logged';
+        $_SESSION['role'] = 'gudang2';
+        header('location:gudang/gudang2');
+   }
+
 
 } else {
 
@@ -94,6 +100,10 @@ if(isset($_POST['login'])){
     } elseif(isset($_SESSION['gudang'])){
 
         header('location:gudang');
+
+    } elseif(isset($_SESSION['gudang2'])){
+
+        header('location:gudang/gudang2');
 
     }
 
