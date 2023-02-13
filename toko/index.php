@@ -108,8 +108,8 @@ require '../assets/php/function.php';
                                                     $idb = ($tampil)['idbarang'];
                                                     $nama = ($tampil)['nama'];
                                                     $sku = ($tampil)['sku'];
-                                                    $quantity = ($tampil)['quantity'];
                                                     $picker = ($tampil)['picker'];
+                                                    $quantity = ($tampil)['quantityrep'];
                                             ?>
                                                 <tr>
                                                     <td><?=$jum++;?></td>
@@ -165,7 +165,7 @@ require '../assets/php/function.php';
                                                 $idb = $data['idbarang'];
                                                 $nama = $data['nama'];
                                                 $skutoko = $data['sku'];
-                                                $quantity = $data['quantity'];
+                                                $quantity = $data['quantityrep'];
 
                                                 //cek data gambar ada apa kagak
                                                 $gambar = $data['image'];
