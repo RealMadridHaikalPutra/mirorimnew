@@ -194,6 +194,7 @@ if(isset($_POST['inputqty'])){
     
 }
 
+//gudang
 if(isset($_POST['editnosku'])){
     $idb = $_POST['idb'];
     $nama = $_POST['nama'];
@@ -207,6 +208,35 @@ if(isset($_POST['editnosku'])){
     $ambilimg = ($ambil)['image'];
 
     $updatenosku = mysqli_query($konek, "UPDATE stok SET nama='$nama', sku='$skutoko', skug='$skugudang', gudang='$gudang', quantity='$quantity', image='$ambilimg' WHERE idbarang='$idb'");
+    if($updatenosku){
+        echo '
+        <script>
+            alert("Data berhasil di update");
+            window.location.href="index.php";
+        </script>';
+    } else {
+        echo '
+        <script>
+            alert("Data tidak berhasil di update");
+            window.location.href="addnew.php";
+        </script>';
+    }
+}
+
+//gudang2
+if(isset($_POST['editnosku2'])){
+    $idb = $_POST['idb'];
+    $nama = $_POST['nama'];
+    $skugudang = $_POST['skugudang'];
+    $gudang = $_POST['gudang'];
+    $skutoko = $_POST['skutoko'];
+    $quantity = $_POST['quantity'];
+
+    $ambildata = mysqli_query($konek, "SELECT * FROM stok2 WHERE idbarang='$idb'");
+    $ambil = mysqli_fetch_array($ambildata);
+    $ambilimg = ($ambil)['image'];
+
+    $updatenosku = mysqli_query($konek, "UPDATE stok2 SET nama='$nama', sku='$skutoko', skug='$skugudang', gudang='$gudang', quantity='$quantity', image='$ambilimg' WHERE idbarang='$idb'");
     if($updatenosku){
         echo '
         <script>
@@ -299,6 +329,34 @@ if(isset($_POST['submitquantity'])){
     }
 
 }
+
+//insert refill
+if(isset($_POST['checkrefill'])){
+    $cek = $_POST['cekrefill'];
+    $temp = $_POST['status'];
+
+    $jumdi = count($cek);
+    for($i=0; $i<$jumdi; $i++){
+        $update = mysqli_query($konek, "UPDATE toko SET tempstat='$temp[$i]' WHERE idbarang='$cek[$i]'");
+
+        if($update){
+            $ambilqtystok = mysqli_query($konek, "SELECT * FROM stok, toko  WHERE idbarang='$cek[$i]'");
+            $data = mysqli_fetch_array($ambilqtystok);
+            $qtyqty = $data['quantity'];
+            $qty = $data['quantityrep'];
+            $kurangcok[$i] = $qty[$i]-$qtyqty[$i];
+            $updatestok = mysqli_query($konek, "UPDATE stok SET quantity='$kurangcok[$i]' WHERE idbarang='$cek[$i]'");
+            header('location:index.php');
+        }else {
+
+        }
+       
+    }{
+
+    }
+
+}
+
 
 //submit qty & kubikasi
 if(isset($_POST['submitboxsemua'])){
