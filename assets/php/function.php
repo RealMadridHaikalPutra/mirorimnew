@@ -334,27 +334,60 @@ if(isset($_POST['submitquantity'])){
 if(isset($_POST['checkrefill'])){
     $cek = $_POST['cekrefill'];
     $temp = $_POST['status'];
+    $qtyrefill = $_POST['qtyrefill'];
+
 
     $jumdi = count($cek);
     for($i=0; $i<$jumdi; $i++){
-        $update = mysqli_query($konek, "UPDATE toko SET tempstat='$temp[$i]' WHERE idbarang='$cek[$i]'");
+        $select = mysqli_query($konek, "SELECT * FROM stok WHERE sku='$cek[$i]'");
+        $data = mysqli_fetch_array($select);
+        $qtystok = $data['quantity'];
 
-        if($update){
-            $ambilqtystok = mysqli_query($konek, "SELECT * FROM stok, toko  WHERE idbarang='$cek[$i]'");
-            $data = mysqli_fetch_array($ambilqtystok);
-            $qtyqty = $data['quantity'];
-            $qty = $data['quantityrep'];
-            $kurangcok[$i] = $qty[$i]-$qtyqty[$i];
-            $updatestok = mysqli_query($konek, "UPDATE stok SET quantity='$kurangcok[$i]' WHERE idbarang='$cek[$i]'");
-            header('location:index.php');
-        }else {
+        if($select){
+             $update = mysqli_query($konek, "UPDATE toko SET tempstat='$temp[$i]' WHERE sku='$cek[$i]'");
+
+            if($update){
+                $lagi = mysqli_query($konek, "SELECT * FROM toko WHERE sku='$cek[$i]'");
+                $ha = mysqli_fetch_array($lagi);
+                $qtytoko = $ha['quantityrep'];
+
+                $kurang = $qtystok-$qtytoko;
+                $updatestok = mysqli_query($konek, "UPDATE stok SET quantity='$kurang' WHERE sku='$cek[$i]'");
+                header('location:index.php');
+            }else {
+
+            }
+        } else {
 
         }
+        
+        
+
        
     }{
 
     }
 
+}
+
+//insert gudang to refill or something
+if(isset($_POST['submitgudang'])){
+    $jum = $_POST['jum'];
+    $sku = $_POST['sku'];
+    $picker = $_POST['picker'];
+    $quantity = $_POST['quantity'];
+    $status = $_POST['status'];
+
+    for ($i = 0; $i < $jum; $i++){
+        $select = mysqli_query($konek, "SELECT * FROM stok WHERE sku='$sku[$i]'");
+        $ambil = mysqli_fetch_array($select);
+        $nama = $ambil['nama'];
+
+        if($select){
+            $insert = mysqli_query($konek, "INSERT INTO toko(nama, sku, picker, quantityrep, status) VALUES('$nama','$sku[$i]','$picker[$i]','$quantity[$i]','$status[$i]')");
+            header('location:exititem.php');
+        }
+    }
 }
 
 

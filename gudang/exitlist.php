@@ -78,15 +78,17 @@ require '../cek.php';
             </div>
             <div id="layoutSidenav_content">
                 <main>
+                    
                     <div class="container-fluid">
                         <h1 class="mt-4">Input Refill</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.php">Warehouse</a></li>
                             <li class="breadcrumb-item active">All Warehouse</li>
                         </ol>
+                        <form method="post">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <a type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#smallModalUp">Submit</a>
+                                <button type="submit" class="btn btn-outline-success" name="submitgudang">Submit</button>
                             </div>
 
                             <div class="card-body">
@@ -102,18 +104,33 @@ require '../cek.php';
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php
+                                                $jum = $_POST['qtysku'];
+                                                $status = $_POST['stat'];
+                                                $s = 1;
+                                                $jumlah = $jum+$s;
+
+                                                for($i=1; $i < $jumlah; $i++){
+                                            ?>
                                             <tr>
-                                                <th>1</th>
+                                                <th><?=$s++;?></th>
                                                 <td><input type="text" class="form-control" name="sku[]"></td>
                                                 <td><input type="text" class="form-control" name="picker[]"></td>
                                                 <td><input type="text" class="form-control" name="quantity[]"></td>
-                                                <td>Refill</td>
+                                                <td><input type="text" class="form-control" name="status[]" value="<?=$status;?>">
+                                                    <input type="hidden" name="jum" value="<?=$jum;?>">
+                                                </td>
                                             </tr>
+                                            <?php
+                                                }
+
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+                    </form>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">

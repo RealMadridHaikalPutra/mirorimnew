@@ -97,7 +97,7 @@ require '../cek.php';
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <br>
-                                                    <form class="row g-3" method="post" action="" enctype="multipart/form-data">
+                                                    <form class="row g-3" method="post" action="exitlist.php" enctype="multipart/form-data">
                                                         <br>
                                                         <div class="col-md-9 ml-5">
                                                         <div class="form-floating">
@@ -107,7 +107,7 @@ require '../cek.php';
                                                         </div>
                                                         <div class="col-md-9 ml-5">
                                                         <div class="form-floating">
-                                                            <select type="text" class="form-control" id="floatingName" name="resi" placeholder="Box Number" required="">
+                                                            <select type="text" class="form-control" id="floatingName" name="stat" placeholder="Box Number" required="">
                                                                 <option selected>-:-</option>
                                                                 <option value="Refiil">Refiil</option>
                                                                 <option value="Request">Request</option>
@@ -131,24 +131,33 @@ require '../cek.php';
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Image</th>
                                                 <th>Name Item</th>
                                                 <th>SKU Store</th>
                                                 <th>Quantity</th>
                                                 <th>Status</th>
-                                                <th>Time Out</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php
+                                                $ambil = mysqli_query($konek, "SELECT * FROM toko");
+                                                $i = 1;
+                                                while($data=mysqli_fetch_array($ambil)){
+                                                    $nama = $data['nama'];
+                                                    $sku = $data['sku'];
+                                                    $picker = $data['picker'];
+                                                    $quantity = $data['quantityrep'];
+                                                    $status = $data['status'];
+                                            ?>
                                             <tr>
-                                                <th>1</th>
-                                                <td>No Image</td>
-                                                <td>Fan 12 cm</td>
-                                                <td>3J1</td>
-                                                <td>10.000</td>
-                                                <td>Refill</td>
-                                                <td>10/01/2023 11:03:45</td>
+                                                <th><?=$i++;?></th>
+                                                <td><?=$nama;?></td>
+                                                <td><?=$picker;?></td>
+                                                <td><?=$quantity;?></td>
+                                                <td><?=$status;?></td>
                                             </tr>
+                                            <?php
+                                                }
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
