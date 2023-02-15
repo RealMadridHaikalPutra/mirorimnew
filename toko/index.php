@@ -71,7 +71,7 @@ require '../assets/php/function.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">All Stock</h1>
+                        <h1 class="mt-4">History Refiil</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="stoknonsku.php">Stok Non SKU</a></li>
                             <li class="breadcrumb-item active">All Stock</li>
@@ -84,7 +84,7 @@ require '../assets/php/function.php';
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Insert All</h5>
+                                            <h5 class="modal-title">Approve Refill</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <form method="post" action="">
@@ -118,8 +118,16 @@ require '../assets/php/function.php';
                                                     <td><?=$picker;?></td>
                                                     <td><?=$quantity;?></td>
                                                     <td><input type="checkbox" class="form-check-label" value="<?=$idb;?>" name="cekrefill[]">
-                                                    <input type="hidden" name="status[]" value="1">
-                                                </td>
+                                                    <input type="hidden" name="status[]" value="0">
+                                                    <input type="hidden" name="qtyrefill[]" value="<?=$quantity;?>">
+                                                    <?php
+                                                        $ambildatastok = mysqli_query($konek, "SELECT * FROM stok WHERE idbarang='$idb'");
+                                                        $data = mysqli_fetch_array($ambildatastok);
+                                                        $qty = $data['quantity'];
+
+                                                    ?>
+                                                    <input type="hidden" name="qtystok[]" value="<?=$qty;?>">
+                                                    </td>
 
                                                 </tr>
                                             <?php
@@ -141,7 +149,6 @@ require '../assets/php/function.php';
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Image</th>
                                                 <th>Name Item</th>
                                                 <th>SKU Store</th>
                                                 <th>Picker</th>
@@ -166,21 +173,9 @@ require '../assets/php/function.php';
                                                 $nama = $data['nama'];
                                                 $skutoko = $data['sku'];
                                                 $quantity = $data['quantityrep'];
-
-                                                //cek data gambar ada apa kagak
-                                                $gambar = $data['image'];
-                                                if($gambar==null){
-                                                    // jika tidak ada gambar
-                                                    $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
-                                                } else {
-                                                    //jika ada gambar
-                                                    $img ='<img src="../images/'.$gambar.'" class="zoomable">';
-                                                }
-
                                             ?>
                                             <tr data-bs-toggle="modal" data-bs-target="#largeModal<?=$idb;?>">
                                                 <th><?=$i++?></th>
-                                                <td><?=$img;?></td>
                                                 <td><?=$nama?></td>
                                                 <td class="text-uppercase"><?=$skutoko?></td>
                                                 <td><?=$picker?></td>
