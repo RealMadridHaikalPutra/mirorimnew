@@ -117,16 +117,9 @@ require '../assets/php/function.php';
                                                     <td><?=$sku;?></td>
                                                     <td><?=$picker;?></td>
                                                     <td><?=$quantity;?></td>
-                                                    <td><input type="checkbox" class="form-check-label" value="<?=$idb;?>" name="cekrefill[]">
+                                                    <td><input type="checkbox" class="form-check-label" value="<?=$sku;?>" name="cekrefill[]">
                                                     <input type="hidden" name="status[]" value="0">
                                                     <input type="hidden" name="qtyrefill[]" value="<?=$quantity;?>">
-                                                    <?php
-                                                        $ambildatastok = mysqli_query($konek, "SELECT * FROM stok WHERE idbarang='$idb'");
-                                                        $data = mysqli_fetch_array($ambildatastok);
-                                                        $qty = $data['quantity'];
-
-                                                    ?>
-                                                    <input type="hidden" name="qtystok[]" value="<?=$qty;?>">
                                                     </td>
 
                                                 </tr>

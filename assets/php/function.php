@@ -335,19 +335,34 @@ if(isset($_POST['checkrefill'])){
     $cek = $_POST['cekrefill'];
     $temp = $_POST['status'];
     $qtyrefill = $_POST['qtyrefill'];
-    $qty = $_POST['qtystok'];
+
 
     $jumdi = count($cek);
     for($i=0; $i<$jumdi; $i++){
-        $update = mysqli_query($konek, "UPDATE toko SET tempstat='$temp[$i]' WHERE idbarang='$cek[$i]'");
+        $select = mysqli_query($konek, "SELECT * FROM stok WHERE sku='$cek[$i]'");
+        $data = mysqli_fetch_array($select);
+        $qtystok = $data['quantity'];
 
-        if($update){
-           $tambah = $qty[$i]-$qtyrefill[$i];
-           $updatetoko = mysqli_query($konek, "UPDATE stok SET quantity='$tambah' WHERE idbarang='$cek[$i]' ");
-            header('location:index.php');
-        }else {
+        if($select){
+             $update = mysqli_query($konek, "UPDATE toko SET tempstat='$temp[$i]' WHERE sku='$cek[$i]'");
+
+            if($update){
+                $lagi = mysqli_query($konek, "SELECT * FROM toko WHERE sku='$cek[$i]'");
+                $ha = mysqli_fetch_array($lagi);
+                $qtytoko = $ha['quantityrep'];
+
+                $kurang = $qtystok-$qtytoko;
+                $updatestok = mysqli_query($konek, "UPDATE stok SET quantity='$kurang' WHERE sku='$cek[$i]'");
+                header('location:index.php');
+            }else {
+
+            }
+        } else {
 
         }
+        
+        
+
        
     }{
 
