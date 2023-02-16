@@ -344,10 +344,10 @@ if(isset($_POST['checkrefill'])){
         $qtystok = $data['quantity'];
 
         if($select){
-             $update = mysqli_query($konek, "UPDATE toko SET tempstat='$temp[$i]' WHERE sku='$cek[$i]'");
+             $update = mysqli_query($konek, "UPDATE exititem SET tempstat='$temp[$i]' WHERE sku='$cek[$i]'");
 
             if($update){
-                $lagi = mysqli_query($konek, "SELECT * FROM toko WHERE sku='$cek[$i]'");
+                $lagi = mysqli_query($konek, "SELECT * FROM exititem WHERE sku='$cek[$i]'");
                 $ha = mysqli_fetch_array($lagi);
                 $qtytoko = $ha['quantityrep'];
 
@@ -384,7 +384,7 @@ if(isset($_POST['submitgudang'])){
         $nama = $ambil['nama'];
 
         if($select){
-            $insert = mysqli_query($konek, "INSERT INTO toko(nama, sku, picker, quantityrep, status) VALUES('$nama','$sku[$i]','$picker[$i]','$quantity[$i]','$status[$i]')");
+            $insert = mysqli_query($konek, "INSERT INTO exititem(nama, sku, picker, quantityrep, status) VALUES('$nama','$sku[$i]','$picker[$i]','$quantity[$i]','$status[$i]')");
             header('location:exititem.php');
         }
     }

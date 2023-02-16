@@ -68,7 +68,7 @@ require '../cek.php';
                             </a>
                             <div class="collapsed" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="updatebarang.php">Update Item</a>
+                                    <a class="nav-link" href="mutasigudang.php">Mutasi Warehouse</a>
                                     <a class="nav-link" href="exititem.php">Exit Item</a>
                                     <a class="nav-link" href="updatebarang5.php">Update Item G5</a>
                                     <a class="nav-link" href="exititem5.php">Exit Item G5</a>
@@ -109,7 +109,7 @@ require '../cek.php';
                                                         <div class="form-floating">
                                                             <select type="text" class="form-control" id="floatingName" name="stat" placeholder="Box Number" required="">
                                                                 <option selected>-:-</option>
-                                                                <option value="Refiil">Refiil</option>
+                                                                <option value="Refill">Refill</option>
                                                                 <option value="Request">Request</option>
                                                                 <option value="Preparation">Preparation</option>
                                                             </select>
@@ -133,13 +133,14 @@ require '../cek.php';
                                                 <th>No</th>
                                                 <th>Name Item</th>
                                                 <th>SKU Store</th>
+                                                <th>Picker</th>
                                                 <th>Quantity</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                                $ambil = mysqli_query($konek, "SELECT * FROM toko");
+                                                $ambil = mysqli_query($konek, "SELECT * FROM exititem");
                                                 $i = 1;
                                                 while($data=mysqli_fetch_array($ambil)){
                                                     $nama = $data['nama'];
@@ -151,7 +152,8 @@ require '../cek.php';
                                             <tr>
                                                 <th><?=$i++;?></th>
                                                 <td><?=$nama;?></td>
-                                                <td><?=$picker;?></td>
+                                                <td class="text-uppercase"><?=$sku;?></td>
+                                                <td class="text-uppercase"><?=$picker;?></td>
                                                 <td><?=$quantity;?></td>
                                                 <td><?=$status;?></td>
                                             </tr>

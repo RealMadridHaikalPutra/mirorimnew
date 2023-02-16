@@ -114,8 +114,8 @@ require '../cek.php';
                                             ?>
                                             <tr>
                                                 <th><?=$s++;?></th>
-                                                <td><input type="text" class="form-control" name="sku[]"></td>
-                                                <td><input type="text" class="form-control" name="picker[]"></td>
+                                                <td><input type="text" class="form-control text-uppercase" name="sku[]"></td>
+                                                <td><input type="text" class="form-control text-uppercase" name="picker[]"></td>
                                                 <td><input type="text" class="form-control" name="quantity[]"></td>
                                                 <td><input type="text" class="form-control" name="status[]" value="<?=$status;?>">
                                                     <input type="hidden" name="jum" value="<?=$jum;?>">
