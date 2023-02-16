@@ -520,4 +520,51 @@ if(isset($_POST['mutasigudang'])){
     }
 }
 
+//approve mutasi
+if(isset($_POST['approvemutasi'])){
+    $cek = $_POST['cekmutasi'];
+    $stat = $_POST['status'];
+
+    $jum = count($cek);
+    for($i=0; $i < $jum; $i++){
+        $select = mysqli_query($konek, "SELECT * FROM mutasi WHERE skug='$cek[$i]' AND tempstat='0'");
+        $ambildata = mysqli_fetch_array($select);
+            $nama = $ambildata['nama'];
+            $gambar = $ambildata['image'];
+            $sku = $ambildata['sku'];
+            $quantity = $ambildata['quantitymut'];
+
+        if($select){
+            $ambil = mysqli_query($konek, "SELECT * FROM stok2 WHERE sku='$sku'");
+            $cekdata = mysqli_num_rows($ambil);
+
+            if($cekdata==1){
+                $selectqty = mysqli_query($konek, "SELECT * FROM stok2 WHERE sku='$sku'");
+                $data = mysqli_fetch_array($selectqty);
+                $quantity2 = $data['quantity'];
+                
+                $tambah = $quantity+$quantity2;
+                if($selectqty){
+                    $update = mysqli_query($konek, "UPDATE stok2 SET quantity='$tambah' WHERE sku='$sku'");
+                    header('location:index.php');
+                    
+                } else {
+
+                }
+                
+            } else {
+                $insert = mysqli_query($konek, "INSERT INTO stok2(nama, image, sku, quantity) VALUES('$nama','$gambar','$sku','$quantity')");
+                header('location:index.php');
+                
+            }
+            
+        } else {
+
+        }
+    } {
+
+    }
+
+}
+
 ?>

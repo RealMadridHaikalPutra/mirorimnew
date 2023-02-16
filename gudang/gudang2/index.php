@@ -113,7 +113,6 @@ require '../../cek.php';
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Image</th>
                                                     <th>Name Item</th>
                                                     <th>SKU</th>
                                                     <th>Quantity</th>
@@ -121,15 +120,34 @@ require '../../cek.php';
                                                 </tr>
                                             </thead>
                                             <tbody>
-
+                                                <?php
+                                                    $ambildatamutasi = mysqli_query($konek, "SELECT * FROM mutasi WHERE tempstat='0'");
+                                                    $i = 1;
+                                                    while($data = mysqli_fetch_array($ambildatamutasi)){
+                                                        $nama = $data['nama'];
+                                                        $sku = $data['sku'];
+                                                        $gambar = $data['image'];
+                                                        $quantity = $data['quantitymut'];
+                                                        $skug = $data['skug'];
+                                                        
+                                                ?>
                                                 <tr>
-                                                 
+                                                    <td><?=$i++;?></td>
+                                                    <td><?=$nama;?></td>
+                                                    <td><?=$sku;?></td>
+                                                    <td><?=$quantity;?></td>
+                                                    <td><input type="checkbox" class="form-check-label" value="<?=$skug;?>" name="cekmutasi[]">
+                                                    <input type="hidden" name="status[]" value="1">
+                                                    </td>
 
                                                 </tr>
+                                                <?php
+                                                    }
+                                                ?>
                                             </tbody>
                                         </table>
                                             <div class="text-right m-2">
-                                                <button type="submit" name="checkrefill" class="btn btn-primary">Submit</button>
+                                                <button type="submit" name="approvemutasi" class="btn btn-primary">Submit</button>
                                             </div>
                                         </form>
                                         
@@ -166,7 +184,7 @@ require '../../cek.php';
                                                 $idb = $data['idbarang'];
                                                 $nama = $data['nama'];
                                                 $skutoko = $data['sku'];
-                                                $skugudang = $data['skug'];
+                                                $skugudang = $data['skugudang'];
                                                 $gudang = $data['gudang'];
                                                 $quantity = $data['quantity'];
 
