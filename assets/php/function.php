@@ -344,16 +344,16 @@ if(isset($_POST['checkrefill'])){
         $qtystok = $data['quantity'];
 
         if($select){
-             $update = mysqli_query($konek, "UPDATE exititem SET tempstat='$temp[$i]' WHERE sku='$cek[$i]'");
+             $lagi = mysqli_query($konek, "SELECT * FROM exititem WHERE sku='$cek[$i]' AND tempstat='0'");
+             $ha = mysqli_fetch_array($lagi);
+             $qtytoko = $ha['quantityrep'];
 
-            if($update){
-                $lagi = mysqli_query($konek, "SELECT * FROM exititem WHERE sku='$cek[$i]' AND tempstat='0'");
-                $ha = mysqli_fetch_array($lagi);
-                $qtytoko = $ha['quantityrep'];
+             $kurang = $qtystok-$qtytoko;
+             $updatestok = mysqli_query($konek, "UPDATE stok SET quantity='$kurang' WHERE sku='$cek[$i]'");
+             header('location:index.php');
+            if($updatestok){
+                $update = mysqli_query($konek, "UPDATE exititem SET tempstat='$temp[$i]' WHERE sku='$cek[$i]'");
 
-                $kurang = $qtystok-$qtytoko;
-                $updatestok = mysqli_query($konek, "UPDATE stok SET quantity='$kurang' WHERE sku='$cek[$i]'");
-                header('location:index.php');
             }else {
 
             }
@@ -389,6 +389,74 @@ if(isset($_POST['submitgudang'])){
         }
     }
 }
+
+//insert via multiple
+if(isset($_POST['inputvariant'])){
+    $jum = $_POST['jum'];
+    $invoice = $_POST['invoice'];
+    $box = $_POST['box'];
+    $nama = $_POST['nama'];
+    $sku = $_POST['sku'];
+    $variant = $_POST['variant'];
+    $quantity = $_POST['quantity'];
+
+    //gambar
+    $allowed_extension = array('png','jpg','jpeg','svg');
+    $namaimage = $_FILES['file']['name']; //ambil gambar
+    $dot = explode('.',$namaimage);
+    $ekstensi = strtolower(end($dot)); //ambil ekstensi
+    $ukuran = $_FILES['file']['size']; //ambil size
+    $file_tmp = $_FILES['file']['tmp_name']; //lokasi
+
+    //nama acak
+    $image = md5(uniqid($namaimage,true) . time()).'.'.$ekstensi; //compile
+
+    for ($i = 0; $i < $jum; $i++){
+            //proses upload
+            if(in_array($ekstensi, $allowed_extension) === true){
+                //validasi ukuran
+                if($ukuran < 5000000){
+                    move_uploaded_file($file_tmp, '../images/'.$image);
+                    
+                    $addnew = mysqli_query($konek, "INSERT INTO itembox(invoice, box, image, nama, sku, quantity) VALUES('$invoice','$box','$image','$nama-$variant[$i]','$sku[$i]','$quantity[$i]')");
+                    if($addnew){
+                        header('location:index.php');
+                    } else {
+                        echo '
+                        <script>
+                            alert("Gagal Memuat Item Box");
+                            window.location.href="index.php";
+                        </script>';
+                    }
+                } else {
+                    //kalau file lebih dari 5mb
+                    echo '
+                        <script>
+                            alert("Kelebihan muatan woiii ga muat database");
+                            window.location.href="index.php";
+                        </script>'; 
+                }
+            } else {
+                //kalau gambar selain filter
+                $addnew = mysqli_query($konek, "INSERT INTO itembox(invoice, box, nama, sku, quantity) VALUES('$invoice','$box','$nama-$variant[$i]','$sku[$i]','$quantity[$i]')");
+                if($addnew){
+                    if($addnew){
+                        header('location:index.php');
+                    } else {
+                        echo '
+                        <script>
+                            alert("Gagal Memuat Item Box");
+                            window.location.href="index.php";
+                        </script>';
+                    }
+            }
+        }
+    }
+}
+
+        
+
+    
 
 
 //submit qty & kubikasi

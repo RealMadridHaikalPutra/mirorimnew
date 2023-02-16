@@ -215,6 +215,9 @@ require '../cek.php';
                                                     <h5 class="modal-title"><?=$box;?></h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
+                                                    <div class="card-header">
+                                                        <a type="button" class="btn btn-outline-primary" href="inputmulti.php">Multi</a>
+                                                    </div>
                                                     <form method="post" class="row g-3" enctype="multipart/form-data">   
                                                         <div class="modal-body">
                                                         <input type="hidden" class="form-control text-uppercase" id="floatingName" name="box" value="<?=$box;?>" placeholder="SKU Warehouse">

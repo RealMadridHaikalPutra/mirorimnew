@@ -119,7 +119,7 @@ require '../assets/php/function.php';
                                                     <td><?=$quantity;?></td>
                                                     <td><input type="checkbox" class="form-check-label" value="<?=$sku;?>" name="cekrefill[]">
                                                     <input type="hidden" name="status[]" value="1">
-                                                    <input type="number" name="qtyrefill[]" value="<?=$quantity;?>">
+                                                    <input type="hidden" name="qtyrefill[]" value="<?=$quantity;?>">
                                                     </td>
 
                                                 </tr>
