@@ -347,7 +347,7 @@ if(isset($_POST['checkrefill'])){
              $update = mysqli_query($konek, "UPDATE exititem SET tempstat='$temp[$i]' WHERE sku='$cek[$i]'");
 
             if($update){
-                $lagi = mysqli_query($konek, "SELECT * FROM exititem WHERE sku='$cek[$i]'");
+                $lagi = mysqli_query($konek, "SELECT * FROM exititem WHERE sku='$cek[$i]' AND tempstat='0'");
                 $ha = mysqli_fetch_array($lagi);
                 $qtytoko = $ha['quantityrep'];
 
@@ -430,4 +430,26 @@ if(isset($_POST['submitinserttai'])){
     }
 
 }
+
+
+if(isset($_POST['mutasigudang'])){
+    $jum = $_POST['jum'];
+    $sku = $_POST['skutoko'];
+    $quantitymut = $_POST['qtymutasi'];
+    $status = $_POST['status'];
+
+    for ($i = 0; $i < $jum; $i++){
+        $select = mysqli_query($konek, "SELECT * FROM stok WHERE sku='$sku[$i]'");
+        $ambil = mysqli_fetch_array($select);
+        $nama = $ambil['nama'];
+        $image = $ambil['image'];
+        $skug = $ambil['skug'];
+
+        if($select){
+            $insert = mysqli_query($konek, "INSERT INTO mutasi(nama, sku, skug, quantitymut, status, image) VALUES('$nama','$sku[$i]','$skug','$quantitymut[$i]','$status[$i]','$image')");
+            header('location:mutasigudang.php');
+        }
+    }
+}
+
 ?>

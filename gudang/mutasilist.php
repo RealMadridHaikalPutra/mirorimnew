@@ -16,16 +16,6 @@ require '../cek.php';
         <link href="../css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
-        <style>
-            .zoomable {
-        width: 100px;
-        }
-
-        .zoomable:hover {
-        transform: scale(2.8);
-        transition: 0.3s ease;
-        }
-    </style>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -78,7 +68,7 @@ require '../cek.php';
                             </a>
                             <div class="collapsed" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="mutasigudang.php">Mutasi Warehouse</a>
+                                <a class="nav-link" href="mutasigudang.php">Mutasi Warehouse</a>
                                     <a class="nav-link" href="exititem.php">Exit Item</a>
                                     <a class="nav-link" href="updatebarang5.php">Update Item G5</a>
                                     <a class="nav-link" href="exititem5.php">Exit Item G5</a>
@@ -88,107 +78,57 @@ require '../cek.php';
             </div>
             <div id="layoutSidenav_content">
                 <main>
+                    
                     <div class="container-fluid">
-                        <h1 class="mt-4">History Mutasi Warehouse</h1>
+                        <h1 class="mt-4">Input Data Mutasi</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.php">Warehouse</a></li>
-                            <li class="breadcrumb-item active">Mutasi Warehouse</li>
+                            <li class="breadcrumb-item active">All Warehouse</li>
                         </ol>
+                        <form method="post">
                         <div class="card mb-4">
                             <div class="card-header">
-                            <a type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#smallModalUp">Mutasi</a>
+                                <button type="submit" class="btn btn-outline-success" name="mutasigudang">Submit</button>
                             </div>
 
-                            <div class="modal fade" id="smallModalUp" tabindex="-1">
-                                                <div class="modal-dialog modal-md">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                    <h5 class="modal-title">Input Qty SKU Warehouse</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <br>
-                                                    <form class="row g-3" method="post" action="mutasilist.php" enctype="multipart/form-data">
-                                                        <br>
-                                                        <div class="col-md-9 ml-5">
-                                                        <div class="form-floating">
-                                                            <input type="number" class="form-control" id="floatingName" name="qtyskugudang" placeholder="Box Number" required="">
-                                                            <label for="floatingName">Qty SKU Warehouse</label>
-                                                        </div>
-                                                        </div>
-                                                        <div class="col-md-9 ml-5">
-                                                        <div class="form-floating">
-                                                            <select type="text" class="form-control" id="floatingName" name="stats" placeholder="Box Number" required="">
-                                                                <option selected value="On process">On process</option>
-                                                            </select>
-                                                            <label for="floatingName">Status</label>
-                                                        </div>
-                                                        </div>
-                                                        <div class="text-center">
-                                                        <button type="submit" name="listmutasi" value="proses" class="btn btn-primary">Submit</button>
-                                                        </div>
-                                                    </form><!-- End floating Labels Form -->
-                                                        <br>
-                                                    </div>
-                                                </div>
-                                            </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Image</th>
-                                                <th>Name Item</th>
                                                 <th>SKU Store</th>
-                                                <th>SKU Warehouse</th>
                                                 <th>Quantity</th>
                                                 <th>Status</th>
-                                                <th>Time Out</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                                $ambildatamutasi = mysqli_query($konek, "SELECT * FROM mutasi");
-                                                $k = 1;
-                                                while($data=mysqli_fetch_array($ambildatamutasi)){
-                                                $sku = $data['sku'];
-                                                $nama = $data['nama'];
-                                                $skug = $data['skug'];
-                                                $quantity = $data['quantitymut'];
-                                                $status = $data['status'];
-                                                $time = $data['jamkeluar'];
+                                                $jum = $_POST['qtyskugudang'];
+                                                $status = $_POST['stats'];
+                                                $s = 1;
+                                                $jumlah = $jum+$s;
 
-
-                                                //cek data gambar ada apa kagak
-                                                $gambar = $data['image'];
-                                                if($gambar==null){
-                                                // jika tidak ada gambar
-                                                    $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
-                                                } else {
-                                                //jika ada gambar
-                                                    $img ='<img src="../images/'.$gambar.'" class="zoomable">';
-                                                }
-
+                                                for($i=1; $i < $jumlah; $i++){
                                             ?>
                                             <tr>
-                                                <th><?=$k++?></th>
-                                                <td><?=$img;?></td>
-                                                <td><?=$nama?></td>
-                                                <td class="text-uppercase"><?=$sku?></td>
-                                                <td class="text-uppercase"><?=$skug?></td>
-                                                <td><?=$quantity?></td>
-                                                <td><?=$status?></td>
-                                                <td><?=$time?></td>
-
+                                                <th><?=$s++;?></th>
+                                                <td><input type="text" class="form-control text-uppercase" name="skutoko[]"></td>
+                                                <td><input type="number" class="form-control" name="qtymutasi[]"></td>
+                                                <td><input type="text" class="form-control" name="status[]" value="<?=$status;?>">
+                                                    <input type="hidden" name="jum" value="<?=$jum;?>">
+                                                </td>
                                             </tr>
                                             <?php
                                                 }
+
                                             ?>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+                    </form>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">

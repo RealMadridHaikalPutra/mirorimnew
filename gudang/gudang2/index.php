@@ -69,6 +69,7 @@ require '../../cek.php';
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="index.php">Warehouse</a>
                                     <a class="nav-link" href="gudang5.php">Warehouse 5</a>
+                                    <a class="nav-link" href="stoknonsku.php">Stok Non SKU</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -95,6 +96,46 @@ require '../../cek.php';
                             <li class="breadcrumb-item active">All Stock</li>
                         </ol>
                         <div class="card mb-4">
+                        <div class="card-header">
+                                <a type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#smallModalUp">Receiving</a>
+                            </div>
+
+                            <div class="modal fade" id="smallModalUp" tabindex="-1">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Approve Mutasi</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form method="post" action="">
+                                        <table class="table table-bordered" id="dataModal" width="100%" cellspacing="0">
+                                        
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Image</th>
+                                                    <th>Name Item</th>
+                                                    <th>SKU</th>
+                                                    <th>Quantity</th>
+                                                    <th>Check</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr>
+                                                 
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                            <div class="text-right m-2">
+                                                <button type="submit" name="checkrefill" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                        
+                                    </div>
+                                </div>
+                            </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
