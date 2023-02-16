@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2023 at 05:28 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: Feb 16, 2023 at 05:22 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,8 +34,8 @@ CREATE TABLE `box` (
   `boxcount` int(11) NOT NULL,
   `invoice` varchar(200) NOT NULL,
   `resi` varchar(200) NOT NULL,
-  `kubikasi` float NOT NULL,
-  `count` float NOT NULL,
+  `kubikasi` varchar(200) NOT NULL,
+  `ctkubik` varchar(200) NOT NULL,
   `note` varchar(200) NOT NULL,
   `status` varchar(200) NOT NULL DEFAULT 'Tidak Diterima',
   `tempstat` int(11) NOT NULL DEFAULT 0
@@ -45,16 +45,45 @@ CREATE TABLE `box` (
 -- Dumping data for table `box`
 --
 
-INSERT INTO `box` (`iddus`, `box`, `qtybox`, `boxcount`, `invoice`, `resi`, `kubikasi`, `count`, `note`, `status`, `tempstat`) VALUES
-(1, '666', 7, 9, '6666', '66666', 6.6, 15, '', 'Diterima', 1),
-(2, '777', 6, 8, '7777', '77777', 0.7, 15, '', 'Diterima', 1),
-(3, '888', 8, 7, '8888', '88888', 0.8, 15, '', 'Diterima', 1),
-(4, '999', 9, 6, '9999', '99999', 5, 15, '', 'Diterima', 1),
-(933, '111', 11, 11, '1111', '11111', 1.1, 8.8, '', 'Diterima', 1),
-(934, '222', 2, 2, '2222', '22222', 2.2, 6.7, 'Dus Basah 2', 'Diterima', 1),
-(935, '333', 33, 33, '3333', '33333', 3.3, 8.8, '', 'Diterima', 1),
-(936, '444', 44, 44, '4444', '44444', 4.4, 6.7, 'Dus Rusak 2', 'Diterima', 1),
-(937, '22KJ567', 44, 44, '24979401412', '748179417974919009', 2, 2, 'dus basah 4', 'Diterima', 1);
+INSERT INTO `box` (`iddus`, `box`, `qtybox`, `boxcount`, `invoice`, `resi`, `kubikasi`, `ctkubik`, `note`, `status`, `tempstat`) VALUES
+(1, '1111', 1111, 11, '1111', '1111', '11.1', '44.4', '', 'Diterima', 1),
+(2, '222', 222, 22, '222', '222', '22.2', '22.2', '', 'Diterima', 1),
+(3, '333', 333, 11, '333', '333', '33.3', '', '', 'Diterima', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exititem`
+--
+
+CREATE TABLE `exititem` (
+  `idbarang` int(11) NOT NULL,
+  `image` varchar(2000) NOT NULL,
+  `nama` varchar(200) NOT NULL,
+  `sku` varchar(20) NOT NULL,
+  `picker` varchar(20) NOT NULL,
+  `quantityrep` int(11) NOT NULL,
+  `status` varchar(200) NOT NULL,
+  `timerefill` timestamp NOT NULL DEFAULT current_timestamp(),
+  `tempstat` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `exititem`
+--
+
+INSERT INTO `exititem` (`idbarang`, `image`, `nama`, `sku`, `picker`, `quantityrep`, `status`, `timerefill`, `tempstat`) VALUES
+(6, '', 'coba', '4e1', 'e', 150, 'Refill', '2023-02-16 16:21:36', 1),
+(7, '', 'coba', '4e1', 'e', 50, 'Refill', '2023-02-16 16:21:36', 1),
+(8, '', 'coba', '4e1', 'w', 50, 'Refill', '2023-02-16 16:21:36', 1),
+(9, '', 'coba', '4e1', 'e', 50, 'Refill', '2023-02-16 16:21:36', 1),
+(10, '', 'coba', '4e1', 'd', 50, 'Refill', '2023-02-16 16:21:36', 1),
+(11, '', 'coba', '4e1', 'r', 50, 'Refill', '2023-02-16 16:21:36', 1),
+(12, '', 'coba', '4e1', 'c', 200, 'Refill', '2023-02-16 16:21:36', 1),
+(13, '', '', '', '', 0, 'On process', '2023-02-16 16:21:36', 0),
+(14, '', '', '', '', 0, 'On process', '2023-02-16 16:21:36', 0),
+(15, '', '', '', '', 0, 'On process', '2023-02-16 16:21:36', 0),
+(16, '', 'coba', '4e1', 'e', 50, 'Refill', '2023-02-16 16:21:36', 1);
 
 -- --------------------------------------------------------
 
@@ -80,10 +109,15 @@ CREATE TABLE `itembox` (
 --
 
 INSERT INTO `itembox` (`idbarang`, `image`, `invoice`, `box`, `sku`, `nama`, `quantity`, `status`, `qtygudang`, `note`) VALUES
-(1, 'c157d83b32879689627411c3d0f1911b.jpg', '2016K-DEERHA-112230', '', '', 'LED Module White ', 20000, 'Approve', 20000, ''),
-(6, 'b06df2e8d9cc30e0815a766b69e1df81.png', '6666', '666', '5K2', 'Tang', 2000, 'Approve', 40, ''),
-(7, '4a3615196e3f123a9ca83dc7a1423674.png', '6666', '666', '2k2', 'Batre Holder', 1005, 'Approve', 1000, ''),
-(8, 'e769f66afe310a91329a0c8901e02fbe.jpg', '6666', '666', '', 'digital', 2001, 'Approve', 2000, '');
+(1, 'f135051fc9ea777c5f718a7547a8f015.jpg', '1111', '1111', '', 'anjay', 2000, 'Approve', 2000, ''),
+(2, 'd315f884c94c03e1198590e1f2006607.jpg', '1111', '1111', '4e1', 'coba', 10000, 'Approve', 10000, ''),
+(3, '2d76fb0ceda756fbc8ae1b704818e451.jpg', '1111', '1111', '', 'Banana Plug -RED', 100, 'No Approve', 0, ''),
+(4, '2d76fb0ceda756fbc8ae1b704818e451.jpg', '1111', '1111', '', 'Banana Plug -GREEN', 100, 'No Approve', 0, ''),
+(5, '2d76fb0ceda756fbc8ae1b704818e451.jpg', '1111', '1111', '', 'Banana Plug -BLUE', 100, 'No Approve', 0, ''),
+(6, '2d76fb0ceda756fbc8ae1b704818e451.jpg', '1111', '1111', '', 'Banana Plug -YELLOW', 100, 'No Approve', 0, ''),
+(7, '2d76fb0ceda756fbc8ae1b704818e451.jpg', '1111', '1111', '', 'Banana Plug -PINK', 100, 'No Approve', 0, ''),
+(8, '2d76fb0ceda756fbc8ae1b704818e451.jpg', '1111', '1111', '', 'Banana Plug -UNGU', 100, 'No Approve', 0, ''),
+(9, '2d76fb0ceda756fbc8ae1b704818e451.jpg', '1111', '1111', '', 'Banana Plug -ORANGE', 100, 'No Approve', 0, '');
 
 -- --------------------------------------------------------
 
@@ -137,6 +171,34 @@ INSERT INTO `login` (`iduser`, `username`, `password`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mutasi`
+--
+
+CREATE TABLE `mutasi` (
+  `idbarang` int(11) NOT NULL,
+  `nama` varchar(200) NOT NULL,
+  `image` mediumtext NOT NULL,
+  `sku` varchar(200) NOT NULL,
+  `skug` varchar(200) NOT NULL,
+  `quantitymut` int(11) NOT NULL,
+  `status` varchar(200) NOT NULL,
+  `jamkeluar` timestamp NOT NULL DEFAULT current_timestamp(),
+  `tempstat` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `mutasi`
+--
+
+INSERT INTO `mutasi` (`idbarang`, `nama`, `image`, `sku`, `skug`, `quantitymut`, `status`, `jamkeluar`, `tempstat`) VALUES
+(5, 'anjay', 'f135051fc9ea777c5f718a7547a8f015.jpg', '3e2', 'x', 1000, 'On process', '2023-02-16 09:06:34', 0),
+(6, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', '1', 1000, 'On process', '2023-02-16 09:06:34', 0),
+(7, 'anjay', 'f135051fc9ea777c5f718a7547a8f015.jpg', '3e2', 'x1a1', 1000, 'On process', '2023-02-16 09:09:33', 0),
+(8, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', 'x1a2', 5000, 'On process', '2023-02-16 09:09:33', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `stok`
 --
 
@@ -155,10 +217,24 @@ CREATE TABLE `stok` (
 --
 
 INSERT INTO `stok` (`idbarang`, `image`, `nama`, `sku`, `skug`, `gudang`, `quantity`) VALUES
-(1, 'c157d83b32879689627411c3d0f1911b.jpg', 'LED Module White ', '1i1', '', '', 20000),
-(2, 'b06df2e8d9cc30e0815a766b69e1df81.png', 'Tang', '5K2', '', '', 40),
-(3, '4a3615196e3f123a9ca83dc7a1423674.png', 'Batre Holder', '2k2', '', '', 1000),
-(4, 'e769f66afe310a91329a0c8901e02fbe.jpg', 'digital', '', '', '', 2000);
+(1, 'f135051fc9ea777c5f718a7547a8f015.jpg', 'anjay', '3e2', 'x1a1', '', -601),
+(2, 'd315f884c94c03e1198590e1f2006607.jpg', 'coba', '4e1', 'x1a2', '', 7400);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stok2`
+--
+
+CREATE TABLE `stok2` (
+  `idbarang` int(11) NOT NULL,
+  `nama` varchar(200) NOT NULL,
+  `image` mediumtext NOT NULL,
+  `sku` varchar(200) NOT NULL,
+  `skugudang` varchar(200) NOT NULL,
+  `gudang` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -195,6 +271,12 @@ ALTER TABLE `box`
   ADD PRIMARY KEY (`iddus`);
 
 --
+-- Indexes for table `exititem`
+--
+ALTER TABLE `exititem`
+  ADD PRIMARY KEY (`idbarang`);
+
+--
 -- Indexes for table `itembox`
 --
 ALTER TABLE `itembox`
@@ -219,9 +301,21 @@ ALTER TABLE `login`
   ADD PRIMARY KEY (`iduser`);
 
 --
+-- Indexes for table `mutasi`
+--
+ALTER TABLE `mutasi`
+  ADD PRIMARY KEY (`idbarang`);
+
+--
 -- Indexes for table `stok`
 --
 ALTER TABLE `stok`
+  ADD PRIMARY KEY (`idbarang`);
+
+--
+-- Indexes for table `stok2`
+--
+ALTER TABLE `stok2`
   ADD PRIMARY KEY (`idbarang`);
 
 --
@@ -238,13 +332,19 @@ ALTER TABLE `temp_item`
 -- AUTO_INCREMENT for table `box`
 --
 ALTER TABLE `box`
-  MODIFY `iddus` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=938;
+  MODIFY `iddus` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `exititem`
+--
+ALTER TABLE `exititem`
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `itembox`
 --
 ALTER TABLE `itembox`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `kubikasi`
@@ -265,10 +365,22 @@ ALTER TABLE `login`
   MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `mutasi`
+--
+ALTER TABLE `mutasi`
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `stok`
 --
 ALTER TABLE `stok`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `stok2`
+--
+ALTER TABLE `stok2`
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `temp_item`
