@@ -499,7 +499,7 @@ if(isset($_POST['submitinserttai'])){
 
 }
 
-
+//mutasi gudang
 if(isset($_POST['mutasigudang'])){
     $jum = $_POST['jum'];
     $sku = $_POST['skutoko'];
