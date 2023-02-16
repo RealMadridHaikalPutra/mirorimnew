@@ -418,7 +418,7 @@ if(isset($_POST['inputvariant'])){
                 if($ukuran < 5000000){
                     move_uploaded_file($file_tmp, '../images/'.$image);
                     
-                    $addnew = mysqli_query($konek, "INSERT INTO itembox(invoice, box, image, nama, sku, quantity) VALUES('$invoice','$box','$image','$nama-$variant[$i]','$sku[$i]','$quantity[$i]')");
+                    $addnew = mysqli_query($konek, "INSERT INTO itembox(invoice, box, image, nama, sku, quantity) VALUES('$invoice','$box','$image','$nama - $variant[$i]','$sku[$i]','$quantity[$i]')");
                     if($addnew){
                         header('location:index.php');
                     } else {
@@ -438,7 +438,7 @@ if(isset($_POST['inputvariant'])){
                 }
             } else {
                 //kalau gambar selain filter
-                $addnew = mysqli_query($konek, "INSERT INTO itembox(invoice, box, nama, sku, quantity) VALUES('$invoice','$box','$nama-$variant[$i]','$sku[$i]','$quantity[$i]')");
+                $addnew = mysqli_query($konek, "INSERT INTO itembox(invoice, box, nama, sku, quantity) VALUES('$invoice','$box','$nama - $variant[$i]','$sku[$i]','$quantity[$i]')");
                 if($addnew){
                     if($addnew){
                         header('location:index.php');

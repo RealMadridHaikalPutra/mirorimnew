@@ -148,8 +148,8 @@ require '../cek.php';
                                             <tr>
                                                 <th><?=$s++;?></th>
                                                 <td><input type="text" class="form-control" name="sku[]" require></td>
-                                                <td><input type="text" class="form-control" name="variant[]" require></td>
-                                                <td><input type="text" class="form-control" name="quantity[]" require>
+                                                <td><input type="text" class="form-control" name="variant[]" require=""></td>
+                                                <td><input type="text" class="form-control" name="quantity[]" require="">
                                                     <input type="hidden" name="jum" value="<?=$jum;?>">
                                                 </td>
                                             </tr>
