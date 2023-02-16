@@ -102,7 +102,7 @@ require '../assets/php/function.php';
                                             </thead>
                                             <tbody>
                                             <?php
-                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM toko WHERE tempstat='0' AND status='Refiil'");
+                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM exititem WHERE tempstat='0' AND status='Refill'");
                                                 $jum = 1;
                                                 while($tampil=mysqli_fetch_array($ambilperhitungan)){
                                                     $idb = ($tampil)['idbarang'];
@@ -159,7 +159,7 @@ require '../assets/php/function.php';
                                         
                                         <tbody>
                                             <?php
-                                             $ambildata = mysqli_query($konek,"SELECT * FROM toko WHERE tempstat='1'");
+                                             $ambildata = mysqli_query($konek,"SELECT * FROM exititem WHERE status='Refill' AND tempstat='1'");
                                              $i = 1;
                                              while($data=mysqli_fetch_array($ambildata)){
                                                 $idb = $data['idbarang'];
@@ -167,14 +167,16 @@ require '../assets/php/function.php';
                                                 $skutoko = $data['sku'];
                                                 $picker = $data['picker'];
                                                 $quantity = $data['quantityrep'];
+                                                $status = $data['status'];
                                             ?>
                                             <tr data-bs-toggle="modal" data-bs-target="#largeModal<?=$idb;?>">
-                                                <th><?=$i++?></th>
-                                                <td><?=$nama?></td>
-                                                <td class="text-uppercase"><?=$skutoko?></td>
-                                                <td><?=$picker?></td>
-                                                <td><?=$quantity?></td>
-                                                <td>DIterima</td>
+                                                <th><?=$i++;?></th>
+                                                <td><?=$nama;?></td>
+                                                <td class="text-uppercase"><?=$skutoko;?></td>
+                                                <td><?=$picker;?></td>
+                                                <td><?=$quantity;?></td>
+                                                <td><?=$status;?></td>
+                                              
                                             </tr>
                                             <div class="modal fade" id="largeModal<?=$idb;?>" tabindex="-1">
                                             <div class="modal-dialog modal-lg">

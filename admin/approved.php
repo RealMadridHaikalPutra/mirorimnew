@@ -52,7 +52,7 @@ require '../cek.php';
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="#">Activity Log</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.html">Logout</a>
+                        <a class="dropdown-item" href="../logout.php">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -147,7 +147,7 @@ require '../cek.php';
                                             ?>
                                             </tbody>
                                         </table>
-                                        <form method="post" action="">
+                                        <form method="post">
                                         <?php
                                                 $ambil = mysqli_query($konek, "SELECT * FROM itembox WHERE status='No Approve'");
                                                 $jum = 1;

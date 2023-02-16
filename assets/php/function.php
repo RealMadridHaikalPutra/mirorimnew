@@ -383,7 +383,7 @@ if(isset($_POST['submitgudang'])){
         $nama = $ambil['nama'];
 
         if($select){
-            $insert = mysqli_query($konek, "INSERT INTO toko(nama, sku, picker, quantityrep, status) VALUES('$nama','$sku[$i]','$picker[$i]','$quantity[$i]','$status[$i]')");
+            $insert = mysqli_query($konek, "INSERT INTO exititem(nama, sku, picker, quantityrep, status) VALUES('$nama','$sku[$i]','$picker[$i]','$quantity[$i]','$status[$i]')");
             header('location:exititem.php');
         }
     }

@@ -68,7 +68,7 @@ require '../cek.php';
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="updatebarang.php">Update Item</a>
+                                    <a class="nav-link" href="mutasigudang.php">Mutasi Warehouse</a>
                                     <a class="nav-link" href="exititem.php">Exit Item</a>
                                     <a class="nav-link" href="updatebarang5.php">Update Item G5</a>
                                     <a class="nav-link" href="exititem5.php">Exit Item G5</a>
