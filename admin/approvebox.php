@@ -1,7 +1,7 @@
 <?php
-session_start();
+
 require '../assets/php/function.php';
-require '../cek.php';
+
 ?>
 
 <!DOCTYPE html>

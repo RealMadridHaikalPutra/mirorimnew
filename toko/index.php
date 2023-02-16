@@ -102,7 +102,7 @@ require '../assets/php/function.php';
                                             </thead>
                                             <tbody>
                                             <?php
-                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM toko WHERE tempstat='0'");
+                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM toko WHERE tempstat='0' AND status='Refiil'");
                                                 $jum = 1;
                                                 while($tampil=mysqli_fetch_array($ambilperhitungan)){
                                                     $idb = ($tampil)['idbarang'];
@@ -118,7 +118,7 @@ require '../assets/php/function.php';
                                                     <td><?=$picker;?></td>
                                                     <td><?=$quantity;?></td>
                                                     <td><input type="checkbox" class="form-check-label" value="<?=$sku;?>" name="cekrefill[]">
-                                                    <input type="hidden" name="status[]" value="0">
+                                                    <input type="hidden" name="status[]" value="1">
                                                     <input type="hidden" name="qtyrefill[]" value="<?=$quantity;?>">
                                                     </td>
 
@@ -165,6 +165,7 @@ require '../assets/php/function.php';
                                                 $idb = $data['idbarang'];
                                                 $nama = $data['nama'];
                                                 $skutoko = $data['sku'];
+                                                $picker = $data['picker'];
                                                 $quantity = $data['quantityrep'];
                                             ?>
                                             <tr data-bs-toggle="modal" data-bs-target="#largeModal<?=$idb;?>">

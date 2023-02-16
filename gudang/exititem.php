@@ -133,6 +133,7 @@ require '../cek.php';
                                                 <th>No</th>
                                                 <th>Name Item</th>
                                                 <th>SKU Store</th>
+                                                <th>Picker</th>
                                                 <th>Quantity</th>
                                                 <th>Status</th>
                                             </tr>
@@ -151,6 +152,7 @@ require '../cek.php';
                                             <tr>
                                                 <th><?=$i++;?></th>
                                                 <td><?=$nama;?></td>
+                                                <td><?=$sku;?></td>
                                                 <td><?=$picker;?></td>
                                                 <td><?=$quantity;?></td>
                                                 <td><?=$status;?></td>
