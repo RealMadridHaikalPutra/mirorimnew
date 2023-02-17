@@ -524,6 +524,7 @@ if(isset($_POST['mutasigudang'])){
 if(isset($_POST['approvemutasi'])){
     $cek = $_POST['cekmutasi'];
     $stat = $_POST['status'];
+    $track = $_POST['tracking'];
 
     $jum = count($cek);
     for($i=0; $i < $jum; $i++){
@@ -547,13 +548,20 @@ if(isset($_POST['approvemutasi'])){
                 if($selectqty){
                     $update = mysqli_query($konek, "UPDATE stok2 SET quantity='$tambah' WHERE sku='$sku'");
                     header('location:index.php');
-                    
+
+                    if($update){
+                        $updatestatus = mysqli_query($konek, "UPDATE mutasi SET status='$track[$i]', tempstat='$stat[$i]' WHERE skug='$cek[$i]'");
+                    }else{
+                        
+                    }
+
                 } else {
 
                 }
                 
             } else {
                 $insert = mysqli_query($konek, "INSERT INTO stok2(nama, image, sku, quantity) VALUES('$nama','$gambar','$sku','$quantity')");
+                $updatetrack = mysqli_query($konek, "UPDATE mutasi SET status='$track[$i]', tempstat='$stat[$i]' WHERE skug='$cek[$i]'");
                 header('location:index.php');
                 
             }

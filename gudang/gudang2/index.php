@@ -137,6 +137,7 @@ require '../../cek.php';
                                                     <td><?=$sku;?></td>
                                                     <td><?=$quantity;?></td>
                                                     <td><input type="checkbox" class="form-check-label" value="<?=$skug;?>" name="cekmutasi[]">
+                                                    <input type="hidden" name="tracking[]" value="Done">
                                                     <input type="hidden" name="status[]" value="1">
                                                     </td>
 
