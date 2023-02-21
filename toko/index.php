@@ -142,6 +142,7 @@ require '../assets/php/function.php';
                                         <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th>Image</th>
                                                 <th>Name Item</th>
                                                 <th>SKU Store</th>
                                                 <th>Picker</th>
@@ -168,9 +169,20 @@ require '../assets/php/function.php';
                                                 $picker = $data['picker'];
                                                 $quantity = $data['quantityrep'];
                                                 $status = $data['status'];
+
+                                                //cek data gambar ada apa kagak
+                                                $gambar = $data['image'];
+                                                if($gambar==null){
+                                                    // jika tidak ada gambar
+                                                    $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
+                                                } else {
+                                                    //jika ada gambar
+                                                    $img ='<img src="../images/'.$gambar.'" class="zoomable">';
+                                                }
                                             ?>
                                             <tr data-bs-toggle="modal" data-bs-target="#largeModal<?=$idb;?>">
                                                 <th><?=$i++;?></th>
+                                                <td><?=$img;?></td>
                                                 <td><?=$nama;?></td>
                                                 <td class="text-uppercase"><?=$skutoko;?></td>
                                                 <td><?=$picker;?></td>
@@ -190,41 +202,15 @@ require '../assets/php/function.php';
                                             <form method="post" class="row g-3" enctype="multipart/form-data">   
                                             <div class="modal-body">
                                                     <div class="col-sm-12">
-                                                        <label>Item Name</label>
+                                                        <label>Input Image</label>
                                                         <div class="form-floating">
-                                                        <input type="text" name="nama" class="form-control"  value="<?=$nama;?>">
-                                                        <label for="floatingName"></label>
+                                                        <input type="file" name="file" class="form-control">
                                                         </div>
                                                     </div>
+                                                    <br>
                                                         <input type="hidden" value="<?=$idb;?>" name="idb">
-                                                    <br>
-                                                    <div class="col-sm-12">
-                                                    <label>SKU Store</label>
-                                                    <div class="form-floating">
-                                                    <input type="text" class="form-control text-uppercase" id="floatingName" name="skutoko" value="<?=$skutoko;?>" placeholder="SKU Warehouse">
-                                                    <div class="col-sm-12">
-                                                    <label for="floatingName"></label>
-                                                        </div>
-                                                    </div>
-                                                        <label>SKU Warehouse</label>
-                                                        <div class="form-floating">
-                                                        <input type="text" class="form-control text-uppercase" id="floatingName" value="<?=$skugudang;?>" name="skugudang" placeholder="SKU Warehouse">
-                                                        <label for="floatingName" class="text-uppercase"></label>
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                    <div class="col-sm-12">
-                                                        <label>Warehouse</label>
-                                                        <div class="form-floating">
-                                                        <input type="number" class="form-control text-uppercase" id="floatingName" value="<?=$gudang;?>" name="gudang" placeholder="Warehouse">
-                                                        <label for="floatingName"></label>
-                                                        </div>
-                                                    </div>
-                                                        <input type="hidden" class="form-control text-uppercase" value="<?=$quantity;?>" id="floatingName" name="quantity" placeholder="Quantity">
-                                                    <br>
                                                     <div class="text-center">
-                                                        <button type="submit" name="editnosku" class="btn btn-primary">Submit</button>
-                                                        <button type="reset" class="btn btn-secondary">Reset</button>
+                                                        <button type="submit" name="editimg" class="btn btn-primary">Submit</button>
                                                     </div> 
                                             </div>
                                             </form>
