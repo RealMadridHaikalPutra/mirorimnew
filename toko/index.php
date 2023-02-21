@@ -97,7 +97,8 @@ require '../assets/php/function.php';
                                                     <th>SKU</th>
                                                     <th>Picker</th>
                                                     <th>Quantity</th>
-                                                    <th>Check</th>
+                                                    <th>Input Checker</th>
+                                                    <th>Checklist</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -114,11 +115,13 @@ require '../assets/php/function.php';
                                                 <tr>
                                                     <td><?=$jum++;?></td>
                                                     <td><?=$nama;?></td>
-                                                    <td><?=$sku;?></td>
-                                                    <td><?=$picker;?></td>
+                                                    <td class="text-uppercase"><?=$sku;?></td>
+                                                    <td class="text-uppercase"><?=$picker;?></td>
                                                     <td><?=$quantity;?></td>
+                                                    <td><input type="text" class="form-control" name="checker[]"></td>
                                                     <td><input type="checkbox" class="form-check-label" value="<?=$sku;?>" name="cekrefill[]">
                                                     <input type="hidden" name="status[]" value="1">
+                                                    <input type="hidden" name="approve[]" value="Approved">
                                                     <input type="hidden" name="qtyrefill[]" value="<?=$quantity;?>">
                                                     </td>
 
@@ -147,6 +150,7 @@ require '../assets/php/function.php';
                                                 <th>SKU Store</th>
                                                 <th>Picker</th>
                                                 <th>Quantity</th>
+                                                <th>Checker</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
@@ -179,14 +183,16 @@ require '../assets/php/function.php';
                                                     //jika ada gambar
                                                     $img ='<img src="../images/'.$gambar.'" class="zoomable">';
                                                 }
+                                                $ceker = $data['ceker'];
                                             ?>
                                             <tr data-bs-toggle="modal" data-bs-target="#largeModal<?=$idb;?>">
                                                 <th><?=$i++;?></th>
                                                 <td><?=$img;?></td>
                                                 <td><?=$nama;?></td>
                                                 <td class="text-uppercase"><?=$skutoko;?></td>
-                                                <td><?=$picker;?></td>
+                                                <td class="text-uppercase"><?=$picker;?></td>
                                                 <td><?=$quantity;?></td>
+                                                <td><?=$ceker;?></td>
                                                 <td><?=$status;?></td>
                                               
                                             </tr>

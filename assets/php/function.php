@@ -19,6 +19,50 @@ if(isset($_POST['submitqtybox'])){
     }
 }
 
+if(isset($_POST['editapprove'])){
+    $idb = $_POST['idbarang'];
+    $nama = $_POST['nama'];
+    $sku = $_POST['sku'];
+    $quantity = $_POST['quantity'];
+    $invoice = $_POST['invoice'];
+    $box = $_POST['box'];
+
+    //gambar
+    $allowed_extension = array('png','jpg','jpeg','svg');
+    $img = $_FILES['file']['name']; //ambil gambar
+    $dot = explode('.',$img);
+    $ekstensi = strtolower(end($dot)); //ambil ekstensi
+    $ukuran = $_FILES['file']['size']; //ambil size
+    $file_tmp = $_FILES['file']['tmp_name']; //lokasi
+
+    //nama acak
+    $gambar = md5(uniqid($img,true) . time()).'.'.$ekstensi; //compile
+
+    if($ukuran==0){
+        $update = mysqli_query($konek, "UPDATE itembox SET nama ='$nama',  quantity = '$quantity', sku='$sku', invoice='$invoice', box='$box' WHERE idbarang='$idb'");
+        if($update){
+            header('location:approved.php');
+        } else {
+            echo '
+            <script>
+                alert("Barang Tidak bisa di update");
+                window.location.href="approved.php";
+            </script>'; 
+            }
+        } else {
+        move_uploaded_file($file_tmp, '../images/'.$gambar);
+        $update = mysqli_query($konek, "UPDATE itembox SET nama = '$nama',  quantity = '$quantity', sku='$sku', invoice='$invoice', box='$box', image='$gambar' WHERE idbarang='$idb'");
+        if($update){
+            header('location:approved.php');
+        } else {
+            echo '
+            <script>
+                alert("Barang dan Gambar Tidak bisa di update");
+                window.location.href="Approved.php";
+            </script>'; 
+            }
+        }
+}
 //coba
 // if(isset($_POST['ceklistbutton'])){
 //     $tempstat = $_POST['tempstat'];
@@ -335,6 +379,8 @@ if(isset($_POST['checkrefill'])){
     $cek = $_POST['cekrefill'];
     $temp = $_POST['status'];
     $qtyrefill = $_POST['qtyrefill'];
+    $approve = $_POST['approve'];
+    $checker = $_POST['checker'];
 
 
     $jumdi = count($cek);
@@ -352,7 +398,7 @@ if(isset($_POST['checkrefill'])){
              $updatestok = mysqli_query($konek, "UPDATE stok SET quantity='$kurang' WHERE sku='$cek[$i]'");
              header('location:index.php');
             if($updatestok){
-                $update = mysqli_query($konek, "UPDATE exititem SET tempstat='$temp[$i]' WHERE sku='$cek[$i]'");
+                $update = mysqli_query($konek, "UPDATE exititem SET tempstat='$temp[$i]', stat='$approve[$i]', ceker='$checker[$i]' WHERE sku='$cek[$i]' AND tempstat=0");
 
             }else {
 
@@ -551,6 +597,7 @@ if(isset($_POST['mutasigudang'])){
     $sku = $_POST['skutoko'];
     $quantitymut = $_POST['qtymutasi'];
     $status = $_POST['status'];
+    $pengirirm = $_POST['sender'];
 
     for ($i = 0; $i < $jum; $i++){
         $select = mysqli_query($konek, "SELECT * FROM stok WHERE sku='$sku[$i]'");
@@ -560,7 +607,7 @@ if(isset($_POST['mutasigudang'])){
         $skug = $ambil['skug'];
 
         if($select){
-            $insert = mysqli_query($konek, "INSERT INTO mutasi(nama, sku, skug, quantitymut, status, image) VALUES('$nama','$sku[$i]','$skug','$quantitymut[$i]','$status[$i]','$image')");
+            $insert = mysqli_query($konek, "INSERT INTO mutasi(nama, sku, skug, quantitymut, status, image, sender) VALUES('$nama','$sku[$i]','$skug','$quantitymut[$i]','$status[$i]','$image','$pengirirm[$i]')");
             header('location:mutasigudang.php');
         }
     }
@@ -570,6 +617,8 @@ if(isset($_POST['mutasigudang'])){
 if(isset($_POST['approvemutasi'])){
     $cek = $_POST['cekmutasi'];
     $stat = $_POST['status'];
+    $track = $_POST['tracking'];
+    $penerima = $_POST['penerima'];
 
     $jum = count($cek);
     for($i=0; $i < $jum; $i++){
@@ -593,13 +642,20 @@ if(isset($_POST['approvemutasi'])){
                 if($selectqty){
                     $update = mysqli_query($konek, "UPDATE stok2 SET quantity='$tambah' WHERE sku='$sku'");
                     header('location:index.php');
-                    
+
+                    if($update){
+                        $updatestatus = mysqli_query($konek, "UPDATE mutasi SET status='$track[$i]', tempstat='$stat[$i]', penerima='$penerima[$i]' WHERE sku='$sku' AND tempstat=0");
+                    }else{
+                        
+                    }
+
                 } else {
 
                 }
                 
             } else {
                 $insert = mysqli_query($konek, "INSERT INTO stok2(nama, image, sku, quantity) VALUES('$nama','$gambar','$sku','$quantity')");
+                $updatetrack = mysqli_query($konek, "UPDATE mutasi SET status='$track[$i]', tempstat='$stat[$i]', penerima='$penerima[$i]' WHERE sku='$sku' AND tempstat=0");
                 header('location:index.php');
                 
             }

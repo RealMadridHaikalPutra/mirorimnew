@@ -79,7 +79,7 @@ require '../cek.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">History Refill</h1>
+                        <h1 class="mt-4">History Exit Item</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.php">Warehouse</a></li>
                             <li class="breadcrumb-item active">All Warehouse</li>
@@ -135,7 +135,10 @@ require '../cek.php';
                                                 <th>SKU Store</th>
                                                 <th>Picker</th>
                                                 <th>Quantity</th>
+                                                <th>Checker</th>
+                                                <th>Time</th>
                                                 <th>Status</th>
+                                                <th>Approval</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -148,6 +151,9 @@ require '../cek.php';
                                                     $picker = $data['picker'];
                                                     $quantity = $data['quantityrep'];
                                                     $status = $data['status'];
+                                                    $tracking = $data['stat'];
+                                                    $time = $data['timeout'];
+                                                    $ceker = $data['ceker'];
                                             ?>
                                             <tr>
                                                 <th><?=$i++;?></th>
@@ -155,7 +161,18 @@ require '../cek.php';
                                                 <td class="text-uppercase"><?=$sku;?></td>
                                                 <td class="text-uppercase"><?=$picker;?></td>
                                                 <td><?=$quantity;?></td>
+                                                <td><?=$ceker;?></td>
+                                                <td><?=$time;?></td>
                                                 <td><?=$status;?></td>
+
+                                            <?php
+                                                 if($tracking=='Approved'){
+                                                    echo "<td style='color: green;'>$tracking</td>";
+                                                } else {
+                                                    echo "<td style='color: red;'>$tracking</td>";
+                                                }
+                                            ?>
+                                                
                                             </tr>
                                             <?php
                                                 }

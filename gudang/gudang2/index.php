@@ -116,6 +116,8 @@ require '../../cek.php';
                                                     <th>Name Item</th>
                                                     <th>SKU</th>
                                                     <th>Quantity</th>
+                                                    <th>Sender</th>
+                                                    <th>Input recipient</th>
                                                     <th>Check</th>
                                                 </tr>
                                             </thead>
@@ -129,6 +131,7 @@ require '../../cek.php';
                                                         $gambar = $data['image'];
                                                         $quantity = $data['quantitymut'];
                                                         $skug = $data['skug'];
+                                                        $sender = $data['sender'];
                                                         
                                                 ?>
                                                 <tr>
@@ -136,7 +139,10 @@ require '../../cek.php';
                                                     <td><?=$nama;?></td>
                                                     <td><?=$sku;?></td>
                                                     <td><?=$quantity;?></td>
+                                                    <td><?=$sender;?></td>
+                                                    <td><input type="text" class="form-control" name="penerima[]"></td>
                                                     <td><input type="checkbox" class="form-check-label" value="<?=$skug;?>" name="cekmutasi[]">
+                                                    <input type="hidden" name="tracking[]" value="Done">
                                                     <input type="hidden" name="status[]" value="1">
                                                     </td>
 
