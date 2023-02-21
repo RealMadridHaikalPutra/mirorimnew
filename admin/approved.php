@@ -293,7 +293,7 @@ require '../cek.php';
                                                     <div class="col-sm-12">
                                                         <label>Image</label>
                                                         <div class="form-floating">
-                                                        <input type="file" name="gambar" class="form-control" value='<?=$img;?>'>
+                                                        <input type="file" name="file" class="form-control" value='<?=$img;?>'>
                                                         <label for="floatingName"></label>
                                                         </div>
                                                     </div>

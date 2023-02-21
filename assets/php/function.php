@@ -26,7 +26,6 @@ if(isset($_POST['editapprove'])){
     $quantity = $_POST['quantity'];
     $invoice = $_POST['invoice'];
     $box = $_POST['box'];
-    $img = $_POST['gambar'];
 
     //gambar
     $allowed_extension = array('png','jpg','jpeg','svg');
