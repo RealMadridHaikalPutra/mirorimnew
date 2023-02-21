@@ -99,12 +99,14 @@ require '../cek.php';
                                                 <th>No</th>
                                                 <th>SKU Store</th>
                                                 <th>Quantity</th>
+                                                <th>Sender</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                                 $jum = $_POST['qtyskugudang'];
+                                                $sender = $_POST['sender'];
                                                 $status = $_POST['stats'];
                                                 $s = 1;
                                                 $jumlah = $jum+$s;
@@ -115,6 +117,7 @@ require '../cek.php';
                                                 <th><?=$s++;?></th>
                                                 <td><input type="text" class="form-control text-uppercase" name="skutoko[]"></td>
                                                 <td><input type="number" class="form-control" name="qtymutasi[]"></td>
+                                                <td><input type="text" class="form-control" name="sender[]" value="<?=$sender;?>"></td>
                                                 <td><input type="text" class="form-control" name="status[]" value="<?=$status;?>">
                                                     <input type="hidden" name="jum" value="<?=$jum;?>">
                                                 </td>

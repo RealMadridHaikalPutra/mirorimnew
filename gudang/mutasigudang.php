@@ -123,6 +123,12 @@ require '../cek.php';
                                                             <label for="floatingName">Status</label>
                                                         </div>
                                                         </div>
+                                                        <div class="col-md-9 ml-5">
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control" id="floatingName" name="sender" placeholder="Box Number" required="">
+                                                            <label for="floatingName">Sender</label>
+                                                        </div>
+                                                        </div>
                                                         <div class="text-center">
                                                         <button type="submit" name="listmutasi" value="proses" class="btn btn-primary">Submit</button>
                                                         </div>
@@ -141,7 +147,9 @@ require '../cek.php';
                                                 <th>Name Item</th>
                                                 <th>SKU Store</th>
                                                 <th>SKU Warehouse</th>
-                                                <th>Quantity</th>
+                                                <th>Quantity Out</th>
+                                                <th>Sender</th>
+                                                <th>Recipient</th>
                                                 <th>Status</th>
                                                 <th>Time Out</th>
                                             </tr>
@@ -157,6 +165,8 @@ require '../cek.php';
                                                 $quantity = $data['quantitymut'];
                                                 $status = $data['status'];
                                                 $time = $data['jamkeluar'];
+                                                $pengirim = $data['sender'];
+                                                $penerima = $data['penerima'];
 
 
                                                 //cek data gambar ada apa kagak
@@ -177,7 +187,15 @@ require '../cek.php';
                                                 <td class="text-uppercase"><?=$sku?></td>
                                                 <td class="text-uppercase"><?=$skug?></td>
                                                 <td><?=$quantity?></td>
-                                                <td><?=$status?></td>
+                                                <td><?=$pengirim?></td>
+                                                <td><?=$penerima?></td>
+                                                <?php
+                                                if($status=='Done'){
+                                                    echo "<td style='color: green;'>$status</td>";
+                                                } else {
+                                                    echo "<td style='color: red;'>$status</td>";
+                                                }
+                                                ?>
                                                 <td><?=$time?></td>
 
                                             </tr>

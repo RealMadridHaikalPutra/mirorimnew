@@ -117,7 +117,7 @@ require '../cek.php';
                                             </thead>
                                             <tbody>
                                             <?php
-                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM itembox WHERE qtygudang<>0 AND status='No Approve'");
+                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM itembox WHERE qtygudang<>0 AND status='Not Approved'");
                                                 $jum = 1;
                                                 while($tampil=mysqli_fetch_array($ambilperhitungan)){
                                                   $qty = ($tampil)['quantity'];
@@ -149,7 +149,7 @@ require '../cek.php';
                                         </table>
                                         <form method="post">
                                         <?php
-                                                $ambil = mysqli_query($konek, "SELECT * FROM itembox WHERE status='No Approve'");
+                                                $ambil = mysqli_query($konek, "SELECT * FROM itembox WHERE status='Not Approved'");
                                                 $jum = 1;
                                                 while($tampil=mysqli_fetch_array($ambil)){
                                                   $qty = ($tampil)['quantity'];
@@ -168,7 +168,7 @@ require '../cek.php';
                                         
                                             ?>
                                         <?php
-                                            $select = mysqli_query($konek, "SELECT COUNT(nama) FROM itembox WHERE status='No Approve'");
+                                            $select = mysqli_query($konek, "SELECT COUNT(nama) FROM itembox WHERE status='Not Approved'");
                                             while($ambil=mysqli_fetch_array($select)){
                                                 $jumlah = $ambil['COUNT(nama)'];
 
@@ -207,6 +207,7 @@ require '../cek.php';
                                                 while($data=mysqli_fetch_array($ambilbox)) {
                                                     $idbox = $data['idbarang'];
                                                     $invoice = $data['invoice'];
+                                                    $box = $data['box'];
                                                     $nama = $data['nama'];
                                                     $sku = $data['sku'];
                                                     $quantity = $data['quantity'];
@@ -222,9 +223,19 @@ require '../cek.php';
                                                         } else {
                                                             //jika ada gambar
                                                             $img ='<img src="../images/'.$gambar.'" class="zoomable">';
-                                                        }                                              
+                                                        }
+
+                                                        
+                                                        
+                                                        $gambar = $data['image'];
+                                                        if($gambar==null){
+                                                            $imgx = '<img src="../assets/img/noimageavailable.png"';
+                                                        } else {
+                                                            //jika ada gambar
+                                                            $imgx ='<img src="../images/'.$gambar.'" style="width: 30%; border: 2px solid black; border-radius: 15px;">';
+                                                        }
                                             ?>
-                                            <tr>
+                                            <tr data-bs-toggle="modal" data-bs-target="#largeModal<?=$idbox;?>">
                                             <?php
                                                 if($count=='0'){
                                                     echo "
@@ -263,6 +274,63 @@ require '../cek.php';
                                                                 <input type="hidden" name="qtygudang" value="<?=$count;?>">
                                                     
                                             </tr>
+                                            <div class="modal fade" id="largeModal<?=$idbox;?>" tabindex="-1">
+                                            <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Edit Item</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            
+                                                <!-- Floating Labels Form -->
+                                            <form method="post" class="row g-3" enctype="multipart/form-data">   
+                                            <div class="modal-body">
+                                                <br>
+                                                <div class="col-sm-12 text-center">
+                                                    <?=$imgx;?>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-sm-12">
+                                                        <label>Image</label>
+                                                        <div class="form-floating">
+                                                        <input type="file" name="gambar" class="form-control" value='<?=$img;?>'>
+                                                        <label for="floatingName"></label>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-sm-12">
+                                                        <label>Item Name</label>
+                                                        <div class="form-floating">
+                                                        <input type="text" name="nama" class="form-control" value="<?=$nama;?>">
+                                                        <label for="floatingName"></label>
+                                                        </div>
+                                                    </div>
+                                                        <input type="hidden" value="<?=$idbox;?>" name="idbarang">
+                                                        <input type="hidden" value="<?=$box;?>" name="box">
+                                                        <input type="hidden" value="<?=$invoice;?>" name="invoice">
+                                                    <br>
+                                                    <div class="col-sm-12">
+                                                    <label>SKU Store</label>
+                                                    <div class="form-floating">
+                                                    <input type="text" class="form-control text-uppercase" id="floatingName" name="sku" value="<?=$sku;?>" placeholder="SKU Warehouse">
+                                                    <label for="floatingName"></label>
+                                                    </div>
+                                                    </div>
+                                                    <br>
+                                                        <div class="col-sm-12">
+                                                        <label>Quantity</label>
+                                                        <div class="form-floating">
+                                                        <input type="number" class="form-control text-uppercase" id="floatingName" value="<?=$quantity;?>" name="quantity" placeholder="Warehouse">
+                                                        <label for="floatingName"></label>
+                                                        </div>
+                                                        </div>
+                                                    <br>
+                                                    <div class="text-center">
+                                                        <button type="submit" name="editapprove" class="btn btn-primary">Submit</button>
+                                                        <button type="reset" class="btn btn-secondary">Reset</button>
+                                                    </div> 
+                                            </div>
+                                            </form>
 
                                             <?php
                                             };
