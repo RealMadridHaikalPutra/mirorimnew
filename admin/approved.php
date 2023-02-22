@@ -117,7 +117,7 @@ require '../cek.php';
                                             </thead>
                                             <tbody>
                                             <?php
-                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM itembox WHERE qtygudang<>0 AND status='Not Approved'");
+                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM itembox WHERE qtygudang<>0 AND status='No Approve'");
                                                 $jum = 1;
                                                 while($tampil=mysqli_fetch_array($ambilperhitungan)){
                                                   $qty = ($tampil)['quantity'];
@@ -149,7 +149,7 @@ require '../cek.php';
                                         </table>
                                         <form method="post">
                                         <?php
-                                                $ambil = mysqli_query($konek, "SELECT * FROM itembox WHERE status='Not Approved'");
+                                                $ambil = mysqli_query($konek, "SELECT * FROM itembox WHERE status='No Approve'");
                                                 $jum = 1;
                                                 while($tampil=mysqli_fetch_array($ambil)){
                                                   $qty = ($tampil)['quantity'];
@@ -168,7 +168,7 @@ require '../cek.php';
                                         
                                             ?>
                                         <?php
-                                            $select = mysqli_query($konek, "SELECT COUNT(nama) FROM itembox WHERE status='Not Approved'");
+                                            $select = mysqli_query($konek, "SELECT COUNT(nama) FROM itembox WHERE status='No Approve'");
                                             while($ambil=mysqli_fetch_array($select)){
                                                 $jumlah = $ambil['COUNT(nama)'];
 

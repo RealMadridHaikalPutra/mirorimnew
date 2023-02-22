@@ -216,7 +216,11 @@ require '../cek.php';
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="card-header">
-                                                        <a type="button" class="btn btn-outline-primary" href="inputmulti.php">Multi</a>
+                                                    <form method="post" action="inputmulti.php">
+                                                        <input type="hidden" name="inv" value="<?=$invoice;?>">
+                                                        <input type="hidden" name="boxid" value="<?=$box;?>">
+                                                        <button type="submit" name="btnmulti" class="btn btn-outline-primary" href="inputmulti.php">Multi</button>
+                                                    </form>
                                                     </div>
                                                     <form method="post" class="row g-3" enctype="multipart/form-data">   
                                                         <div class="modal-body">

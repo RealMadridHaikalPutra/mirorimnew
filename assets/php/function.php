@@ -28,7 +28,7 @@ if(isset($_POST['editapprove'])){
     $box = $_POST['box'];
 
     //gambar
-    $allowed_extension = array('png','jpg','jpeg','svg');
+    $allowed_extension = array('png','jpg','jpeg','svg','webp');
     $img = $_FILES['file']['name']; //ambil gambar
     $dot = explode('.',$img);
     $ekstensi = strtolower(end($dot)); //ambil ekstensi
@@ -98,7 +98,7 @@ if(isset($_POST['additembox'])){
     $box = $_POST['box'];
 
     //gambar
-    $allowed_extension = array('png','jpg','jpeg','svg');
+    $allowed_extension = array('png','jpg','jpeg','svg','webp');
     $namaimage = $_FILES['file']['name']; //ambil gambar
     $dot = explode('.',$namaimage);
     $ekstensi = strtolower(end($dot)); //ambil ekstensi
@@ -247,25 +247,47 @@ if(isset($_POST['editnosku'])){
     $skutoko = $_POST['skutoko'];
     $quantity = $_POST['quantity'];
 
-    $ambildata = mysqli_query($konek, "SELECT * FROM stok WHERE idbarang='$idb'");
-    $ambil = mysqli_fetch_array($ambildata);
-    $ambilimg = ($ambil)['image'];
+    //gambar
+    $allowed_extension = array('png','jpg','jpeg','svg','webp');
+    $img = $_FILES['file']['name']; //ambil gambar
+    $dot = explode('.',$img);
+    $ekstensi = strtolower(end($dot)); //ambil ekstensi
+    $ukuran = $_FILES['file']['size']; //ambil size
+    $file_tmp = $_FILES['file']['tmp_name']; //lokasi
 
-    $updatenosku = mysqli_query($konek, "UPDATE stok SET nama='$nama', sku='$skutoko', skug='$skugudang', gudang='$gudang', quantity='$quantity', image='$ambilimg' WHERE idbarang='$idb'");
-    if($updatenosku){
-        echo '
-        <script>
-            alert("Data berhasil di update");
-            window.location.href="index.php";
-        </script>';
-    } else {
-        echo '
-        <script>
-            alert("Data tidak berhasil di update");
-            window.location.href="addnew.php";
-        </script>';
-    }
+    //nama acak
+    $gambar = md5(uniqid($img,true) . time()).'.'.$ekstensi; //compile
+
+    if($ukuran==0){
+        $ambildata = mysqli_query($konek, "SELECT * FROM stok WHERE idbarang='$idb'");
+        $ambil = mysqli_fetch_array($ambildata);
+        $ambilimg = ($ambil)['image'];
+
+        $updatenosku = mysqli_query($konek, "UPDATE stok SET nama='$nama', sku='$skutoko', skug='$skugudang', gudang='$gudang', quantity='$quantity', image='$ambilimg' WHERE idbarang='$idb'");
+            if($updatenosku){
+                header('location:index.php');
+            } else {
+                echo '
+                <script>
+                    alert("Data tidak berhasil di update");
+                    window.location.href="addnew.php";
+                </script>';
+            }
+        } else {
+        move_uploaded_file($file_tmp, '../images/'.$gambar);
+        $update = mysqli_query($konek, "UPDATE stok SET nama='$nama', sku='$skutoko', skug='$skugudang', gudang='$gudang', quantity='$quantity', image='$gambar' WHERE idbarang='$idb'");
+        if($update){
+            header('location:index.php');
+        } else {
+            echo '
+            <script>
+                alert("Barang dan Gambar Tidak bisa di update");
+                window.location.href="Approved.php";
+            </script>'; 
+            }
+        }
 }
+
 
 //gudang2
 if(isset($_POST['editnosku2'])){
@@ -348,13 +370,31 @@ if(isset($_POST['submitinsert'])){
         if($ambil=='0'){
             echo'Gagal';
         } else {
-            $insert = mysqli_query($konek, "INSERT INTO stok(image, nama, sku, quantity) VALUES('$img[$i]','$nama[$i]','$sku[$i]','$quantity[$i]')") or die (mysqli_erorr());
-            if($insert){
-                $update = mysqli_query($konek, "UPDATE itembox SET status='$status[$i]' WHERE nama='$nama[$i]'");
-                header('location:approved.php');
+            $selectsku = mysqli_query($konek, "SELECT * FROM stok WHERE sku='$sku[$i]'");
+            $dataqty = mysqli_fetch_array($selectsku);
+            $qtyqty = $dataqty['quantity'];
+
+            $data = mysqli_num_rows($selectsku);
+
+            $tambah = $qtyqty+$quantity[$i];
+            if($data==1){
+                $updateqty = mysqli_query($konek, "UPDATE stok SET quantity='$tambah' WHERE sku='$sku[$i]'");
+                if($updateqty){
+                    $updatex = mysqli_query($konek, "UPDATE itembox SET status='$status[$i]' WHERE nama='$nama[$i]'");
+                    header('location:approved.php');
+                } else {
+                    header('location:approved.php');
+                }
             } else {
-                header('location:approved.php');
+                $insert = mysqli_query($konek, "INSERT INTO stok(image, nama, sku, quantity) VALUES('$img[$i]','$nama[$i]','$sku[$i]','$quantity[$i]')") or die (mysqli_erorr());
+                if($insert){
+                    $update = mysqli_query($konek, "UPDATE itembox SET status='$status[$i]' WHERE nama='$nama[$i]'");
+                    header('location:approved.php');
+                } else {
+                    header('location:approved.php');
+                }
             }
+            
         }
     }
 }
@@ -422,7 +462,7 @@ if(isset($_POST['editimg'])){
     $idb = $_POST['idb'];
 
     //gambar
-    $allowed_extension = array('png','jpg','jpeg','svg');
+    $allowed_extension = array('png','jpg','jpeg','svg','webp');
     $namaimage = $_FILES['file']['name']; //ambil gambar
     $dot = explode('.',$namaimage);
     $ekstensi = strtolower(end($dot)); //ambil ekstensi
@@ -493,7 +533,7 @@ if(isset($_POST['inputvariant'])){
     $quantity = $_POST['quantity'];
 
     //gambar
-    $allowed_extension = array('png','jpg','jpeg','svg');
+    $allowed_extension = array('png','jpg','jpeg','svg','webp');
     $namaimage = $_FILES['file']['name']; //ambil gambar
     $dot = explode('.',$namaimage);
     $ekstensi = strtolower(end($dot)); //ambil ekstensi

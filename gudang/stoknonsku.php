@@ -1,9 +1,7 @@
-
 <?php
 session_start();
 require '../assets/php/function.php';
 require '../cek.php';
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +48,7 @@ require '../cek.php';
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="#">Activity Log</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="../logout.php">Logout</a>
+                        <a class="dropdown-item" href="login.html">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -91,19 +89,18 @@ require '../cek.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">All Stock</h1>
+                        <h1 class="mt-4">Stok Today</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="stoknonsku.php">Stok Non SKU</a></li>
-                            <li class="breadcrumb-item active">All Stock</li>
+                            <li class="breadcrumb-item"><a href="index.php">Warehouse</a></li>
+                            <li class="breadcrumb-item active">All Warehouse</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <a type="button" class="btn btn-outline-primary" href="boxlist.php">Box List</a>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
+                                    <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>Image</th>
@@ -119,12 +116,11 @@ require '../cek.php';
                                             while($data=mysqli_fetch_array($ambildata)){
                                                 $idb = $data['idbarang'];
                                             }
-                                            
                                         ?>
                                         
                                         <tbody>
                                             <?php
-                                             $ambildata = mysqli_query($konek,"SELECT * FROM stok WHERE sku<>0");
+                                             $ambildata = mysqli_query($konek,"SELECT * FROM stok WHERE sku=0");
                                              $i = 1;
                                              while($data=mysqli_fetch_array($ambildata)){
                                                 $idb = $data['idbarang'];
@@ -137,25 +133,17 @@ require '../cek.php';
                                                 //cek data gambar ada apa kagak
                                                 $gambar = $data['image'];
                                                 if($gambar==null){
-                                                    // jika tidak ada gambar
-                                                    $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
+                                                // jika tidak ada gambar
+                                                 $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
                                                 } else {
-                                                    //jika ada gambar
-                                                    $img ='<img src="../images/'.$gambar.'" class="zoomable">';
+                                                //jika ada gambar
+                                                $img ='<img src="../images/'.$gambar.'" class="zoomable">';
                                                 }
 
-                                                $gambar = $data['image'];
-                                                        if($gambar==null){
-                                                            $imgx = '<img src="../assets/img/noimageavailable.png"';
-                                                        } else {
-                                                            //jika ada gambar
-                                                            $imgx ='<img src="../images/'.$gambar.'" style="width: 30%; border: 2px solid black; border-radius: 15px;">';
-                                                        }
-
                                             ?>
-                                            <tr data-bs-toggle="modal" data-bs-target="#largeModal<?=$idb;?>">
+                                            <tr  data-bs-toggle="modal" data-bs-target="#largeModal<?=$idb;?>">
                                                 <th><?=$i++?></th>
-                                                <td><?=$img;?></td>
+                                                <td><?=$img?></td>
                                                 <td><?=$nama?></td>
                                                 <td class="text-uppercase"><?=$skutoko?></td>
                                                 <td class="text-uppercase"><?=$skugudang?></td>
@@ -173,18 +161,6 @@ require '../cek.php';
                                                 <!-- Floating Labels Form -->
                                             <form method="post" class="row g-3" enctype="multipart/form-data">   
                                             <div class="modal-body">
-                                                    <div class="col-sm-12 text-center">
-                                                        <?=$imgx;?>
-                                                    </div>
-                                                    <br>
-                                                    <div class="col-sm-12">
-                                                        <label>Image</label>
-                                                        <div class="form-floating">
-                                                        <input type="file" name="file" class="form-control" value='<?=$imgx;?>'>
-                                                        <label for="floatingName"></label>
-                                                        </div>
-                                                    </div>
-                                                    <br>
                                                     <div class="col-sm-12">
                                                         <label>Item Name</label>
                                                         <div class="form-floating">
@@ -216,15 +192,7 @@ require '../cek.php';
                                                         <label for="floatingName"></label>
                                                         </div>
                                                     </div>
-                                                    <br>
-                                                    <div class="col-sm-12">
-                                                        <label>Quantity</label>
-                                                        <div class="form-floating">
-                                                        <input type="number" class="form-control text-uppercase" value="<?=$quantity;?>" id="floatingName" name="quantity" placeholder="Quantity">
-                                                        <label for="floatingName"></label>
-                                                        </div>
-                                                    </div>
-                                                       
+                                                        <input type="hidden" class="form-control text-uppercase" value="<?=$quantity;?>" id="floatingName" name="quantity" placeholder="Quantity">
                                                     <br>
                                                     <div class="text-center">
                                                         <button type="submit" name="editnosku" class="btn btn-primary">Submit</button>
