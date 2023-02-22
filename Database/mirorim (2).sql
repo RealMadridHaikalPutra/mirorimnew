@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2023 at 05:22 PM
+-- Generation Time: Feb 22, 2023 at 08:06 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -64,7 +64,9 @@ CREATE TABLE `exititem` (
   `picker` varchar(20) NOT NULL,
   `quantityrep` int(11) NOT NULL,
   `status` varchar(200) NOT NULL,
-  `timerefill` timestamp NOT NULL DEFAULT current_timestamp(),
+  `ceker` varchar(200) NOT NULL,
+  `stat` varchar(200) NOT NULL DEFAULT 'Not Approved',
+  `timeout` timestamp NOT NULL DEFAULT current_timestamp(),
   `tempstat` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -72,18 +74,12 @@ CREATE TABLE `exititem` (
 -- Dumping data for table `exititem`
 --
 
-INSERT INTO `exititem` (`idbarang`, `image`, `nama`, `sku`, `picker`, `quantityrep`, `status`, `timerefill`, `tempstat`) VALUES
-(6, '', 'coba', '4e1', 'e', 150, 'Refill', '2023-02-16 16:21:36', 1),
-(7, '', 'coba', '4e1', 'e', 50, 'Refill', '2023-02-16 16:21:36', 1),
-(8, '', 'coba', '4e1', 'w', 50, 'Refill', '2023-02-16 16:21:36', 1),
-(9, '', 'coba', '4e1', 'e', 50, 'Refill', '2023-02-16 16:21:36', 1),
-(10, '', 'coba', '4e1', 'd', 50, 'Refill', '2023-02-16 16:21:36', 1),
-(11, '', 'coba', '4e1', 'r', 50, 'Refill', '2023-02-16 16:21:36', 1),
-(12, '', 'coba', '4e1', 'c', 200, 'Refill', '2023-02-16 16:21:36', 1),
-(13, '', '', '', '', 0, 'On process', '2023-02-16 16:21:36', 0),
-(14, '', '', '', '', 0, 'On process', '2023-02-16 16:21:36', 0),
-(15, '', '', '', '', 0, 'On process', '2023-02-16 16:21:36', 0),
-(16, '', 'coba', '4e1', 'e', 50, 'Refill', '2023-02-16 16:21:36', 1);
+INSERT INTO `exititem` (`idbarang`, `image`, `nama`, `sku`, `picker`, `quantityrep`, `status`, `ceker`, `stat`, `timeout`, `tempstat`) VALUES
+(1, '', 'coba', '4e1', 'w', 10, 'Refill', 'intan', 'Approved', '2023-02-20 04:24:55', 1),
+(2, '', 'anjay', '3e2', 'w', 10, 'Refill', 'intan', 'Approved', '2023-02-20 04:24:55', 1),
+(3, '', 'coba', '4e1', 'E', 20, 'Refill', 'Irma', 'Approved', '2023-02-20 04:37:37', 1),
+(4, '', 'coba', '4e1', 'r', 100, 'Refill', '', 'Not Approved', '2023-02-21 06:48:47', 0),
+(5, '', 'anjay', '3e2', 'E', 100, 'Refill', '', 'Not Approved', '2023-02-21 06:48:47', 0);
 
 -- --------------------------------------------------------
 
@@ -99,7 +95,7 @@ CREATE TABLE `itembox` (
   `sku` varchar(6) NOT NULL,
   `nama` varchar(2000) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `status` varchar(20) NOT NULL DEFAULT 'No Approve',
+  `status` varchar(20) NOT NULL DEFAULT 'Not Approved',
   `qtygudang` int(11) NOT NULL,
   `note` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -109,15 +105,21 @@ CREATE TABLE `itembox` (
 --
 
 INSERT INTO `itembox` (`idbarang`, `image`, `invoice`, `box`, `sku`, `nama`, `quantity`, `status`, `qtygudang`, `note`) VALUES
-(1, 'f135051fc9ea777c5f718a7547a8f015.jpg', '1111', '1111', '', 'anjay', 2000, 'Approve', 2000, ''),
-(2, 'd315f884c94c03e1198590e1f2006607.jpg', '1111', '1111', '4e1', 'coba', 10000, 'Approve', 10000, ''),
-(3, '2d76fb0ceda756fbc8ae1b704818e451.jpg', '1111', '1111', '', 'Banana Plug -RED', 100, 'No Approve', 0, ''),
+(1, 'a67ba768b4cccf60f2a34ec0300c938f.png', '1111', '1111', '7u5', 'coba 2', 2000, 'Approve', 2000, ''),
+(2, '739d6b2eaaf2294344d960fdd0a3417d.jpg', '1111', '1111', '4e1', 'coba', 10000, 'Approve', 10000, ''),
+(3, 'e19b7cfcc9e89112a9714200aa284cd4.png', '1111', '1111', '8c18', 'Resistor 200 ohm', 10000, 'No Approve', 0, ''),
 (4, '2d76fb0ceda756fbc8ae1b704818e451.jpg', '1111', '1111', '', 'Banana Plug -GREEN', 100, 'No Approve', 0, ''),
 (5, '2d76fb0ceda756fbc8ae1b704818e451.jpg', '1111', '1111', '', 'Banana Plug -BLUE', 100, 'No Approve', 0, ''),
 (6, '2d76fb0ceda756fbc8ae1b704818e451.jpg', '1111', '1111', '', 'Banana Plug -YELLOW', 100, 'No Approve', 0, ''),
 (7, '2d76fb0ceda756fbc8ae1b704818e451.jpg', '1111', '1111', '', 'Banana Plug -PINK', 100, 'No Approve', 0, ''),
-(8, '2d76fb0ceda756fbc8ae1b704818e451.jpg', '1111', '1111', '', 'Banana Plug -UNGU', 100, 'No Approve', 0, ''),
-(9, '2d76fb0ceda756fbc8ae1b704818e451.jpg', '1111', '1111', '', 'Banana Plug -ORANGE', 100, 'No Approve', 0, '');
+(8, '53aa24965d8f6453225c10c651a2bfac.png', '1111', '1111', '', 'Banana Plug -UNGU', 100, 'No Approve', 0, ''),
+(9, 'ee133c854207e52af7bef0a0a7ff8843.jpg', '1111', '1111', '', 'Banana Plug -ORANGE', 100, 'No Approve', 0, ''),
+(10, 'c778f177385992913b9b9de7372f61e5.jpg', '2222', '22222', '', 'Resistor - 100 ohm', 1000, 'No Approve', 0, ''),
+(11, 'c778f177385992913b9b9de7372f61e5.jpg', '2222', '22222', '', 'Resistor - 200 ohm', 1000, 'No Approve', 0, ''),
+(12, 'c778f177385992913b9b9de7372f61e5.jpg', '2222', '22222', '', 'Resistor - 10 ohm', 1000, 'No Approve', 0, ''),
+(13, 'c778f177385992913b9b9de7372f61e5.jpg', '2222', '22222', '', 'Resistor - 300 ohm', 1000, 'No Approve', 0, ''),
+(14, 'c778f177385992913b9b9de7372f61e5.jpg', '2222', '22222', '', 'Resistor - 10k ohm', 1000, 'No Approve', 0, ''),
+(15, 'd8aaba27f50ea2e7fbc286dc4220fec5.png', '222', '222', '', 'Resistor 200 ohm', 4000, 'Not Approved', 0, '');
 
 -- --------------------------------------------------------
 
@@ -166,7 +168,8 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`iduser`, `username`, `password`, `role`) VALUES
 (1, 'gudang', 'gudang', 'gudang'),
-(2, 'admin', 'admin', 'admin');
+(2, 'admin', 'admin', 'admin'),
+(3, 'gudang2', 'gudang2', 'gudang2');
 
 -- --------------------------------------------------------
 
@@ -181,6 +184,8 @@ CREATE TABLE `mutasi` (
   `sku` varchar(200) NOT NULL,
   `skug` varchar(200) NOT NULL,
   `quantitymut` int(11) NOT NULL,
+  `sender` varchar(200) NOT NULL,
+  `penerima` varchar(200) NOT NULL,
   `status` varchar(200) NOT NULL,
   `jamkeluar` timestamp NOT NULL DEFAULT current_timestamp(),
   `tempstat` int(11) NOT NULL DEFAULT 0
@@ -190,11 +195,16 @@ CREATE TABLE `mutasi` (
 -- Dumping data for table `mutasi`
 --
 
-INSERT INTO `mutasi` (`idbarang`, `nama`, `image`, `sku`, `skug`, `quantitymut`, `status`, `jamkeluar`, `tempstat`) VALUES
-(5, 'anjay', 'f135051fc9ea777c5f718a7547a8f015.jpg', '3e2', 'x', 1000, 'On process', '2023-02-16 09:06:34', 0),
-(6, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', '1', 1000, 'On process', '2023-02-16 09:06:34', 0),
-(7, 'anjay', 'f135051fc9ea777c5f718a7547a8f015.jpg', '3e2', 'x1a1', 1000, 'On process', '2023-02-16 09:09:33', 0),
-(8, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', 'x1a2', 5000, 'On process', '2023-02-16 09:09:33', 0);
+INSERT INTO `mutasi` (`idbarang`, `nama`, `image`, `sku`, `skug`, `quantitymut`, `sender`, `penerima`, `status`, `jamkeluar`, `tempstat`) VALUES
+(5, 'anjay', 'f135051fc9ea777c5f718a7547a8f015.jpg', '3e2', 'x', 1000, '', '', 'Done', '2023-02-16 09:06:34', 1),
+(6, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', '1', 1000, '', '', 'Done', '2023-02-16 09:06:34', 1),
+(7, 'anjay', 'f135051fc9ea777c5f718a7547a8f015.jpg', '3e2', 'x1a1', 1000, '', '', 'Done', '2023-02-16 09:09:33', 1),
+(8, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', 'x1a2', 5000, '', '', 'Done', '2023-02-16 09:09:33', 1),
+(9, 'anjay', 'f135051fc9ea777c5f718a7547a8f015.jpg', '3e2', 'x1a1', 1000, '', '', 'Done', '2023-02-17 09:42:39', 1),
+(10, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', 'x1a2', 1000, '', '', 'Done', '2023-02-17 09:42:39', 1),
+(11, 'anjay', 'f135051fc9ea777c5f718a7547a8f015.jpg', '3e2', 'x1a1', 1000, '', '', 'Done', '2023-02-17 09:48:57', 1),
+(12, 'anjay', 'f135051fc9ea777c5f718a7547a8f015.jpg', '3e2', 'x1a1', 1000, 'Madrid', 'Rizaldi', 'Done', '2023-02-20 03:47:53', 1),
+(13, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', 'x1a2', 1000, 'Madrid', 'Rizaldi', 'Done', '2023-02-20 03:47:53', 1);
 
 -- --------------------------------------------------------
 
@@ -217,8 +227,8 @@ CREATE TABLE `stok` (
 --
 
 INSERT INTO `stok` (`idbarang`, `image`, `nama`, `sku`, `skug`, `gudang`, `quantity`) VALUES
-(1, 'f135051fc9ea777c5f718a7547a8f015.jpg', 'anjay', '3e2', 'x1a1', '', -601),
-(2, 'd315f884c94c03e1198590e1f2006607.jpg', 'coba', '4e1', 'x1a2', '', 7400);
+(1, 'f135051fc9ea777c5f718a7547a8f015.jpg', 'anjay', '3e2', 'x1a1', '', 5880),
+(2, 'd315f884c94c03e1198590e1f2006607.jpg', 'coba', '4e1', 'x1a2', '', 7150);
 
 -- --------------------------------------------------------
 
@@ -232,9 +242,17 @@ CREATE TABLE `stok2` (
   `image` mediumtext NOT NULL,
   `sku` varchar(200) NOT NULL,
   `skugudang` varchar(200) NOT NULL,
-  `gudang` int(11) NOT NULL,
+  `gudang` varchar(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `stok2`
+--
+
+INSERT INTO `stok2` (`idbarang`, `nama`, `image`, `sku`, `skugudang`, `gudang`, `quantity`) VALUES
+(1, 'anjay', 'f135051fc9ea777c5f718a7547a8f015.jpg', '3e2', '', '0', 6000),
+(2, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', '', '0', 8000);
 
 -- --------------------------------------------------------
 
@@ -338,13 +356,13 @@ ALTER TABLE `box`
 -- AUTO_INCREMENT for table `exititem`
 --
 ALTER TABLE `exititem`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `itembox`
 --
 ALTER TABLE `itembox`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `kubikasi`
@@ -362,13 +380,13 @@ ALTER TABLE `listpre`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `mutasi`
 --
 ALTER TABLE `mutasi`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `stok`
@@ -380,7 +398,7 @@ ALTER TABLE `stok`
 -- AUTO_INCREMENT for table `stok2`
 --
 ALTER TABLE `stok2`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `temp_item`
