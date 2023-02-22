@@ -416,6 +416,52 @@ if(isset($_POST['checkrefill'])){
 
 }
 
+//image toko
+if(isset($_POST['editimg'])){
+
+    $idb = $_POST['idb'];
+
+    //gambar
+    $allowed_extension = array('png','jpg','jpeg','svg');
+    $namaimage = $_FILES['file']['name']; //ambil gambar
+    $dot = explode('.',$namaimage);
+    $ekstensi = strtolower(end($dot)); //ambil ekstensi
+    $ukuran = $_FILES['file']['size']; //ambil size
+    $file_tmp = $_FILES['file']['tmp_name']; //lokasi
+
+    //nama acak
+    $image = md5(uniqid($namaimage,true) . time()).'.'.$ekstensi; //compile
+
+        //proses upload
+        if(in_array($ekstensi, $allowed_extension) === true){
+            //validasi ukuran
+            if($ukuran < 5000000){
+                move_uploaded_file($file_tmp, '../images/'.$image);
+                 
+                $update = mysqli_query($konek, "UPDATE exititem SET image='$image' WHERE idbarang='$idb'");
+                if($update){
+                    header('location:index.php');
+                } else {
+                    echo '
+                    <script>
+                        alert("Gagal Memuat Item Box");
+                        window.location.href="index.php";
+                    </script>';
+                }
+            } else {
+                //kalau file lebih dari 5mb
+                echo '
+                    <script>
+                        alert("Kelebihan muatan woiii ga muat database");
+                        window.location.href="index.php";
+                    </script>'; 
+            }
+        } else {
+            
+    }
+
+}
+
 //insert gudang to refill or something
 if(isset($_POST['submitgudang'])){
     $jum = $_POST['jum'];
