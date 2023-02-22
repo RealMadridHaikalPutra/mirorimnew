@@ -142,7 +142,7 @@ require '../cek.php';
                                         </div>
                                         <form method="post" action="">
                                         <?php
-                                            $select = mysqli_query($konek, "SELECT COUNT(nama) FROM itembox WHERE status='No Approve'");
+                                            $select = mysqli_query($konek, "SELECT COUNT(nama) FROM itembox WHERE status='Not Approved'");
                                             while($ambil=mysqli_fetch_array($select)){
                                                 $jumlah = $ambil['COUNT(nama)'];
 
@@ -172,7 +172,7 @@ require '../cek.php';
                                                 if(isset($_POST['inputnobox'])){
                                                 $invoice = $_POST['nobox'];
 
-                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM itembox WHERE box='$invoice' AND status='No Approve'");
+                                                $ambilperhitungan = mysqli_query($konek, "SELECT * FROM itembox WHERE box='$invoice' AND status='Not Approved'");
                                                 $jum = 1;
                                                 while($tampil=mysqli_fetch_array($ambilperhitungan)){
                                                   $nama = ($tampil)['nama'];

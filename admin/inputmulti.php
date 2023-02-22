@@ -99,6 +99,7 @@ require '../cek.php';
                             </form>
                             <hr>
                             <form id="contact-form" action="" method="post" role="form" enctype="multipart/form-data" autocomplete="off">
+                                
                             <div class="row">
                             <div class="col-md-6">
                             <div class="form-group">
