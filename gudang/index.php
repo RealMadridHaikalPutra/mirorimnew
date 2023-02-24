@@ -193,22 +193,12 @@ require '../cek.php';
                                                         </div>
                                                     </div>
                                                         <input type="hidden" value="<?=$idb;?>" name="idb">
+
+                                                    <input type="hidden" class="form-control text-uppercase" id="floatingName" name="skutoko" value="<?=$skutoko;?>" placeholder="SKU Warehouse">
                                                     <br>
-                                                    <div class="col-sm-12">
-                                                    <label>SKU Store</label>
-                                                    <div class="form-floating">
-                                                    <input type="text" class="form-control text-uppercase" id="floatingName" name="skutoko" value="<?=$skutoko;?>" placeholder="SKU Warehouse">
-                                                    <div class="col-sm-12">
-                                                    <label for="floatingName"></label>
-                                                        </div>
-                                                    </div>
-                                                        <label>SKU Warehouse</label>
-                                                        <div class="form-floating">
-                                                        <input type="text" class="form-control text-uppercase" id="floatingName" value="<?=$skugudang;?>" name="skugudang" placeholder="SKU Warehouse">
-                                                        <label for="floatingName" class="text-uppercase"></label>
-                                                        </div>
-                                                    </div>
-                                                    <br>
+
+                                                        <input type="hidden" class="form-control text-uppercase" id="floatingName" value="<?=$skugudang;?>" name="skugudang" placeholder="SKU Warehouse">
+
                                                     <div class="col-sm-12">
                                                         <label>Warehouse</label>
                                                         <div class="form-floating">
@@ -217,13 +207,8 @@ require '../cek.php';
                                                         </div>
                                                     </div>
                                                     <br>
-                                                    <div class="col-sm-12">
-                                                        <label>Quantity</label>
-                                                        <div class="form-floating">
-                                                        <input type="number" class="form-control text-uppercase" value="<?=$quantity;?>" id="floatingName" name="quantity" placeholder="Quantity">
-                                                        <label for="floatingName"></label>
-                                                        </div>
-                                                    </div>
+                                                        <input type="hidden" class="form-control text-uppercase" value="<?=$quantity;?>" id="floatingName" name="quantity" placeholder="Quantity">
+                                                   
                                                        
                                                     <br>
                                                     <div class="text-center">
