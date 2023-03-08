@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2023 at 08:06 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Mar 08, 2023 at 11:00 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -78,8 +78,10 @@ INSERT INTO `exititem` (`idbarang`, `image`, `nama`, `sku`, `picker`, `quantityr
 (1, '', 'coba', '4e1', 'w', 10, 'Refill', 'intan', 'Approved', '2023-02-20 04:24:55', 1),
 (2, '', 'anjay', '3e2', 'w', 10, 'Refill', 'intan', 'Approved', '2023-02-20 04:24:55', 1),
 (3, '', 'coba', '4e1', 'E', 20, 'Refill', 'Irma', 'Approved', '2023-02-20 04:37:37', 1),
-(4, '', 'coba', '4e1', 'r', 100, 'Refill', '', 'Not Approved', '2023-02-21 06:48:47', 0),
-(5, '', 'anjay', '3e2', 'E', 100, 'Refill', '', 'Not Approved', '2023-02-21 06:48:47', 0);
+(4, '', 'coba', '4e1', 'r', 100, 'Refill', '', 'Approved', '2023-02-21 06:48:47', 1),
+(5, '', 'anjay', '3e2', 'E', 100, 'Refill', '', 'Approved', '2023-02-21 06:48:47', 1),
+(6, '63e64230ab7bd81a1eaf394bca7f3c7c.jpg', 'anjay', '3e2', 'Dimas', 100, 'Refill', '', 'Approved', '2023-02-22 07:38:16', 1),
+(7, '', 'coba', '4e1', 'Ogi', 100, 'Refill', '', 'Approved', '2023-02-22 07:38:16', 1);
 
 -- --------------------------------------------------------
 
@@ -141,13 +143,23 @@ CREATE TABLE `kubikasi` (
 --
 
 CREATE TABLE `listpre` (
-  `idbarang` int(11) NOT NULL,
+  `id_pre` int(11) NOT NULL,
   `sku` varchar(200) NOT NULL,
+  `skukomponen` varchar(20) NOT NULL,
   `nama` varchar(200) NOT NULL,
   `komponen` varchar(200) NOT NULL,
   `skug` varchar(200) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `listpre`
+--
+
+INSERT INTO `listpre` (`id_pre`, `sku`, `skukomponen`, `nama`, `komponen`, `skug`, `quantity`) VALUES
+(1, '2k1', '2N9', 'Barang', 'Adaptor 1', '', 10),
+(2, '2k1', '2M1', 'Barang', 'Adaptor 2', '', 20),
+(3, '2o1', '2m2', 'akada', 'akada2', '', 20);
 
 -- --------------------------------------------------------
 
@@ -204,7 +216,33 @@ INSERT INTO `mutasi` (`idbarang`, `nama`, `image`, `sku`, `skug`, `quantitymut`,
 (10, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', 'x1a2', 1000, '', '', 'Done', '2023-02-17 09:42:39', 1),
 (11, 'anjay', 'f135051fc9ea777c5f718a7547a8f015.jpg', '3e2', 'x1a1', 1000, '', '', 'Done', '2023-02-17 09:48:57', 1),
 (12, 'anjay', 'f135051fc9ea777c5f718a7547a8f015.jpg', '3e2', 'x1a1', 1000, 'Madrid', 'Rizaldi', 'Done', '2023-02-20 03:47:53', 1),
-(13, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', 'x1a2', 1000, 'Madrid', 'Rizaldi', 'Done', '2023-02-20 03:47:53', 1);
+(13, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', 'x1a2', 1000, 'Madrid', 'Rizaldi', 'Done', '2023-02-20 03:47:53', 1),
+(14, 'anjay', '90691ff28cb3fcc601225ae850aae390.png', '3e2', 'x1a1', 1000, 'dimas', 'Chris', 'Done', '2023-02-22 07:50:53', 1),
+(15, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', 'x1a2', 1000, 'dimas', 'Chris', 'Done', '2023-02-22 07:50:53', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `preparation`
+--
+
+CREATE TABLE `preparation` (
+  `id_item` int(11) NOT NULL,
+  `nama` varchar(200) NOT NULL,
+  `sku` varchar(20) NOT NULL,
+  `image` varchar(200) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `preparation`
+--
+
+INSERT INTO `preparation` (`id_item`, `nama`, `sku`, `image`, `quantity`) VALUES
+(1, 'Barang', '2k1', '', 0),
+(2, 'akada', '2o1', 'a49cf48322e49aab50235806b46dd948.jpg', 11),
+(3, 'Sub filter + tone', '7U6', '53304e8cb71e86d608081c590e870c3f.png', 0),
+(4, 'lna', '2n3', '591712e7fc7eb5c76cee9587cbf1249b.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -227,8 +265,8 @@ CREATE TABLE `stok` (
 --
 
 INSERT INTO `stok` (`idbarang`, `image`, `nama`, `sku`, `skug`, `gudang`, `quantity`) VALUES
-(1, 'f135051fc9ea777c5f718a7547a8f015.jpg', 'anjay', '3e2', 'x1a1', '', 5880),
-(2, 'd315f884c94c03e1198590e1f2006607.jpg', 'coba', '4e1', 'x1a2', '', 7150);
+(1, '90691ff28cb3fcc601225ae850aae390.png', 'anjay', '3e2', 'x1a1', '', 5780),
+(2, 'd315f884c94c03e1198590e1f2006607.jpg', 'coba', '4e1', 'x1a2', '', 7050);
 
 -- --------------------------------------------------------
 
@@ -251,8 +289,8 @@ CREATE TABLE `stok2` (
 --
 
 INSERT INTO `stok2` (`idbarang`, `nama`, `image`, `sku`, `skugudang`, `gudang`, `quantity`) VALUES
-(1, 'anjay', 'f135051fc9ea777c5f718a7547a8f015.jpg', '3e2', '', '0', 6000),
-(2, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', '', '0', 8000);
+(1, 'anjay', 'f135051fc9ea777c5f718a7547a8f015.jpg', '3e2', '', '0', 7000),
+(2, 'coba', 'd315f884c94c03e1198590e1f2006607.jpg', '4e1', '', '0', 9000);
 
 -- --------------------------------------------------------
 
@@ -310,7 +348,7 @@ ALTER TABLE `kubikasi`
 -- Indexes for table `listpre`
 --
 ALTER TABLE `listpre`
-  ADD PRIMARY KEY (`idbarang`);
+  ADD PRIMARY KEY (`id_pre`);
 
 --
 -- Indexes for table `login`
@@ -323,6 +361,12 @@ ALTER TABLE `login`
 --
 ALTER TABLE `mutasi`
   ADD PRIMARY KEY (`idbarang`);
+
+--
+-- Indexes for table `preparation`
+--
+ALTER TABLE `preparation`
+  ADD PRIMARY KEY (`id_item`);
 
 --
 -- Indexes for table `stok`
@@ -356,7 +400,7 @@ ALTER TABLE `box`
 -- AUTO_INCREMENT for table `exititem`
 --
 ALTER TABLE `exititem`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `itembox`
@@ -374,7 +418,7 @@ ALTER TABLE `kubikasi`
 -- AUTO_INCREMENT for table `listpre`
 --
 ALTER TABLE `listpre`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `login`
@@ -386,7 +430,13 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `mutasi`
 --
 ALTER TABLE `mutasi`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `preparation`
+--
+ALTER TABLE `preparation`
+  MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `stok`
