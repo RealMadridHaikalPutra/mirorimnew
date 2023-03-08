@@ -86,7 +86,7 @@ require '../cek.php';
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <a type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#smallModalUp">Refill</a>
+                                <a type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#smallModalUp">Exit</a>
                             </div>
 
                             <div class="modal fade" id="smallModalUp" tabindex="-1">

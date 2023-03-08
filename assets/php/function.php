@@ -709,4 +709,64 @@ if(isset($_POST['approvemutasi'])){
 
 }
 
+//SUbmit Komponen
+if(isset($_POST['submitkomponen'])){
+    $nama = $_POST['namaitem'];
+    $sku = $_POST['skupreparation'];
+
+    //gambar
+    $allowed_extension = array('png','jpg','jpeg','svg','webp');
+    $img = $_FILES['file']['name']; //ambil gambar
+    $dot = explode('.',$img);
+    $ekstensi = strtolower(end($dot)); //ambil ekstensi
+    $ukuran = $_FILES['file']['size']; //ambil size
+    $file_tmp = $_FILES['file']['tmp_name']; //lokasi
+
+    //nama acak
+    $gambar = md5(uniqid($img,true) . time()).'.'.$ekstensi; //compile
+
+    if($ukuran==0){
+        $update = mysqli_query($konek, "INSERT INTO preparation(nama, sku) VALUES('$nama','$sku')");
+        if($update){
+            header('location:komponen.php');
+        } else {
+            echo '
+            <script>
+                alert("Barang Tidak bisa di update");
+                window.location.href="komponen.php";
+            </script>'; 
+            }
+        } else {
+        move_uploaded_file($file_tmp, '../images/'.$gambar);
+        $update = mysqli_query($konek, "INSERT INTO preparation(nama, sku, image) VALUES('$nama','$sku','$gambar')");
+        if($update){
+            header('location:komponen.php');
+        } else {
+            echo '
+            <script>
+                alert("Barang dan Gambar Tidak bisa di update");
+                window.location.href="komponen.php";
+            </script>'; 
+            }
+        }
+}
+
+//input component
+if(isset($_POST['inputcomponent'])){
+    $cek = $_POST['jum'];
+    $nama = $_POST['namakomponen'];
+    $sku = $_POST['skukomponen'];
+    $quantity = $_POST['quantity'];
+    $namaitem = $_POST['nama'];
+    $skuitem = $_POST['sku'];
+
+
+    for($i=0; $i < $cek; $i++){
+        $insert = mysqli_query($konek, "INSERT INTO listpre(nama, sku, komponen, skukomponen, quantity) VALUES('$namaitem','$skuitem','$nama[$i]','$sku[$i]','$quantity[$i]')");
+        header('location:komponen.php');
+    } {
+
+    }
+}
+
 ?>
