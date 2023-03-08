@@ -89,7 +89,7 @@ require '../cek.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Stok Today</h1>
+                        <h1 class="mt-4">All Stock</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.php">Warehouse</a></li>
                             <li class="breadcrumb-item active">All Warehouse</li>
@@ -174,16 +174,12 @@ require '../cek.php';
                                                     <label>SKU Store</label>
                                                     <div class="form-floating">
                                                     <input type="text" class="form-control text-uppercase" id="floatingName" name="skutoko" value="<?=$skutoko;?>" placeholder="SKU Warehouse">
-                                                    <div class="col-sm-12">
                                                     <label for="floatingName"></label>
                                                         </div>
                                                     </div>
-                                                        <label>SKU Warehouse</label>
-                                                        <div class="form-floating">
-                                                        <input type="text" class="form-control text-uppercase" id="floatingName" value="<?=$skugudang;?>" name="skugudang" placeholder="SKU Warehouse">
-                                                        <label for="floatingName" class="text-uppercase"></label>
-                                                        </div>
-                                                    </div>
+
+                                                        <input type="hidden" class="form-control text-uppercase" id="floatingName" value="<?=$skugudang;?>" name="skugudang" placeholder="SKU Warehouse">
+
                                                     <br>
                                                     <div class="col-sm-12">
                                                         <label>Warehouse</label>

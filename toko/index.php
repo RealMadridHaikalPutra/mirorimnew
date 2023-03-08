@@ -118,7 +118,13 @@ require '../assets/php/function.php';
                                                     <td class="text-uppercase"><?=$sku;?></td>
                                                     <td class="text-uppercase"><?=$picker;?></td>
                                                     <td><?=$quantity;?></td>
-                                                    <td><input type="text" class="form-control" name="checker[]"></td>
+                                                    <td><select type="text" class="form-control" id="floatingName" name="checker[]" placeholder="Box Number" required="">
+                                                                <option value="Irma">Irma</option>
+                                                                <option value="Robby">Robby</option>
+                                                                <option value="Intan">Intan</option>
+                                                                <option value="Rido">Rido</option>
+                                                                <option value="Dani">Dani</option>
+                                                            </select></td>
                                                     <td><input type="checkbox" class="form-check-label" value="<?=$sku;?>" name="cekrefill[]">
                                                     <input type="hidden" name="status[]" value="1">
                                                     <input type="hidden" name="approve[]" value="Approved">
@@ -151,7 +157,9 @@ require '../assets/php/function.php';
                                                 <th>Picker</th>
                                                 <th>Quantity</th>
                                                 <th>Checker</th>
+                                                <th>Time</th>
                                                 <th>Status</th>
+                                                <th>Approval</th>
                                             </tr>
                                         </thead>
                                         <?php
@@ -164,7 +172,7 @@ require '../assets/php/function.php';
                                         
                                         <tbody>
                                             <?php
-                                             $ambildata = mysqli_query($konek,"SELECT * FROM exititem WHERE status='Refill' AND tempstat='1'");
+                                             $ambildata = mysqli_query($konek,"SELECT * FROM exititem WHERE status='Refill'");
                                              $i = 1;
                                              while($data=mysqli_fetch_array($ambildata)){
                                                 $idb = $data['idbarang'];
@@ -173,6 +181,8 @@ require '../assets/php/function.php';
                                                 $picker = $data['picker'];
                                                 $quantity = $data['quantityrep'];
                                                 $status = $data['status'];
+                                                $time = $data['timeout'];
+                                                $approve = $data['stat'];
 
                                                 //cek data gambar ada apa kagak
                                                 $gambar = $data['image'];
@@ -193,7 +203,16 @@ require '../assets/php/function.php';
                                                 <td class="text-uppercase"><?=$picker;?></td>
                                                 <td><?=$quantity;?></td>
                                                 <td><?=$ceker;?></td>
+                                                <td><?=$time;?></td>
                                                 <td><?=$status;?></td>
+                                                
+                                            <?php
+                                                 if($approve=='Approved'){
+                                                    echo "<td style='color: green;'>$approve</td>";
+                                                } else {
+                                                    echo "<td style='color: red;'>$approve</td>";
+                                                }
+                                            ?>
                                               
                                             </tr>
                                             <div class="modal fade" id="largeModal<?=$idb;?>" tabindex="-1">
