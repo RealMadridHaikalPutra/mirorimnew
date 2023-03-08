@@ -763,7 +763,7 @@ if(isset($_POST['inputcomponent'])){
 
     for($i=0; $i < $cek; $i++){
         $insert = mysqli_query($konek, "INSERT INTO listpre(nama, sku, komponen, skukomponen, quantity) VALUES('$namaitem','$skuitem','$nama[$i]','$sku[$i]','$quantity[$i]')");
-        header('location:komponen.php');
+        header('location:index.php?url=komponen');
     } {
 
     }
